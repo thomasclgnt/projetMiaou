@@ -7,7 +7,7 @@ public class UDPSender {
     public static int port = 1324;
 
     public static void send_udp(String msg, InetAddress address) throws IOException {
-        socket = new DatagramSocket(port);
+        socket = new DatagramSocket();
         socket.setBroadcast(true);
         byte[] buffer = msg.getBytes();
         DatagramPacket packet = new DatagramPacket(buffer, buffer.length, address, port);

@@ -8,6 +8,7 @@ public class UDPReceiver extends Thread {
 
     public UDPReceiver() throws SocketException {
         socket = new DatagramSocket(UDPSender.port);
+        System.out.println("Socket created");
     }
 
     public void run() {
@@ -32,6 +33,7 @@ public class UDPReceiver extends Thread {
 
             if (msgReceived.equals("end")) {
                 running = false;
+                System.out.println("Socket closed");
                 continue;
             }
 
