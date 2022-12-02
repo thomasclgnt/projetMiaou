@@ -1,14 +1,20 @@
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 
 public class UDPReceiver extends Thread {
 
     private static DatagramSocket socket = null;
     private boolean running;
+    private ArrayList<Notify> subscribers = new ArrayList<>();
 
     public UDPReceiver() throws SocketException {
         socket = new DatagramSocket(UDPSender.port);
         System.out.println("Socket created");
+    }
+
+    public void addSubscriber(Notify sub) {
+        this.subscribers.add(sub);
     }
 
     public void run() {
@@ -28,13 +34,30 @@ public class UDPReceiver extends Thread {
             int senderPort = packet.getPort();
 
             String msgReceived = new String (packet.getData(), 0, packet.getLength());
+            String[] segments = msgReceived.split(" : ");
+
+            String msgSyst = segments[0];
+            String msgRest1 = segments[1];
+            String msgRest2 = segments[2];
+            String msgRest3 = segments[3];
+
+            if (msgSyst.equals("Connexion")) {
+                for (Notify sub : this.subscribers) {
+                    sub.notifyNewUser(msgRest1, msgRest2, Integer.parseInt(msgRest3));
+                }
+
+            } else if (msgSyst.equals("Deconnexion")){
+                for (Notify sub : this.subscribers) {
+                    sub.notifyDeleteUser(msgRest1);
+                }
+            }
 
             System.out.println(msgReceived);
 
             if (msgReceived.equals("end")) {
                 running = false;
                 System.out.println("Socket closed");
-                continue;
+                // (message de warning : unnessecary) continue;
             }
 
         }

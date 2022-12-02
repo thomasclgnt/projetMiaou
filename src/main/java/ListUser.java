@@ -8,12 +8,16 @@ public class ListUser {
         this.activeUsers = new ArrayList<User>();
     }
 
-    public void addUser(User user) {
-        this.activeUsers.add(user) ;
+    public void addUser(String username, String addressIP, int portTCP) {
+        this.activeUsers.add(new User(username, addressIP, portTCP)) ;
     }
 
-    public void deleteUser(User user) {
-        this.activeUsers.remove(user);
+    public void deleteUser(String IP) {
+        for (User user : this.activeUsers){
+            if (user.addressIP.equals(IP)) {
+                this.activeUsers.remove(user);
+            }
+        }
     }
 
     public boolean checkUsernameAvailable(User user) {

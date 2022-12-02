@@ -1,3 +1,5 @@
+import java.net.InetAddress;
+
 public class User {
 
     public String username;
