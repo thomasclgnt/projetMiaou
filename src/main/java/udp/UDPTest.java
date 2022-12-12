@@ -1,8 +1,6 @@
-package UDP;
+package udp;
 
-import UDP.UDPController;
-import UDP.UDPReceiver;
-import UDP.UDPSender;
+import data.*;
 
 import java.io.IOException;
 
@@ -34,14 +32,14 @@ public class UDPTest {
             }
         });
         rec.start();
-        //new UDP.UDPSender();
+        //new udp.UDPSender();
 
 
         User Thomas = new User("TDMKM", "192.168.3.100", 1234);
         User Marie = new User("marielabest", "192.168.3.101", 1235);
         UDPController.sendConnexion(Thomas);
         UDPController.sendConnexion(Marie);
-        //UDP.UDPSender.broadcast("Miaou");
+        //udp.UDPSender.broadcast("Miaou");
         //on test s'il y a bien UN utilisateur dans la liste
 
         //assert 1 == users.nbUsers(); ==> À REVOIR CE QU'IL FAIT
