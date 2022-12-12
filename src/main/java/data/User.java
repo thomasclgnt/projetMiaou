@@ -1,4 +1,4 @@
-import java.net.InetAddress;
+package data;
 
 public class User {
 
@@ -6,7 +6,7 @@ public class User {
     public String addressIP;
     public int portTCP;
 
-    User(String username, String addressIP, int portTCP){
+    public User(String username, String addressIP, int portTCP){
         this.username = username;
         this.addressIP = addressIP;
         this.portTCP = portTCP;

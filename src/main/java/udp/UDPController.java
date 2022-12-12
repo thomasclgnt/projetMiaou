@@ -1,14 +1,13 @@
-package UDP;
+package udp;
 
-import UDP.UDPSender;
-
+import data.*;
 import java.io.*;
 
 public class UDPController {
     
     /*
-    public void sendNewUsername(User user, String newusername) throws IOException {
-        UDP.UDPSender.broadcast("Username changed for "  ": "username) ;
+    public void sendNewUsername(data.User user, String newusername) throws IOException {
+        udp.UDPSender.broadcast("Username changed for "  ": "username) ;
         System.out.println("Pseudo changed");
     } */
 
@@ -30,10 +29,10 @@ public class UDPController {
 }
 
 /*
-public class Notify {
+public class data.Notify {
 
     public static void notifyChangeUsername(String username) throws IOException{
-        UDP.UDPSender.broadcast(username) ;
+        udp.UDPSender.broadcast(username) ;
         System.out.println("Pseudo changed");
     }
 
