@@ -1,21 +1,30 @@
+package UDP;
+
+import UDP.UDPSender;
+
 import java.io.*;
 
 public class UDPController {
     
     /*
     public void sendNewUsername(User user, String newusername) throws IOException {
-        UDPSender.broadcast("Username changed for "  ": "username) ;
+        UDP.UDPSender.broadcast("Username changed for "  ": "username) ;
         System.out.println("Pseudo changed");
     } */
 
-    public void sendConnexion(User user) throws IOException {
+    public static void sendConnexion(User user) throws IOException {
         UDPSender.broadcast("Connexion : " + user.username + " : " + user.addressIP + " : " + Integer.toString(user.portTCP));
         System.out.println("New connection : " + user.username);
     }
 
-    public void sendDeconnexion(User user) throws IOException{
+    public static void sendDeconnexion(User user) throws IOException{
         UDPSender.broadcast("Deconnexion : " + user.addressIP);
         System.out.println("Deconnexion : " + user.username);
+    }
+
+    public static void sendNewUsername(User user, String new_username) throws IOException{
+        UDPSender.broadcast("Username changed : " + new_username + " : " + user.addressIP);
+        System.out.println("Username changed, " + user.addressIP + "is now named " + new_username);
     }
 
 }
@@ -24,7 +33,7 @@ public class UDPController {
 public class Notify {
 
     public static void notifyChangeUsername(String username) throws IOException{
-        UDPSender.broadcast(username) ;
+        UDP.UDPSender.broadcast(username) ;
         System.out.println("Pseudo changed");
     }
 

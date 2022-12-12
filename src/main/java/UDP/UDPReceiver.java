@@ -1,3 +1,7 @@
+package UDP;
+
+import UDP.UDPSender;
+
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
@@ -37,18 +41,29 @@ public class UDPReceiver extends Thread {
             String[] segments = msgReceived.split(" : ");
 
             String msgSyst = segments[0];
-            String msgRest1 = segments[1];
-            String msgRest2 = segments[2];
-            String msgRest3 = segments[3];
+
 
             if (msgSyst.equals("Connexion")) {
+                String msgRest1 = segments[1];
+                String msgRest2 = segments[2];
+                String msgRest3 = segments[3];
+
                 for (Notify sub : this.subscribers) {
                     sub.notifyNewUser(msgRest1, msgRest2, Integer.parseInt(msgRest3));
                 }
 
             } else if (msgSyst.equals("Deconnexion")){
+                String msgRest1 = segments[1];
+
                 for (Notify sub : this.subscribers) {
                     sub.notifyDeleteUser(msgRest1);
+                }
+            } else if (msgSyst.equals("Username changed")){
+                String msgRest1 = segments[1];
+                String msgRest2 = segments[2];
+
+                for (Notify sub : this.subscribers) {
+                    sub.notifyChangeUsername(msgRest1, msgRest2);
                 }
             }
 
