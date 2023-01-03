@@ -21,7 +21,4 @@ public class UDPSender {
         send_udp(broadcastMsg, InetAddress.getByName("255.255.255.255"));
     }
 
-
-
-
 }

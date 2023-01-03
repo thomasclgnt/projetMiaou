@@ -38,14 +38,18 @@ public class ListUser {
         return activeUsers.size() ;
     }
 
-    public void printList(){
-        //System.out.println(Arrays.toString(activeUsers.toArray()));
-        System.out.print("[");
+    public String listToString(){
+        String listDeb = "[" ;
+        String list = "" ;
         for (User user : this.activeUsers) {
-            System.out.print(user.username + ", " + user.addressIP + ", " + user.portTCP);
-            System.out.println(" ; ");
+            list = list + user.username + ", " + user.addressIP + ", " + user.portTCP + " ; \n";
         }
-        System.out.println("]");
+        String listFin = "]" ;
+        return listDeb + list + listFin ;
+    }
+
+    public void printList(){
+        System.out.println(listToString());
     }
 
 }
