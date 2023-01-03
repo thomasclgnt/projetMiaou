@@ -10,7 +10,14 @@ public class Select {
      */
     private Connection connect() {
         // SQLite connection string
-        String url = "jdbc:sqlite:/home/mecaliff/Bureau/4A/Projet_Miaou_local/projetMiaou/database/miaoudb";
+        /** Chemin relatif vers BDD" */
+        String url = "./database/miaou.db" ;
+
+        /** lien pour la session Marie : */
+         //"jdbc:sqlite:/home/mecaliff/Bureau/4A/Projet_Miaou_local/projetMiaou/database/miaoudb" ;
+        /** lien pour la session Thomas : */
+        //String url = "jdbc:sqlite:/home/caylagin/Bureau/4IR/Projet/projetMiaou/database/miaoudb";
+
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);
@@ -21,7 +28,7 @@ public class Select {
     }
 
     /**
-     * select all rows in the warehouses table
+     *
      */
     public void selectAll(){
         String sql = "SELECT source, destinataire, message, horodatage FROM Messagedb";
@@ -35,6 +42,31 @@ public class Select {
                 System.out.println(rs.getString("source") +  "\t" +
                         rs.getString("destinataire") + "\t" +
                         rs.getString("message") + "\t" +
+                        rs.getDate("horodatage"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /** ce sera notre restoreConversation : le but est de retrouver tous les messages de la bdd entre 2 utilisateurs :
+     * notre user local en source et celui avec qui il veut converser en destination.  */
+    public void select_conversation(String source, String destinataire) {
+        String sql = "SELECT message, horodatage "
+                + "FROM Messagedb WHERE source = ? AND destinataire = ?";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt  = conn.prepareStatement(sql)){
+
+            // set the value
+            pstmt.setString(1,source);
+            pstmt.setString(2, destinataire);
+            //
+            ResultSet rs  = pstmt.executeQuery();
+
+            // loop through the result set
+            while (rs.next()) {
+                System.out.println(rs.getString("message") + "\t" +
                         rs.getDate("horodatage"));
             }
         } catch (SQLException e) {

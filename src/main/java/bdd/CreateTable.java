@@ -11,7 +11,14 @@ public class CreateTable {
      */
     public static void createNewTable() {
         // SQLite connection string
-        String url = "jdbc:sqlite:/home/mecaliff/Bureau/4A/Projet_Miaou_local/projetMiaou/database/miaoudb";
+        /** Chemin relatif vers BDD" */
+        String url = "./database/miaou.db" ;
+
+        /** lien pour la session Marie : */
+        //"jdbc:sqlite:/home/mecaliff/Bureau/4A/Projet_Miaou_local/projetMiaou/database/miaoudb" ;
+        /** lien pour la session Thomas : */
+        //String url = "jdbc:sqlite:/home/caylagin/Bureau/4IR/Projet/projetMiaou/database/miaoudb";
+
 
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS Messagedb (\n"
