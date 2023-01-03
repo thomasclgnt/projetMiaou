@@ -29,8 +29,4 @@ public class TCPServer {
         serverSocket.close();
     }
 
-    public static void main(String[] args) throws IOException {
-        TCPServer server = new TCPServer();
-        server.start(6666);
-    }
 }
