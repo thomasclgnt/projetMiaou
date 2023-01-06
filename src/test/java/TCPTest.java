@@ -12,12 +12,24 @@ public class TCPTest {
 
         User Thomas = new User("TDMKM", "192.168.3.100", 1234);
 
-        TCPController.startSession(Thomas.portTCP) ;
+        Thread thread = new Thread(() -> {
+            try {
+                TCPController.startSession(Thomas.portTCP);
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+        );
+        thread.start();
         //finir le test TCP et TCP controller
 
         TCPClient client = new TCPClient();
-        client.startConnection("127.0.0.1", Thomas.portTCP);
-        String response = client.sendMessage("hello server");
+        client.startClient("127.0.0.1", Thomas.portTCP);
+        String response = TCPController.sendMessage("hello server", socket ); //récup socket avec start session
         assertEquals("hello client", response);
     }
 }
