@@ -15,7 +15,7 @@ public class Insert {
     private Connection connect() {
         // SQLite connection string
         /** Chemin relatif vers BDD" */
-        String url = "./database/miaou.db" ;
+        String url = "jdbc:sqlite:./database/miaoudb" ; ;
         Connection conn = null;
 
         try {
@@ -62,9 +62,11 @@ public class Insert {
         // insert three new rows
         //A TESTER
         Timestamp time1 =  new Timestamp(2023, 01, 03, 20, 45, 0, 0);
+        Timestamp time2 =  new Timestamp(2020, 01, 03, 20, 45, 0, 0);
+        Timestamp time3 =  new Timestamp(2051, 01, 03, 20, 45, 0, 0);//TODO marche pas, trouver le bon format svp
         data.insert("Thomas", "Marie", "je crois que la bdd fonctionne", time1);
-        data.insert("Thomas", "Marie", "je crois que la bdd fonctionne", time1);
-        data.insert("Thomas", "Marie", "je crois que la bdd fonctionne", time1);
+        data.insert("Marie", "Thomas", "c'est vrai ??? waaaaa", time2);
+        data.insert("Thomas", "Marie", "oui :))", time3);
     }
 
 }

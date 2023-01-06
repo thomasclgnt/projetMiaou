@@ -14,7 +14,8 @@ public class ThreadTCP {
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
         Thread receive = new Thread(new Runnable() {
-            String Message ;
+            String Message;
+
             @Override
             public void run() {
 
@@ -34,30 +35,5 @@ public class ThreadTCP {
         });
         receive.start();
     }
-
-    public static void startThreadSender(Socket socket) throws IOException {
-        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        PrintWriter out = new PrintWriter(socket.getOutputStream());
-
-        Scanner scanner = new Scanner(System.in);
-
-        Thread send = new Thread(new Runnable() {
-            String Message;
-
-            public void run() {
-                while (true) { //TODO penser à tester la connexion
-                    Message = scanner.nextLine();
-                    LocalTime time = LocalTime.now();
-                    //ajouter à l'historique/BDD à ce niveau
-                    out.println(Message + " " + time);
-                    out.flush(); //vider les buffers
-                }
-            }
-        });
-
-        send.start();
-
-    }
-
 
 }

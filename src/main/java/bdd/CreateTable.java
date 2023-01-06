@@ -12,7 +12,7 @@ public class CreateTable {
     public static void createNewTable() {
         // SQLite connection string
         /** Chemin relatif vers BDD" */
-        String url = "./database/miaou.db" ;
+        String url = "jdbc:sqlite:./database/miaoudb" ;
 
         /** lien pour la session Marie : */
         //"jdbc:sqlite:/home/mecaliff/Bureau/4A/Projet_Miaou_local/projetMiaou/database/miaoudb" ;

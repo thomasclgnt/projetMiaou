@@ -29,12 +29,10 @@ public class TCPClient {
 
 
 
-    public void startClient(String addressIP, int portTCP) {
+    public void startClient(Socket clientSocket) {
 
         try {
-            clientSocket = new Socket(addressIP,portTCP);
 
-            //ThreadTCP.startThreadSender(clientSocket); pas besoin hors du test
             ThreadTCP.startThreadReceiver(clientSocket);
 
         } catch (IOException e) {

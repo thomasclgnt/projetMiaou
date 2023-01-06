@@ -11,26 +11,25 @@ public class TCPController {
 
     //appeler cette fonction pour lancer TCP dans le main
     //donner en argument user.portTCP
-    public static Socket startSession(int portTCP) throws IOException, InterruptedException { //TODO adressip et réfléchir si cette méthode renvoie pas un socket et lequel
 
-        //        TCPServer server = new TCPServer();
-        //        server.start(portTCP);
-        //        Thread.sleep(2000);
-        //        server.stop() ;
+    public static void initListening(int portTCP) throws IOException {
+        TCPServer server = new TCPServer() ;
+        server.startServer(portTCP);
+    }
+
+    public static Socket startSession(String addressIP, int portTCP) throws IOException, InterruptedException {
 
             ServerSocket socketserver = new ServerSocket(portTCP);
-            while (true) { // ce while doit permettre de vérifier qu'on est toujours connecté avec getState(Thread) ? Returns the state of this thread.
-                System.out.println("Serveur est à l'écoute du port " + socketserver.getLocalPort());
-                // créer objet socket Socket clientSocket
-                System.out.println("Connecté");
-                ThreadTCP.startThreadSender(clientSocket);
-                ThreadTCP.startThreadReceiver(clientSocket);
+            System.out.println("Serveur est à l'écoute du port " + socketserver.getLocalPort());
+            Socket clientSocket = new Socket(addressIP, portTCP) ;
+            TCPClient client = new TCPClient();
+            client.startClient(clientSocket);
+            System.out.println("Connecté");
+            //   ThreadTCP.startThreadReceiver(clientSocket);
 
-                return clientSocket ; // est-ce qu'on retourne le socket du client ou du server ?
+            return clientSocket ; // est-ce qu'on retourne le socket du client ou du server ?
 
-            }
-            //revoir startSession, faire en sorte qu'elle renvoie le socket à utiliser dans sendMessage , enlever ou revoir while true
-        //créer exception spéficique ex. contact unavailable à renvoyer
+            //TODO créer exception spéficique ex. contact unavailable à renvoyer
 
     }
     public static void sendMessage(String message, Socket socket) throws IOException {
@@ -41,7 +40,4 @@ public class TCPController {
         out.println(message + " " + time);
         out.flush(); //vider les buffers
         }
-    };
-
-
-}
+    }
