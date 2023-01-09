@@ -14,19 +14,15 @@ public class CreateTable {
         /** Chemin relatif vers BDD" */
         String url = "jdbc:sqlite:./database/miaoudb" ;
 
-        /** lien pour la session Marie : */
-        //"jdbc:sqlite:/home/mecaliff/Bureau/4A/Projet_Miaou_local/projetMiaou/database/miaoudb" ;
-        /** lien pour la session Thomas : */
-        //String url = "jdbc:sqlite:/home/caylagin/Bureau/4IR/Projet/projetMiaou/database/miaoudb";
-
-
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS Messagedb (\n"
                 + "     source varchar(40) NOT NULL,\n"
+                + "     IPsource varchar(40) NOT NULL,\n"
                 + "     destinataire varchar(40) NOT NULL,\n"
+                + "     IPdest varchar(40) NOT NULL,\n"
                 + "     message Text NOT NULL,\n"
                 + "     horodatage Datetime NOT NULL,\n"
-                + "PRIMARY KEY(source, destinataire, message, horodatage)"
+                + "PRIMARY KEY(IPsource, IPdest, message, horodatage)"
                 + ");";
 
         try (Connection conn = DriverManager.getConnection(url);

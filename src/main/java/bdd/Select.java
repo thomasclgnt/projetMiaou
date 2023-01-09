@@ -31,7 +31,7 @@ public class Select {
      *
      */
     public void selectAll(){
-        String sql = "SELECT source, destinataire, message, horodatage FROM Messagedb";
+        String sql = "SELECT rowid, * FROM Messagedb ";
 
         try (Connection conn = this.connect();
              Statement stmt  = conn.createStatement();
@@ -39,8 +39,11 @@ public class Select {
 
             // loop through the result set
             while (rs.next()) {
-                System.out.println(rs.getString("source") +  "\t" +
+                System.out.println(rs.getString("rowid") + "\t" +
+                        rs.getString("source") +  "\t" +
+                        rs.getString("IPsource") + "\t" +
                         rs.getString("destinataire") + "\t" +
+                        rs.getString("IPdest") + "\t" +
                         rs.getString("message") + "\t" +
                         rs.getDate("horodatage"));
             }
@@ -51,16 +54,16 @@ public class Select {
 
     /** ce sera notre restoreConversation : le but est de retrouver tous les messages de la bdd entre 2 utilisateurs :
      * notre user local en source et celui avec qui il veut converser en destination.  */
-    public void select_conversation(String source, String destinataire) {
+    public void select_conversation(String IPsource, String IPdest) {
         String sql = "SELECT message, horodatage "
-                + "FROM Messagedb WHERE source = ? AND destinataire = ?";
+                + "FROM Messagedb WHERE IPsource = ? AND IPdest = ?";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt  = conn.prepareStatement(sql)){
 
             // set the value
-            pstmt.setString(1,source);
-            pstmt.setString(2, destinataire);
+            pstmt.setString(1,IPsource);
+            pstmt.setString(2, IPdest);
             //
             ResultSet rs  = pstmt.executeQuery();
 
@@ -74,13 +77,13 @@ public class Select {
         }
     }
 
-
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         Select app = new Select();
         app.selectAll();
+        //app.select_conversation("IP100","IP101");
     }
 
 }

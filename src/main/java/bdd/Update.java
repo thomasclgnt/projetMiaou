@@ -1,11 +1,10 @@
 package bdd;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Update {
+
+    // TODO pas sûr de l'utilité pour le moment, on y reviendra
 
     private Connection connect() {
         // SQLite connection string
@@ -24,22 +23,26 @@ public class Update {
     /**
      * Update data of a warehouse specified by the id
      *
-     * @param id
-     * @param name name of the warehouse
-     * @param capacity capacity of the warehouse
+     *  @param source
+     *  @param destinataire
+     *  @param message
+     *  @param horodatage
      */
-    public void update(int id, String name, double capacity) {
-        String sql = "UPDATE Messagedb SET name = ? , "
-                + "capacity = ? "
-                + "WHERE id = ?";
+    public void update(String source, String destinataire, String message, Timestamp horodatage) {
+        String sql = "UPDATE Messagedb SET source = ? , "
+                + "destinataire = ?, "
+                + "message = ? , "
+                + "horodatage = ? "
+                + "WHERE source = ?";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             // set the corresponding param
-            pstmt.setString(1, name);
-            pstmt.setDouble(2, capacity);
-            pstmt.setInt(3, id);
+            pstmt.setString(1, source);
+            pstmt.setString(2, destinataire);
+            pstmt.setString(3, message);
+            pstmt.setTimestamp(4, horodatage);
             // update
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -52,8 +55,8 @@ public class Update {
      */
     public static void main(String[] args) {
 
-        //UpdateApp app = new UpdateApp();
-        // update the warehouse with id 3
+        Update app = new Update();
+        //update the warehouse with id 3
         //app.update(3, "Finished Products", 5500);
     }
 

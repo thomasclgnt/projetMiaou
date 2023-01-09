@@ -20,7 +20,7 @@ public class TCPController {
             client.startClient(clientSocket);
             System.out.println("[startSession] Connecté");
 
-            callback.received(socket.adress, message);
+            //callback.received(socket.adress, message);
 
             return clientSocket ; // est-ce qu'on retourne le socket du client ou du server ?
 

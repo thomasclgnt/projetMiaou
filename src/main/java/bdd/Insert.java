@@ -38,15 +38,17 @@ public class Insert {
     /** Source et destinataire sont des string, on prend le pseudo du source de type User pour le mettre en argument
      * A FAIRE PLUS TARD */
 
-    public void insert(String source, String destinataire, String message, Timestamp horodatage) {
-        String sql = "INSERT INTO Messagedb(source, destinataire, message, horodatage) VALUES(?,?,?,?)";
+    public void insert(String source, String IPsource, String destinataire, String IPdest, String message, Date horodatage) {
+        String sql = "INSERT INTO Messagedb(source, IPsource, destinataire, IPdest, message, horodatage) VALUES(?,?,?,?,?,?)";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, source);
-            pstmt.setString(2, destinataire);
-            pstmt.setString(3, message);
-            pstmt.setTimestamp(4, horodatage);
+            pstmt.setString(2, IPsource);
+            pstmt.setString(3, destinataire);
+            pstmt.setString(4, IPdest);
+            pstmt.setString(5, message);
+            pstmt.setDate(6, horodatage);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -61,12 +63,8 @@ public class Insert {
         Insert data = new Insert();
         // insert three new rows
         //A TESTER
-        Timestamp time1 =  new Timestamp(2023, 01, 03, 20, 45, 0, 0);
-        Timestamp time2 =  new Timestamp(2020, 01, 03, 20, 45, 0, 0);
-        Timestamp time3 =  new Timestamp(2051, 01, 03, 20, 45, 0, 0);//TODO marche pas, trouver le bon format svp
-        data.insert("Thomas", "Marie", "je crois que la bdd fonctionne", time1);
-        data.insert("Marie", "Thomas", "c'est vrai ??? waaaaa", time2);
-        data.insert("Thomas", "Marie", "oui :))", time3);
+        Date time1 =  new Date(System.currentTimeMillis());//TODO marche, reste à comprendre le format
+        data.insert("Thomas", "IP100", "Marie", "IP101", "hello world", time1);
     }
 
 }
