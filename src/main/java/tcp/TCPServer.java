@@ -5,7 +5,7 @@ import java.io.*;
 public class TCPServer {
     private ServerSocket serverSocket;
 
-    public void startServer(int portTCP) throws IOException {
+    public void startServer(int portTCP, MessageReceivedCallback callback) throws IOException {
 
         serverSocket = new ServerSocket(portTCP);
 
@@ -16,10 +16,10 @@ public class TCPServer {
 
                 try {
                     System.out.println("Serveur est à l'écoute du port " + serverSocket.getLocalPort());
-                    while (true) { // ce while doit permettre de vérifier qu'on est toujours connecté avec getState(Thread) ? Returns the state of this thread.
+                    while (true) {
                         Socket clientSocket = serverSocket.accept();
                         System.out.println("[startServer] Connecté");
-                        ThreadTCP.startThreadReceiver(clientSocket);
+                        ThreadTCP.startThreadReceiver(clientSocket, callback);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

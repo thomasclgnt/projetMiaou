@@ -7,9 +7,9 @@ import java.util.Scanner;
 
 public class TCPController {
 
-    public static void initListening(int portTCP) throws IOException {
+    public static void initListening(int portTCP, MessageReceivedCallback callback) throws IOException {
         TCPServer server = new TCPServer() ;
-        server.startServer(portTCP);
+        server.startServer(portTCP, callback);
 
     }
 
@@ -17,12 +17,12 @@ public class TCPController {
 
             Socket clientSocket = new Socket(addressIP, portTCP) ;
             TCPClient client = new TCPClient();
-            client.startClient(clientSocket);
+            client.startClient(clientSocket, callback);
             System.out.println("[startSession] Connecté");
 
-            //callback.received(socket.adress, message);
+            // à faire quand on reçoit un message => callback.received(socket.adress, message);
 
-            return clientSocket ; // est-ce qu'on retourne le socket du client ou du server ?
+            return clientSocket ;
 
             //TODO créer exception spéficique ex. contact unavailable à renvoyer
 
@@ -32,8 +32,8 @@ public class TCPController {
 
         PrintWriter out = new PrintWriter(socket.getOutputStream());
 
-        LocalTime time = LocalTime.now();
-        out.println(message + " " + time);
+        //LocalTime time = LocalTime.now();
+        out.println(message + " ");
         out.flush(); //vider les buffers
         }
     }
