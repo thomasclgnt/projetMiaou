@@ -14,12 +14,18 @@ public class ListUser {
         this.activeUsers.add(new User(username, addressIP, portTCP)) ;
     }
 
-    public void deleteUser(String addressIP) {
-        for (User user : this.activeUsers){
-            if (user.addressIP.equals(addressIP)) {
-                this.activeUsers.remove(user);
+    public User findUser(String addressIP) {
+        User user = null ;
+        for (User u : this.activeUsers){
+            if (u.addressIP.equals(addressIP)) {
+                user = u ;
             }
         }
+        return user ;
+    } //TODO problème à gérer si l'user est pas trouvé
+
+    public void deleteUser(String addressIP) {
+        this.activeUsers.remove(findUser(addressIP));
     }
 
     public void changeUsername(String new_username, String addressIP) {
