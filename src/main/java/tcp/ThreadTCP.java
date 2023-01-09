@@ -22,7 +22,7 @@ public class ThreadTCP {
                 try {
                     Message = in.readLine();
                     while (Message != null) {
-                        System.out.println("message Client : " + Message);
+                        System.out.println("message Client : " + Message); //peut être remplancé par callback.received()
                         Message = in.readLine();
                     }
                     System.out.println("Client déconnecté");
@@ -33,6 +33,8 @@ public class ThreadTCP {
                 }
             }
         });
+
+        receive.setDaemon(true); // do not wait for the thread to finish to end the application
         receive.start();
     }
 

@@ -5,49 +5,30 @@ import java.io.*;
 public class TCPServer {
     private ServerSocket serverSocket;
 
-    //    private Socket clientSocket;
-    //    private PrintWriter out;
-    //    private BufferedReader in;
-    //
-    //    public void start(int port) throws IOException {
-    //        serverSocket = new ServerSocket(port);
-    //        clientSocket = serverSocket.accept();
-    //        out = new PrintWriter(clientSocket.getOutputStream(), true);
-    //        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-    //        String message = in.readLine();
-    //        if ("hello server".equals(message)) {
-    //            out.println("hello client");
-    //        }
-    //        else {
-    //            out.println("unrecognised message");
-    //        }
-    //    }
-    //
-    //    public void stop() throws IOException {
-    //        in.close();
-    //        out.close();
-    //        clientSocket.close();
-    //        serverSocket.close();
-    //    }
-
     public void startServer(int portTCP) throws IOException {
 
-        try {
-            serverSocket = new ServerSocket(portTCP);
+        serverSocket = new ServerSocket(portTCP);
 
-            while (true) { // ce while doit permettre de vérifier qu'on est toujours connecté avec getState(Thread) ? Returns the state of this thread.
+        Thread listen = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+
+                try {
                     System.out.println("Serveur est à l'écoute du port " + serverSocket.getLocalPort());
-                    Socket clientSocket = serverSocket.accept();
-                    System.out.println("Connecté");
-                    //ThreadTCP.startThreadSender(clientSocket); //inutile
-                    ThreadTCP.startThreadReceiver(clientSocket);
+                    while (true) { // ce while doit permettre de vérifier qu'on est toujours connecté avec getState(Thread) ? Returns the state of this thread.
+                        Socket clientSocket = serverSocket.accept();
+                        System.out.println("[startServer] Connecté");
+                        ThreadTCP.startThreadReceiver(clientSocket);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.err.println("I am stopping to listen for new incoming connections");
+                }
             }
-        }catch(IOException e){
-            e.printStackTrace();
-        }
 
+        });
 
+        listen.start();
     }
-
-
 }
