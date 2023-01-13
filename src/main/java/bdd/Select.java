@@ -1,6 +1,8 @@
 package bdd;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Select {
 
@@ -45,7 +47,7 @@ public class Select {
                         rs.getString("destinataire") + "\t" +
                         rs.getString("IPdest") + "\t" +
                         rs.getString("message") + "\t" +
-                        rs.getDate("horodatage"));
+                        rs.getString("horodatage"));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -54,7 +56,11 @@ public class Select {
 
     /** ce sera notre restoreConversation : le but est de retrouver tous les messages de la bdd entre 2 utilisateurs :
      * notre user local en source et celui avec qui il veut converser en destination.  */
-    public void select_conversation(String IPsource, String IPdest) {
+    public List select_conversation(String IPsource, String IPdest) {
+        String ligne ;
+        List listLigne = new ArrayList() ;
+        List messagesRecus = new ArrayList() ;
+
         String sql = "SELECT message, horodatage "
                 + "FROM Messagedb WHERE IPsource = ? AND IPdest = ?";
 
@@ -70,16 +76,29 @@ public class Select {
             // loop through the result set
             while (rs.next()) {
                 System.out.println(rs.getString("message") + "\t" +
-                        rs.getDate("horodatage"));
+                        rs.getString("horodatage") +
+                        rs.getString("rowid") + "\t");
+
+                ligne = rs.getString("message") + ' ' + rs.getString("horodatage") ;
+                listLigne.add(rs.getString("message"));
+                listLigne.add(rs.getString("horodatage"));
+                listLigne.add(rs.getString("rowid"));
+
+                //System.out.println("ligne : " + ligne) ; ça fonctionne
+                messagesRecus.add(ligne) ;
+
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return messagesRecus ;
     }
 
-    public static void restore(String IPsource, String IPdest) {
+    public static List restore(String IPsource, String IPdest) {
+        List res = new ArrayList() ;
         Select app = new Select();
-        app.select_conversation(IPsource, IPdest);
+        res = app.select_conversation(IPsource, IPdest);
+        return res ;
     }
 
     /**
@@ -87,8 +106,8 @@ public class Select {
      */
     public static void main(String[] args) {
         Select app = new Select();
-        app.selectAll();
-        //app.select_conversation("IP100","IP101");
+        //app.selectAll();
+        app.select_conversation("100","200");
     }
 
 }
