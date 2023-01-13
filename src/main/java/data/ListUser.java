@@ -1,5 +1,6 @@
 package data;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 public class ListUser {
@@ -14,17 +15,22 @@ public class ListUser {
         this.activeUsers.add(new User(username, addressIP, portTCP)) ;
     }
 
-    public User findUser(String addressIP) {
+    public User findUser(String addressIP) throws UserNotFound {
         User user = null ;
         for (User u : this.activeUsers){
             if (u.addressIP.equals(addressIP)) {
                 user = u ;
             }
         }
+        //if user null raise usernotfound, rajouter l'adresse IP dans la classe en param
         return user ;
     } //TODO problème à gérer si l'user est pas trouvé
 
-    public void deleteUser(String addressIP) {
+    public User findUser(InetAddress addressIP) throws UserNotFound {
+        return findUser(addressIP.getHostAddress());
+    }
+
+    public void deleteUser(String addressIP) throws UserNotFound {
         this.activeUsers.remove(findUser(addressIP));
     }
 

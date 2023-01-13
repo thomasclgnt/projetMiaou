@@ -12,6 +12,7 @@ public class ListMessage {
 
     public void addMessage(String text, User source, User dest, String horodatage) {
         this.messagesSession.add(new Message(text, source, dest, horodatage)) ;
+        //TODO le add à ma BDD peut se faire directement ici
     }
 
     public String listToString(){

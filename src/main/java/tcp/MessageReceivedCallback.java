@@ -6,6 +6,6 @@ import java.net.InetAddress;
 
 public interface MessageReceivedCallback {
 
-    void received(InetAddress from, Message message);
+    void received(InetAddress from, String message, String horodatage);
 
 }

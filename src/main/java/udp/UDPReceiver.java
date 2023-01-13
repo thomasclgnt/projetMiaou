@@ -55,7 +55,11 @@ public class UDPReceiver extends Thread {
                 String msgRest1 = segments[1];
 
                 for (Notify sub : this.subscribers) {
-                    sub.notifyDeleteUser(msgRest1);
+                    try {
+                        sub.notifyDeleteUser(msgRest1);
+                    } catch (UserNotFound userNotFound) {
+                        userNotFound.printStackTrace();
+                    }
                 }
             } else if (msgSyst.equals("Username changed")){
                 String msgRest1 = segments[1];

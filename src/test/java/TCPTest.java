@@ -1,13 +1,11 @@
-import data.ListMessage;
-import data.ListUser;
-import data.Message;
-import data.User;
+import data.*;
 import org.junit.Test;
 import tcp.*;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -20,15 +18,38 @@ public class TCPTest {
         User Thomas = new User("TDMKM", "127.0.0.1", 1234);
 
         ListMessage receivedMessages = new ListMessage();
+        //créer une seule instance de listUser dans le main de l'application
+        ListUser users = new ListUser();
+        users.addUser(Thomas.username, Thomas.addressIP, Thomas.portTCP);
 
         MessageReceivedCallback callback = new MessageReceivedCallback() {
             @Override
-            public void received(InetAddress from, Message message) {
-                System.out.println("Message received from " + from + " : "+ message.toString());
-                receivedMessages.addMessage(message.text, message.source, message.dest, message.horodatage);
-                //ajout à ListMessage, penser à faire le lien ajout à la db
+            public void received(InetAddress from, String message, String horodatage) {
+
+                //TODO ATTENTION PB
+                //demander au prof, comment on fait pour avoir IPsource et IPdest
+                // et est-ce que c'est pertinent d'avoir ces deux infos dans un type message ou non
+                // là j'ai mis deux fois socket.getInetAdress() parce que jsp comment récup notre adresse IP
+                // et pb pour récup l'user associé à l'adresse
+
+                try {
+                    User distant = users.findUser(from) ;//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre
+                    User us = users.findUser("127.0.0.1") ;
+
+                    Message msgData = new Message(message, distant, us, horodatage);
+
+                    System.out.println("Message received from " + from + " : "+ message.toString());
+                    receivedMessages.addMessage(msgData.text, msgData.source, msgData.dest, msgData.horodatage);
+
+                } catch (UserNotFound userNotFound) {
+                    throw new AssertionError("no such user") ;
+                }
+
+
+
             }
-        };
+
+            };
 
         TCPController.initListening(Thomas.portTCP, callback);
         Thread.sleep(200);

@@ -11,7 +11,7 @@ public interface Notify {
 
     public void notifyNewUser(String username, String addressIP, int portTCP) ;
 
-    public void notifyDeleteUser(String addressIP);
+    public void notifyDeleteUser(String addressIP) throws UserNotFound;
 
     public void notifyChangeUsername(String new_username, String addressIP);
 

@@ -23,7 +23,7 @@ public class UDPTest {
             }
 
             @Override
-            public void notifyDeleteUser(String addressIP) {
+            public void notifyDeleteUser(String addressIP) throws UserNotFound {
                 System.out.println("del user");
                 users.deleteUser(addressIP);
             }
