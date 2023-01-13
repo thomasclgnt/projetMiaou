@@ -77,6 +77,11 @@ public class Select {
         }
     }
 
+    public static void restore(String IPsource, String IPdest) {
+        Select app = new Select();
+        app.select_conversation(IPsource, IPdest);
+    }
+
     /**
      * @param args the command line arguments
      */
