@@ -13,7 +13,7 @@ public class TCPController {
 
     }
 
-    public static Socket startSession(String addressIP, int portTCP, MessageReceivedCallback callback) throws IOException, InterruptedException {
+    public static Socket startConversation(String addressIP, int portTCP, MessageReceivedCallback callback) throws IOException, InterruptedException {
 
             Socket clientSocket = new Socket(addressIP, portTCP) ;
             TCPClient client = new TCPClient();
@@ -32,7 +32,6 @@ public class TCPController {
 
         PrintWriter out = new PrintWriter(socket.getOutputStream());
 
-        //LocalTime time = LocalTime.now();
         out.println(message + " ");
         out.flush(); //vider les buffers
         }

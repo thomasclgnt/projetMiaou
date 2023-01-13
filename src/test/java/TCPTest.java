@@ -26,12 +26,6 @@ public class TCPTest {
             @Override
             public void received(InetAddress from, String message, String horodatage) {
 
-                //TODO ATTENTION PB
-                //demander au prof, comment on fait pour avoir IPsource et IPdest
-                // et est-ce que c'est pertinent d'avoir ces deux infos dans un type message ou non
-                // là j'ai mis deux fois socket.getInetAdress() parce que jsp comment récup notre adresse IP
-                // et pb pour récup l'user associé à l'adresse
-
                 try {
                     User distant = users.findUser(from) ;//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre
                     User us = users.findUser("127.0.0.1") ;
@@ -45,15 +39,13 @@ public class TCPTest {
                     throw new AssertionError("no such user") ;
                 }
 
-
-
             }
 
             };
 
         TCPController.initListening(Thomas.portTCP, callback);
         Thread.sleep(200);
-        Socket socket = TCPController.startSession(Thomas.addressIP, Thomas.portTCP, callback);
+        Socket socket = TCPController.startConversation(Thomas.addressIP, Thomas.portTCP, callback);
         TCPController.sendMessage("hello server", socket );
 
         Thread.sleep(500);

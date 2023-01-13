@@ -1,5 +1,7 @@
 package data;
 
+import udp.UDPReceiver;
+
 import java.net.InetAddress;
 import java.util.ArrayList;
 
@@ -22,7 +24,10 @@ public class ListUser {
                 user = u ;
             }
         }
-        //if user null raise usernotfound, rajouter l'adresse IP dans la classe en param
+        if (user == null) {
+            throw new UserNotFound();
+            // rajouter en paramètre (addressIP);
+        }
         return user ;
     } //TODO problème à gérer si l'user est pas trouvé
 
