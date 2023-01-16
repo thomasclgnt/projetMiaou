@@ -1,5 +1,7 @@
 package bdd;
 
+import data.Message;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,11 +57,11 @@ public class Select {
     }
 
     /** ce sera notre restoreConversation : le but est de retrouver tous les messages de la bdd entre 2 utilisateurs :
-     * notre user local en source et celui avec qui il veut converser en destination.  */
-    public List select_conversation(String IPsource, String IPdest) {
+     * notre user local en source et celui avec qui il veut converser en destination. retourne une liste de MessageBDD  */
+    public ArrayList select_conversation(String IPsource, String IPdest) {
         String ligne ;
-        List listLigne = new ArrayList() ;
-        List messagesRecus = new ArrayList() ;
+        ArrayList<MessageBDD> listLigne = new ArrayList<MessageBDD>() ;
+        ArrayList<MessageBDD> messagesRecus = new ArrayList<MessageBDD>() ;
 
         String sql = "SELECT rowid, message, horodatage "
                 + "FROM Messagedb WHERE IPsource = ? AND IPdest = ?";
@@ -81,9 +83,9 @@ public class Select {
 
                 ligne = rs.getString("message") + ' ' + rs.getString("horodatage") ;
 
-                MessageBDD data_ligne = new MessageBDD("rowid", "message","horodatage") ;
+                MessageBDD data_ligne = new MessageBDD(rs.getString("rowid"), rs.getString("message"),rs.getString("horodatage")) ;
 
-                System.out.println("ligne : " + data_ligne) ; // ça fonctionne
+                System.out.println("ligne : " + data_ligne.toString()) ; //
                 messagesRecus.add(data_ligne) ;
 
             }
@@ -93,8 +95,8 @@ public class Select {
         return messagesRecus ;
     }
 
-    public static List restore(String IPsource, String IPdest) {
-        List res = new ArrayList() ;
+    public static ArrayList restore(String IPsource, String IPdest) {
+        ArrayList<MessageBDD> res = new ArrayList<MessageBDD>() ;
         Select app = new Select();
         res = app.select_conversation(IPsource, IPdest);
         return res ;
@@ -105,8 +107,8 @@ public class Select {
      */
     public static void main(String[] args) {
         Select app = new Select();
-        //app.selectAll();
-        app.select_conversation("100","200");
+        app.selectAll();
+        //app.select_conversation("100","200");
     }
 
 }

@@ -1,5 +1,7 @@
 package bdd;
 
+import static java.lang.Integer.parseInt;
+
 public class MessageBDD {
 
     /** Text of the message. Public because it is immutable (final + String type). */
@@ -17,8 +19,19 @@ public class MessageBDD {
 
     @Override
     public String toString() { // récupérer le texte du message avec message.toSring()
-        return this.rowid + this.text + this.horodatage ;
+        return this.rowid + ", " + this.text + ", " + this.horodatage ;
     }
+
+
+    public int compareTo(MessageBDD msg) {
+        int res ;
+        res= parseInt(this.rowid)-parseInt(msg.rowid) ;
+        return res ;
+    }
+    public String getRowid() {
+        return this.rowid ;
+    }
+
 
 }
 

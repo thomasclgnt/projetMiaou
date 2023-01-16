@@ -64,7 +64,7 @@ public class Insert {
         // insert three new rows
         //A TESTER
         Date time1 =  new Date(System.currentTimeMillis());//TODO marche, reste à comprendre le format
-        data.insert("Thomas", "100", "Marie", "200", "on est vendredi", time1);
+        data.insert("Marie", "200", "Thomas", "100", "on est lundi", time1);
     }
 
 }
