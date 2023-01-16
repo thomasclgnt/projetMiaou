@@ -31,17 +31,19 @@ public class Delete {
          * @param message
          * @param horodatage
          */
-        public void deleteData(String source, String destinataire, String message, Timestamp horodatage) {
-            String sql = "DELETE FROM Messagedb WHERE source = ? AND destinataire = ? AND message = ? AND horodatage = ?";
+        public void deleteData(String source, String IPsource, String destinataire, String IPdest, String message) {
+            String sql = "DELETE FROM Messagedb WHERE source = ? AND IPsource = ? AND destinataire = ? AND IPdest = ? AND message = ?";
 
             try (Connection conn = this.connect();
                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
                 // set the corresponding param
                 pstmt.setString(1, source);
-                pstmt.setString(2, destinataire);
-                pstmt.setString(3, message);
-                pstmt.setTimestamp(4, horodatage);
+                pstmt.setString(2, IPsource);
+                pstmt.setString(3, destinataire);
+                pstmt.setString(4, IPdest);
+                pstmt.setString(5, message);
+                //pstmt.setTimestamp(6, horodatage);
                 pstmt.executeUpdate();
                 // execute the delete statement
                 pstmt.executeUpdate();
@@ -57,14 +59,11 @@ public class Delete {
          * @param args the command line arguments
          */
         public static void main(String[] args) {
-            Timestamp time1 =  new Timestamp(2023, 11, 03, 20, 45, 0, 0);
-            Timestamp time2 =  new Timestamp(2020, 01, 03, 20, 45, 0, 0);
-            Timestamp time0 =  new Timestamp(1885, 01, 02, 02, 05, 10, 50);
 
             Delete app = new Delete();
             // delete the row with id 3
-            app.deleteData("Henry", "Matisse", "je peins", time0);
-            //app.deleteData("Marie", "Thomas", "c'est vrai ??? waaaaa", time2);
+            app.deleteData("marie", "ipmarie", "thomas", "ipthomas", "ok");
+            app.deleteData("Thomas", "ip10000", "Marie", "IP101", "on est vendredi");
         }
 
     }

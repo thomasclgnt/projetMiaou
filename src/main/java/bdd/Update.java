@@ -28,23 +28,23 @@ public class Update {
      *  @param message
      *  @param horodatage
      */
-    public void update(String source, String destinataire, String message, Timestamp horodatage) {
-        String sql = "UPDATE Messagedb SET source = ? , "
-                + "destinataire = ?, "
-                + "message = ? , "
-                + "horodatage = ? "
-                + "WHERE source = ?";
+    public void updateMessage(String message_new, String source, String IPsource, String destinataire, String IPdest, String message_old) {
+        String sql = "UPDATE Messagedb SET message = ?"
+                + "WHERE source = ? AND IPsource = ? AND destinataire = ? AND IPdest = ? AND message = ?";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             // set the corresponding param
-            pstmt.setString(1, source);
-            pstmt.setString(2, destinataire);
-            pstmt.setString(3, message);
-            pstmt.setTimestamp(4, horodatage);
+            pstmt.setString(1, message_new);
+            pstmt.setString(2, source);
+            pstmt.setString(3, IPsource);
+            pstmt.setString(4, destinataire);
+            pstmt.setString(5, IPdest);
+            pstmt.setString(6, message_old);
             // update
             pstmt.executeUpdate();
+            System.out.println("le message '" + message_old +"' a été modifié en '" + message_new + "'");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -56,8 +56,7 @@ public class Update {
     public static void main(String[] args) {
 
         Update app = new Update();
-        //update the warehouse with id 3
-        //app.update(3, "Finished Products", 5500);
+        app.updateMessage("on est lundi soir", "Marie", "200","Thomas","100","on est lundi");
     }
 
 }
