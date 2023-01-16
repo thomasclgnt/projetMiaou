@@ -61,7 +61,7 @@ public class Select {
         List listLigne = new ArrayList() ;
         List messagesRecus = new ArrayList() ;
 
-        String sql = "SELECT message, horodatage "
+        String sql = "SELECT rowid, message, horodatage "
                 + "FROM Messagedb WHERE IPsource = ? AND IPdest = ?";
 
         try (Connection conn = this.connect();
@@ -80,12 +80,11 @@ public class Select {
                         rs.getString("rowid") + "\t");
 
                 ligne = rs.getString("message") + ' ' + rs.getString("horodatage") ;
-                listLigne.add(rs.getString("message"));
-                listLigne.add(rs.getString("horodatage"));
-                listLigne.add(rs.getString("rowid"));
 
-                //System.out.println("ligne : " + ligne) ; ça fonctionne
-                messagesRecus.add(ligne) ;
+                MessageBDD data_ligne = new MessageBDD("rowid", "message","horodatage") ;
+
+                System.out.println("ligne : " + data_ligne) ; // ça fonctionne
+                messagesRecus.add(data_ligne) ;
 
             }
         } catch (SQLException e) {
