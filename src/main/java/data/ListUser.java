@@ -47,8 +47,14 @@ public class ListUser {
         }
     }
 
-    public boolean checkUsernameAvailable(User user) {
-        return activeUsers.contains(user) ;
+    public boolean checkUsernameAvailable(String username) {
+        boolean available = true ;
+        for (User user : this.activeUsers) {
+            if (user.username.equals(username)) {
+                available = false;
+            }
+        }
+        return available ;
     }
 
     public int nbUsers () {
