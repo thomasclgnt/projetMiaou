@@ -11,13 +11,9 @@ public class Select {
      */
     private Connection connect() {
         // SQLite connection string
-        /** Chemin relatif vers BDD" */
+        // Chemin relatif vers BDD" */
         String url = "jdbc:sqlite:./database/miaoudb" ;
 
-        /** lien pour la session Marie : */
-         //"jdbc:sqlite:/home/mecaliff/Bureau/4A/Projet_Miaou_local/projetMiaou/database/miaoudb" ;
-        /** lien pour la session Thomas : */
-        //String url = "jdbc:sqlite:/home/caylagin/Bureau/4IR/Projet/projetMiaou/database/miaoudb";
 
         Connection conn = null;
         try {
@@ -57,10 +53,9 @@ public class Select {
      * notre user local en source et celui avec qui il veut converser en destination. retourne une liste de MessageOut  */
     public ArrayList select_conversation(String IPsource, String IPdest) {
         String ligne ;
-        ArrayList<MessageOut> listLigne = new ArrayList<MessageOut>() ;
         ArrayList<MessageOut> messagesRecus = new ArrayList<MessageOut>() ;
 
-        String sql = "SELECT rowid, message, horodatage "
+        String sql = "SELECT rowid, source, IPsource, destinataire, IPdest, message, horodatage "
                 + "FROM Messagedb WHERE IPsource = ? AND IPdest = ?";
 
         try (Connection conn = this.connect();
@@ -74,17 +69,15 @@ public class Select {
 
             // loop through the result set
             while (rs.next()) {
-                System.out.println(rs.getString("message") + "\t" +
-                        rs.getString("horodatage") +
-                        rs.getString("rowid") + "\t");
-
-                ligne = rs.getString("message") + ' ' + rs.getString("horodatage") ;
+               //System.out.println(rs.getString("rowid") + "\t" +
+                 //       rs.getString("message") + "\t" +
+                   //     rs.getString("horodatage"));
 
                 MessageOut data_ligne = new MessageOut(rs.getString("source"), rs.getString("IPsource"), rs.getString("destinataire"), rs.getString("IPdest"), rs.getString("message"),rs.getString("horodatage"), rs.getString("rowid")) ;
 
                 System.out.println("ligne : " + data_ligne.toString()) ; //
-                messagesRecus.add(data_ligne) ;
 
+                messagesRecus.add(data_ligne);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -92,7 +85,7 @@ public class Select {
         return messagesRecus ;
     }
 
-    public static ArrayList restore(String IPsource, String IPdest) {
+    public static ArrayList<MessageOut> restore(String IPsource, String IPdest) {
         ArrayList<MessageOut> res = new ArrayList<MessageOut>() ;
         Select app = new Select();
         res = app.select_conversation(IPsource, IPdest);

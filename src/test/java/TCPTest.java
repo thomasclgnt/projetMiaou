@@ -17,7 +17,7 @@ public class TCPTest {
 
         User Thomas = new User("TDMKM", "127.0.0.1", 1234);
 
-        ListMessage receivedMessages = new ListMessage();
+        ListMessageIn receivedMessages = new ListMessageIn();
         //créer une seule instance de listUser dans le main de l'application
         ListUser users = new ListUser();
         users.addUser(Thomas.username, Thomas.addressIP, Thomas.portTCP);
@@ -30,10 +30,10 @@ public class TCPTest {
                     User distant = users.findUser(from) ;//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre
                     User us = users.findUser("127.0.0.1") ;
 
-                    Message msgData = new Message(message, distant, us, horodatage);
+                    MessageIn msgData = new MessageIn(us.username, us.addressIP, distant.username, distant.addressIP, message, horodatage);
 
-                    System.out.println("Message received from " + from + " : "+ message.toString());
-                    receivedMessages.addMessage(msgData.text, msgData.source, msgData.dest, msgData.horodatage);
+                    System.out.println("Message received from " + distant.addressIP + " : "+ message.toString());
+                    receivedMessages.addMessage(msgData.source, msgData.IPsource, msgData.dest, msgData.IPdest, msgData.text, msgData.horodatage);
 
                 } catch (UserNotFound userNotFound) {
                     throw new AssertionError("no such user") ;
@@ -48,7 +48,7 @@ public class TCPTest {
         Socket socket = TCPController.startConversation(Thomas.addressIP, Thomas.portTCP, callback);
         TCPController.sendMessage("hello server", socket );
 
-        Thread.sleep(500);
+        Thread.sleep(1000); // il nous faut du temps sinon ça coupe les actions avant de mettre en bdd
 
         // assertEquals("hello server", receivedMessages.get(0).startsWith("hello_server"));
 

@@ -1,6 +1,6 @@
 package tcp;
 
-import data.Message;
+import data.MessageIn;
 
 import java.net.InetAddress;
 

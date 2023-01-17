@@ -1,10 +1,10 @@
 package bdd;
 
-import data.MessageMere;
+import data.Message;
 
 import static java.lang.Integer.parseInt;
 
-public class MessageOut extends MessageMere {
+public class MessageOut extends Message {
 
     /** Text of the message. Public because it is immutable (final + String type). */
     public String rowid ;

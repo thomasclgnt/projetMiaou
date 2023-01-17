@@ -2,7 +2,7 @@ package data;
 
 import java.sql.Timestamp;
 
-public class MessageIn extends MessageMere {
+public class MessageIn extends Message {
 
     /** Text of the message. Public because it is immutable (final + String type). */
 

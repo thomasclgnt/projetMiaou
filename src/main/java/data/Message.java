@@ -2,7 +2,7 @@ package data;
 
 import java.sql.Timestamp;
 
-public class MessageMere {
+public class Message {
 
         /** Text of the message. Public because it is immutable (final + String type). */
         public final String text;
@@ -12,7 +12,7 @@ public class MessageMere {
         public String IPdest ;
         public String horodatage ;
 
-        public MessageMere(String source, String IPsource, String dest, String IPdest, String text, String horodatage){
+        public Message(String source, String IPsource, String dest, String IPdest, String text, String horodatage){
             this.source = source ;
             this.IPsource = IPsource ;
             this.dest = dest ;

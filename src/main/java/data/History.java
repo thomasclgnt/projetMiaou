@@ -11,9 +11,9 @@ import static java.lang.Integer.parseInt;
 public class History {
 
     public static void restoreConversation(String IPsource, String IPdest) {
-        ArrayList<MessageOut> listeRecu = new ArrayList<MessageOut>();
-        ArrayList<MessageOut> listeEnvoi = new ArrayList<MessageOut>();
-        ArrayList<MessageOut> listeRes = new ArrayList<MessageOut>();
+        ArrayList<MessageOut> listeRecu = new ArrayList<MessageOut>() ;
+        ArrayList<MessageOut> listeEnvoi = new ArrayList<MessageOut>() ;
+        ArrayList<MessageOut> listeRes = new ArrayList<MessageOut>() ;
 
         listeRecu = Select.restore(IPdest, IPsource) ;
         listeEnvoi = Select.restore(IPsource, IPdest) ;
@@ -32,11 +32,12 @@ public class History {
             System.out.println(aux);
         }
 
-        //TODO ajouter ce qu'on récupère à listMessage
+        //TODO ajouter ce qu'on récupère à listMessageOut
 
     }
 
     public static void main(String[] args) {
+
         restoreConversation("100","200");
     }
 
