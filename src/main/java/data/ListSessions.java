@@ -11,7 +11,7 @@ public class ListSessions {
         this.activeSessions = new ArrayList<Session>();
     }
 
-    public void addSession(ListMessage conversation, User courant, User distant) {
+    public void addSession(ListMessageIn conversation, User courant, User distant) {
         this.activeSessions.add(new Session(conversation, courant, distant)) ;
     }
 

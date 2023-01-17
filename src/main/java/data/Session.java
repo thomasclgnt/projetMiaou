@@ -8,11 +8,11 @@ import java.net.Socket;
 
 public class Session {
 
-    public ListMessage conversation ;
+    public ListMessageIn conversation ;
     public User courant ;
     public User distant ;
 
-    public Session(ListMessage conversation, User courant, User distant) {
+    public Session(ListMessageIn conversation, User courant, User distant) {
         this.conversation = conversation;
         this.courant = courant;
         this.distant = distant;

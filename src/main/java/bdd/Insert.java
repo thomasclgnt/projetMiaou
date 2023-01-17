@@ -38,7 +38,7 @@ public class Insert {
     /** Source et destinataire sont des string, on prend le pseudo du source de type User pour le mettre en argument
      * A FAIRE PLUS TARD */
 
-    public void insert(String source, String IPsource, String destinataire, String IPdest, String message, Date horodatage) {
+    public void insert(String source, String IPsource, String destinataire, String IPdest, String message, String horodatage) {
         String sql = "INSERT INTO Messagedb(source, IPsource, destinataire, IPdest, message, horodatage) VALUES(?,?,?,?,?,?)";
 
         try (Connection conn = this.connect();
@@ -48,11 +48,16 @@ public class Insert {
             pstmt.setString(3, destinataire);
             pstmt.setString(4, IPdest);
             pstmt.setString(5, message);
-            pstmt.setDate(6, horodatage);
+            pstmt.setString(6, horodatage);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public static void add_data(String source, String IPsource, String destinataire, String IPdest, String message, String horodatage) {
+        Insert data = new Insert() ;
+        data.insert(source, IPsource, destinataire, IPdest, message, horodatage) ;
     }
 
     /**
@@ -63,8 +68,8 @@ public class Insert {
         Insert data = new Insert();
         // insert three new rows
         //A TESTER
-        Date time1 =  new Date(System.currentTimeMillis());//TODO marche, reste à comprendre le format
-        data.insert("Thomas", "100", "Marie", "200", "on est vendredi", time1);
+        //Date time1 =  new Date(System.currentTimeMillis());//TODO marche, reste à comprendre le format
+        //data.insert("Marie", "200", "Thomas", "100", "on est lundi", time1);
     }
 
 }
