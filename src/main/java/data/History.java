@@ -1,21 +1,19 @@
 package data;
 
-import bdd.MessageBDD;
+import bdd.MessageOut;
 import bdd.Select;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
 public class History {
 
     public static void restoreConversation(String IPsource, String IPdest) {
-        ArrayList<MessageBDD> listeRecu = new ArrayList<MessageBDD>();
-        ArrayList<MessageBDD> listeEnvoi = new ArrayList<MessageBDD>();
-        ArrayList<MessageBDD> listeRes = new ArrayList<MessageBDD>();
+        ArrayList<MessageOut> listeRecu = new ArrayList<MessageOut>();
+        ArrayList<MessageOut> listeEnvoi = new ArrayList<MessageOut>();
+        ArrayList<MessageOut> listeRes = new ArrayList<MessageOut>();
 
         listeRecu = Select.restore(IPdest, IPsource) ;
         listeEnvoi = Select.restore(IPsource, IPdest) ;

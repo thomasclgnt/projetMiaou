@@ -1,19 +1,18 @@
 package bdd;
 
+import data.MessageMere;
+
 import static java.lang.Integer.parseInt;
 
-public class MessageBDD {
+public class MessageOut extends MessageMere {
 
     /** Text of the message. Public because it is immutable (final + String type). */
-    public final String text;
-    public String horodatage ;
     public String rowid ;
 
 
-    public MessageBDD(String rowid, String text, String horodatage){
+    public MessageOut(String source, String IPsource, String dest, String IPdest, String text, String horodatage, String rowid){
+        super(source, IPsource, dest, IPdest, text, horodatage) ;
         this.rowid = rowid ;
-        this.text = text;
-        this.horodatage = horodatage;
 
     }
 
@@ -22,12 +21,12 @@ public class MessageBDD {
         return this.rowid + ", " + this.text + ", " + this.horodatage ;
     }
 
-
-    public int compareTo(MessageBDD msg) {
+    public int compareTo(MessageOut msg) {
         int res ;
         res= parseInt(this.rowid)-parseInt(msg.rowid) ;
         return res ;
     }
+
     public String getRowid() {
         return this.rowid ;
     }

@@ -1,24 +1,23 @@
-package data;
+package bdd;
 
 import java.util.ArrayList;
 
-public class ListMessageIn {
+public class ListMessageOut {
+    ArrayList<MessageOut> messagesSession = null;
 
-    ArrayList<MessageIn> messagesSession = null;
-
-    public ListMessageIn(){
-        this.messagesSession = new ArrayList<MessageIn>();
+    public ListMessageOut(){
+        this.messagesSession = new ArrayList<MessageOut>();
     }
 
-    public void addMessage(String source, String IPsource, String dest, String IPdest, String text, String horodatage) {
-        this.messagesSession.add(new MessageIn(source, IPsource, dest, IPdest, text, horodatage)) ;
+    public void addMessage(String source, String IPsource, String destination, String IPdest, String text, String horodatage) {
+        this.messagesSession.add(new MessageOut(text, source, dest, horodatage)) ;
         //TODO le add à ma BDD peut se faire directement ici
     }
 
     public String listToString(){
         String listDeb = "[" ;
         String list = "" ;
-        for (MessageIn m : this.messagesSession) {
+        for (MessageOut m : this.messagesSession) {
             list = list + m.text + ", " + m.source + ", " + m.dest + ", " + m.horodatage + " ; \n";
         }
         String listFin = "]" ;
@@ -28,4 +27,5 @@ public class ListMessageIn {
     public void printList(){
         System.out.println(listToString());
     }
+
 }

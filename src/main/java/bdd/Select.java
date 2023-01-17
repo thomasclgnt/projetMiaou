@@ -1,10 +1,7 @@
 package bdd;
 
-import data.Message;
-
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Select {
 
@@ -57,11 +54,11 @@ public class Select {
     }
 
     /** ce sera notre restoreConversation : le but est de retrouver tous les messages de la bdd entre 2 utilisateurs :
-     * notre user local en source et celui avec qui il veut converser en destination. retourne une liste de MessageBDD  */
+     * notre user local en source et celui avec qui il veut converser en destination. retourne une liste de MessageOut  */
     public ArrayList select_conversation(String IPsource, String IPdest) {
         String ligne ;
-        ArrayList<MessageBDD> listLigne = new ArrayList<MessageBDD>() ;
-        ArrayList<MessageBDD> messagesRecus = new ArrayList<MessageBDD>() ;
+        ArrayList<MessageOut> listLigne = new ArrayList<MessageOut>() ;
+        ArrayList<MessageOut> messagesRecus = new ArrayList<MessageOut>() ;
 
         String sql = "SELECT rowid, message, horodatage "
                 + "FROM Messagedb WHERE IPsource = ? AND IPdest = ?";
@@ -83,7 +80,7 @@ public class Select {
 
                 ligne = rs.getString("message") + ' ' + rs.getString("horodatage") ;
 
-                MessageBDD data_ligne = new MessageBDD(rs.getString("rowid"), rs.getString("message"),rs.getString("horodatage")) ;
+                MessageOut data_ligne = new MessageOut(rs.getString("source"), rs.getString("IPsource"), rs.getString("destinataire"), rs.getString("IPdest"), rs.getString("message"),rs.getString("horodatage"), rs.getString("rowid")) ;
 
                 System.out.println("ligne : " + data_ligne.toString()) ; //
                 messagesRecus.add(data_ligne) ;
@@ -96,7 +93,7 @@ public class Select {
     }
 
     public static ArrayList restore(String IPsource, String IPdest) {
-        ArrayList<MessageBDD> res = new ArrayList<MessageBDD>() ;
+        ArrayList<MessageOut> res = new ArrayList<MessageOut>() ;
         Select app = new Select();
         res = app.select_conversation(IPsource, IPdest);
         return res ;
