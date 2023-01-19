@@ -55,9 +55,27 @@ public class Insert {
         }
     }
 
+    public void insertUsers(String username, String ip) {
+        String sql = "INSERT INTO ListUsers(username, ip) VALUES(?,?)";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, username);
+            pstmt.setString(2, ip);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void add_data(String source, String IPsource, String destinataire, String IPdest, String message, String horodatage) {
         Insert data = new Insert() ;
         data.insert(source, IPsource, destinataire, IPdest, message, horodatage) ;
+    }
+
+    public static void add_user(String username, String ip) {
+        Insert data = new Insert() ;
+        data.insertUsers(username, ip) ;
     }
 
     /**
@@ -70,6 +88,10 @@ public class Insert {
         //A TESTER
         //Date time1 =  new Date(System.currentTimeMillis());//TODO marche, reste à comprendre le format
         //data.insert("Marie", "200", "Thomas", "100", "on est lundi", time1);
+        data.insertUsers("marie","101");
+        data.insertUsers("sirine","103");
+        data.insertUsers("wissal","104");
+        data.insertUsers("léonie","105");
     }
 
 }

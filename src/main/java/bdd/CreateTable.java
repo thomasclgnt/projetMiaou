@@ -9,7 +9,7 @@ public class CreateTable {
      * Create a new table in the test database
      * Deja fait, normalement pas d'autres tables à créer.
      */
-    public static void createNewTable() {
+    public static void createTableMessageDB() {
         // SQLite connection string
         /** Chemin relatif vers BDD" */
         String url = "jdbc:sqlite:./database/miaoudb" ;
@@ -34,9 +34,30 @@ public class CreateTable {
         }
     }
 
+    public static void createTableListUsers() {
+        // SQLite connection string
+        /** Chemin relatif vers BDD" */
+        String url = "jdbc:sqlite:./database/miaoudb" ;
+
+        // SQL statement for creating a new table
+        String sql = "CREATE TABLE IF NOT EXISTS ListUsers (\n"
+                + "     username varchar(40) NOT NULL,\n"
+                + "     ip varchar(40) NOT NULL,\n"
+                + "PRIMARY KEY(username, ip)"
+                + ");";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     public static void main(String[] args) {
-        createNewTable();
+        //createTableMessageDB();
+        createTableListUsers();
 
     }
 }

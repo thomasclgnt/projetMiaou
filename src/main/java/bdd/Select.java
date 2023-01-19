@@ -1,5 +1,7 @@
 package bdd;
 
+import data.User;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -92,12 +94,48 @@ public class Select {
         return res ;
     }
 
+    public ArrayList selectAllListUsers(){
+        String sql = "SELECT rowid, * FROM ListUsers ";
+        String name ;
+        String address ;
+        ArrayList<User> res = new ArrayList<User>() ;
+
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            // loop through the result set
+            while (rs.next()) {
+                System.out.println(rs.getString("rowid") + "\t" +
+                        rs.getString("username") +  "\t" +
+                        rs.getString("ip"));
+            }
+            name = rs.getString("username") ;
+            address = rs.getString("ip") ;
+            User u = new User(name, address, 1234) ;
+            res.add(u) ;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return res ;
+    }
+
+    public static ArrayList<User> restoreUsers() {
+        ArrayList<User> res = new ArrayList<User>() ;
+        Select app = new Select();
+        res = app.selectAllListUsers();
+        return res ;
+    }
+
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         Select app = new Select();
-        app.selectAll();
+        //app.selectAll();
+        app.selectAllListUsers();
         //app.select_conversation("100","200");
     }
 

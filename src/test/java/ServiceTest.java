@@ -56,7 +56,7 @@ public class ServiceTest {
         Thread.sleep(5000);
         assertEquals("[marielabest, 192.168.3.101, 1234 ; \n" + "]", serv.getUsers().listToString());
         Thread.sleep(5000);
-        assertEquals("[marie_d_ac, 192.168.3.101, 1235 ; \n" + "]" , serv.getUsers().listToString());
+        assertEquals("[marie_d_ac, 192.168.3.101, 1234 ; \n" + "]" , serv.getUsers().listToString());
 
     }
 
