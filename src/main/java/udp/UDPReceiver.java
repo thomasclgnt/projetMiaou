@@ -32,45 +32,14 @@ public class UDPReceiver extends Thread {
                 e.printStackTrace();
             }
 
-            //à utiliser si on souhaite répondre au broadcast
+            // récupérer notre addresse actuelle : socket.getLocalAddress() ;
+            //à utiliser si on souhaite répondre au broadcast => À FAIRE POUR RÉCUP LES REMOTE USERS
             InetAddress senderAddress = packet.getAddress();
             int senderPort = packet.getPort();
 
             String msgReceived = new String (packet.getData(), 0, packet.getLength());
-            String[] segments = msgReceived.split(" : ");
-
-            String msgSyst = segments[0];
-
-
-            if (msgSyst.equals("Connexion")) {
-                String msgRest1 = segments[1];
-                String msgRest2 = segments[2];
-                String msgRest3 = segments[3];
-
-                for (Notify sub : this.subscribers) {
-                    sub.notifyNewUser(msgRest1, msgRest2, Integer.parseInt(msgRest3));
-                }
-
-            } else if (msgSyst.equals("Deconnexion")){
-                String msgRest1 = segments[1];
-
-                for (Notify sub : this.subscribers) {
-                    try {
-                        sub.notifyDeleteUser(msgRest1);
-                    } catch (UserNotFound userNotFound) {
-                        userNotFound.printStackTrace();
-                    }
-                }
-            } else if (msgSyst.equals("Username changed")){
-                String msgRest1 = segments[1];
-                String msgRest2 = segments[2];
-
-                for (Notify sub : this.subscribers) {
-                    sub.notifyChangeUsername(msgRest1, msgRest2);
-                }
-            }
-
             System.out.println(msgReceived);
+            UDPController.messageReceived(msgReceived, this.subscribers);
 
             if (msgReceived.equals("end")) {
                 running = false;

@@ -2,14 +2,9 @@ package udp;
 
 import data.*;
 import java.io.*;
+import java.util.ArrayList;
 
 public class UDPController {
-    
-    /*
-    public void sendNewUsername(data.User user, String newusername) throws IOException {
-        udp.UDPSender.broadcast("Username changed for "  ": "username) ;
-        System.out.println("Pseudo changed");
-    } */
 
     public static void sendConnexion(User user) throws IOException {
         UDPSender.broadcast("Connexion : " + user.username + " : " + user.addressIP + " : " + Integer.toString(user.portTCP));
@@ -25,6 +20,51 @@ public class UDPController {
         UDPSender.broadcast("Username changed : " + new_username + " : " + user.addressIP);
         System.out.println("Username changed, " + user.addressIP + "is now named " + new_username);
     }
+
+    public static void messageReceived(String message, ArrayList<Notify> sub){
+
+        String[] segments = message.split(" : ");
+        String msgSyst = segments[0];
+
+
+        if (msgSyst.equals("Connexion")) {
+            String msgRest1 = segments[1];
+            String msgRest2 = segments[2];
+            String msgRest3 = segments[3];
+            receiveConnexion(msgRest1, msgRest2, msgRest3, sub);
+        } else if (msgSyst.equals("Deconnexion")){
+            String msgRest1 = segments[1];
+            receiveDeconnexion(msgRest1, sub);
+        } else if (msgSyst.equals("Username changed")){
+            String msgRest1 = segments[1];
+            String msgRest2 = segments[2];
+            receiveNewUsername(msgRest1, msgRest2, sub);
+        }
+
+    }
+
+    public static void receiveConnexion(String username, String addressIP, String portTCP, ArrayList<Notify> subscribers){
+        for (Notify sub : subscribers) {
+            sub.notifyNewUser(username, addressIP, Integer.parseInt(portTCP));
+        }
+    }
+
+    public static  void receiveDeconnexion(String addressIP, ArrayList<Notify> subscribers){
+        for (Notify sub : subscribers) {
+            try {
+                sub.notifyDeleteUser(addressIP);
+            } catch (UserNotFound userNotFound) {
+                userNotFound.printStackTrace();
+            }
+        }
+    }
+
+    public static void receiveNewUsername(String new_username, String addressIP, ArrayList<Notify> subscribers){
+        for (Notify sub : subscribers) {
+            sub.notifyChangeUsername(new_username, addressIP);
+        }
+    }
+
 
 }
 
