@@ -1,5 +1,6 @@
 import data.*;
 import org.junit.*;
+import service.Service;
 import udp.*;
 import java.io.IOException;
 import static org.junit.Assert.*;
@@ -23,7 +24,6 @@ public class ServiceTest {
 
         Service serv = new Service();
         serv.lancerService();
-
         User Marie = new User("marielabest", "192.168.3.101", 1234);
         UDPController.sendConnexion(Marie);
 

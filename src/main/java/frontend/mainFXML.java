@@ -5,13 +5,16 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.stage.Stage;
+import service.Service;
 
 import java.io.IOException;
+import java.net.SocketException;
 
 public class mainFXML extends Application {
 
     public static Stage primaryStage ;
-    public static ListUser users ;
+    public static ListUser remoteUsers ;
+
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -30,11 +33,17 @@ public class mainFXML extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SocketException {
 
-        users = new ListUser();
+        Service serv = new Service() ;
+        serv.lancerService();
+
+        //avant de récupérer la liste, il faut lancer une méthode du service qui récupérer les users déjà connectés
+
+        // remoteUsers = serv.getUsers() ;
 
         Application.launch(args);
+
     }
 
 }

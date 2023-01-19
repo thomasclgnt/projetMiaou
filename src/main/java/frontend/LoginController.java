@@ -13,12 +13,11 @@ public class LoginController {
     @FXML
     private TextField usernameChoice;
 
-
-
     @FXML
     void sendLogin(ActionEvent event) {
         // on récupère l'username tapé sur l'interface
         String username = usernameChoice.getText();
+
         System.out.println("Login button pressed");
         System.out.println("Username chosen = " + username);
 

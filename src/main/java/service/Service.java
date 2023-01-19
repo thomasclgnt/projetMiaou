@@ -1,3 +1,5 @@
+package service;
+
 import data.ListUser;
 import data.Notify;
 import data.User;
