@@ -15,7 +15,40 @@ public class mainFXML extends Application {
 
     public static Stage primaryStage ;
     public static ListUser remoteUsers ;
+    public static Service serv;
 
+    static {
+        try {
+            serv = new Service();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static boolean isValid(String username) {
+        String legalCharacters = "abcdefghijklmnopqrstuvwxzy0123456789";
+        boolean valid = true;
+        if (username.length() < 3 || username.length() > 16) {
+            valid = false;
+        }
+        else {
+            for (int x = 0; x < username.length() ; x++) {
+                boolean found = false;
+                for (int z = 0; z < legalCharacters.length(); z++) {
+                    char c = username.charAt(x);
+                    c = java.lang.Character.toLowerCase(c);
+                    if (c == legalCharacters.charAt(z)) {
+                        found = true;
+                    }
+                }
+                if (!found) {
+                    valid = false;
+                    break;
+                }
+            }
+        }
+        return valid;
+    }
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -36,7 +69,6 @@ public class mainFXML extends Application {
 
     public static void main(String[] args) throws SocketException, UnknownHostException {
 
-        Service serv = new Service() ;
         serv.lancerService();
 
         //avant de récupérer la liste, il faut lancer une méthode du service qui récupérer les users déjà connectés

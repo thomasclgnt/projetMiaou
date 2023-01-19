@@ -82,6 +82,12 @@ public class Service {
 
     }
 
+    public void processChangeUsername(String new_username) throws IOException {
+
+        UDPController.sendNewUsername(userLocal, new_username);
+
+    }
+
 
 
 }

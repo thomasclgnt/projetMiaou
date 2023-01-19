@@ -22,6 +22,6 @@
          </font>
       </Label>
       <TextField fx:id="usernameChoice" layoutX="302.0" layoutY="265.0" />
-      <TextFlow fx:id="usernameVide" layoutX="293.0" layoutY="226.0" prefHeight="52.0" prefWidth="195.0" styleClass="text-username-vide" textAlignment="CENTER" />
+      <TextFlow fx:id="usernameInvalid" layoutX="4.0" layoutY="226.0" prefHeight="52.0" prefWidth="774.0" styleClass="text-username-vide" textAlignment="CENTER" />
    </children>
 </AnchorPane>
