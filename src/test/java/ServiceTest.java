@@ -6,10 +6,26 @@ import static org.junit.Assert.*;
 
 public class ServiceTest {
 
-    @Test
-    public void connectionFromRemoteUser() throws InterruptedException, IOException {
 
-        Service serv = new Service() ;
+    @Test
+    public void connectionClient() throws InterruptedException, IOException {
+
+        Service serv = new Service();
+        serv.lancerService();
+
+        User Marie = new User("marielabest", "192.168.3.101", 1234);
+        UDPController.sendConnexion(Marie);
+
+        Thread.sleep(5000);
+
+        UDPSender.broadcast("end"); //pas forcément utile
+
+    }
+
+    @Test
+    public void connectionServer() throws InterruptedException, IOException {
+
+        Service serv = new Service();
         serv.lancerService();
 
         Thread.sleep(10000);
@@ -19,18 +35,54 @@ public class ServiceTest {
     }
 
     @Test
-    public void connectionToRemoteUser() throws InterruptedException, IOException {
-
+    public void changeUsernameClient() throws InterruptedException, IOException {
         Service serv = new Service();
         serv.lancerService();
 
         User Marie = new User("marielabest", "192.168.3.101", 1234);
         UDPController.sendConnexion(Marie);
+        Thread.sleep(5000);
+        System.out.println("changement username");
+        UDPController.sendNewUsername(Marie, "marie_d_ac");
 
-        Thread.sleep(20000);
-
-        UDPSender.broadcast("end"); //pas forcément utile
 
     }
+
+    @Test
+    public void changeUsernameServer() throws InterruptedException, IOException {
+        Service serv = new Service();
+        serv.lancerService();
+        Thread.sleep(5000);
+        assertEquals("[marielabest, 192.168.3.101, 1234 ; \n" + "]", serv.getUsers().listToString());
+        Thread.sleep(5000);
+        assertEquals("[marie_d_ac, 192.168.3.101, 1235 ; \n" + "]" , serv.getUsers().listToString());
+
+    }
+
+    @Test
+    public void deconnectionClient() throws InterruptedException, IOException {
+        Service serv = new Service();
+        serv.lancerService();
+        User Marie = new User("marielabest", "192.168.3.101", 1234);
+        System.out.println("connection");
+        UDPController.sendConnexion(Marie);
+        Thread.sleep(5000) ;
+        System.out.println("deconnection");
+        UDPController.sendDeconnexion(Marie);
+
+    }
+
+    @Test
+    public void deconnectionServer() throws InterruptedException, IOException {
+        Service serv = new Service();
+        serv.lancerService();
+        Thread.sleep(5000);
+        assertEquals("[marielabest, 192.168.3.101, 1234 ; \n" + "]", serv.getUsers().listToString());
+        Thread.sleep(5000);
+        assertEquals("[]", serv.getUsers().listToString());
+
+
+    }
+
 
 }
