@@ -36,9 +36,33 @@ public class History {
 
     }
 
+    public static void restoreListUsers() {
+
+        ArrayList<User> ListUsers = new ArrayList<User>() ;
+
+
+        ListUsers = Select.restoreUsers();
+
+        System.out.println("L'historique de la conversation a été chargé"); //TODO voir si on garde le message ?
+
+        //affichage et futurs tests :
+        System.out.println("taille historique : " + ListUsers.size()); //vérifier que taille finale est bien la somme des deux tailles
+        //System.out.println(listeRes.toArray()[3].toString()) ;
+
+        for (int i=0 ; i<ListUsers.size() ; i++) {
+            String aux = ListUsers.toArray()[i].toString() ;
+            System.out.println(aux);
+        }
+
+        //TODO ajouter ce qu'on récupère à listMessageOut
+
+    }
+
+
     public static void main(String[] args) {
 
-        restoreConversation("100","200");
+        //restoreConversation("100","200");
+        restoreListUsers();
     }
 
 }
