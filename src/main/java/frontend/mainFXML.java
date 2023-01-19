@@ -9,6 +9,7 @@ import service.Service;
 
 import java.io.IOException;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 
 public class mainFXML extends Application {
 
@@ -33,7 +34,7 @@ public class mainFXML extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) throws SocketException {
+    public static void main(String[] args) throws SocketException, UnknownHostException {
 
         Service serv = new Service() ;
         serv.lancerService();

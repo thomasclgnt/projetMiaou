@@ -2,3 +2,6 @@
     -fx-background-color: #d5d6f2;
 }
 
+.text-username-vide > Text {
+    -fx-fill: #ff4949;
+}

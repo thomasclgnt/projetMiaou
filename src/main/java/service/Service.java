@@ -10,12 +10,15 @@ import udp.UDPReceiver;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 
 public class Service {
 
     public ListUser users = new ListUser() ;
 
-    public Service() {
+    public User userLocal = new User("", InetAddress.getLocalHost().getHostAddress(), 1234);
+
+    public Service() throws UnknownHostException {
     }
 
     public void lancerService() throws SocketException {
@@ -55,12 +58,27 @@ public class Service {
         return users;
     }
 
-    public void processNewConnection(String username, InetAddress addressIP) throws IOException {
-        User Thomas = new User(username, "192.168.3.100", 1234);
+    public String getMyUsername() {
+        return userLocal.username ;
+    }
+
+    public boolean processCheckUsername (String username) {
+        return users.checkUsernameAvailable(username) ;
+    }
+
+    public void processGetRemoteUsers () throws IOException {
+        UDPController.sendGetRemoteUsers() ;
+        //appeler une méthode de UDP Controller
+    }
+
+
+    public void processNewConnection(String username) throws IOException {
+
+        userLocal.setUsername(username);
 
         //remplir la liste des users connectés avec le retour de TCP
 
-        UDPController.sendConnexion(Thomas);
+        UDPController.sendConnexion(userLocal);
 
     }
 

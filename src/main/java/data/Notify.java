@@ -9,10 +9,10 @@ public interface Notify {
 
     //PROCHAINE FOIS : CODER CHANGE USERNAME ET TESTER LE TOUT
 
-    public void notifyNewUser(String username, String addressIP, int portTCP) ;
+    void notifyNewUser(String username, String addressIP, int portTCP) ;
 
-    public void notifyDeleteUser(String addressIP) throws UserNotFound;
+    void notifyDeleteUser(String addressIP) throws UserNotFound;
 
-    public void notifyChangeUsername(String new_username, String addressIP);
+    void notifyChangeUsername(String new_username, String addressIP);
 
 }

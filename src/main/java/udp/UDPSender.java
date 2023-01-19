@@ -14,7 +14,7 @@ public class UDPSender {
         byte[] buffer = msg.getBytes();
         DatagramPacket packet = new DatagramPacket(buffer, buffer.length, address, port);
         socket.send(packet);
-        socket.close();
+        //socket.close();
     }
 
     public static void broadcast(String broadcastMsg) throws IOException {
