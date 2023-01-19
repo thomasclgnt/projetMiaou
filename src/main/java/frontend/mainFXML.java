@@ -40,7 +40,7 @@ public class mainFXML extends Application {
 
         //avant de récupérer la liste, il faut lancer une méthode du service qui récupérer les users déjà connectés
 
-        // remoteUsers = serv.getUsers() ;
+        remoteUsers = serv.getUsers() ;
 
         Application.launch(args);
 

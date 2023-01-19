@@ -22,7 +22,7 @@ public class LoginController {
         System.out.println("Username chosen = " + username);
 
         // on teste si l'username est déjà pris ou non
-        if (mainFXML.users.checkUsernameAvailable(username)) {
+        if (mainFXML.remoteUsers.checkUsernameAvailable(username)) {
             //gérer l'ajout d'une nouvelle connexion
         } else {
             //TextFlow => ce nom d'utilisateur est déjà pris, veuillez en choisir un nouveau
