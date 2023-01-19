@@ -37,25 +37,15 @@ public class History {
     }
 
     public static void restoreListUsers() {
+        ListUser listUsers = new ListUser() ;
+        listUsers = Select.restoreUsers() ;
+        System.out.println("La liste des utilisateurs a été chargée :");
+        String aux = listUsers.listToString() ;
+        System.out.println(aux) ;
 
-        ArrayList<User> ListUsers = new ArrayList<User>() ;
-
-
-        ListUsers = Select.restoreUsers();
-
-        System.out.println("L'historique de la conversation a été chargé"); //TODO voir si on garde le message ?
-
-        //affichage et futurs tests :
-        System.out.println("taille historique : " + ListUsers.size()); //vérifier que taille finale est bien la somme des deux tailles
-        //System.out.println(listeRes.toArray()[3].toString()) ;
-
-        for (int i=0 ; i<ListUsers.size() ; i++) {
-            String aux = ListUsers.toArray()[i].toString() ;
-            System.out.println(aux);
-        }
-
-        //TODO ajouter ce qu'on récupère à listMessageOut
-
+       // if (aux.contains("thomas")) { // peut être pratique de tchecker si le pseudo est libre comme ça
+          //  System.out.println("c'est dedans");
+        //}
     }
 
 

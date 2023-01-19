@@ -1,9 +1,11 @@
 package bdd;
 
+import data.ListUser;
 import data.User;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Select {
 
@@ -94,11 +96,11 @@ public class Select {
         return res ;
     }
 
-    public ArrayList selectAllListUsers(){
+    public ListUser selectAllListUsers(){
         String sql = "SELECT rowid, * FROM ListUsers ";
         String name ;
         String address ;
-        ArrayList<User> res = new ArrayList<User>() ;
+        ListUser res = new ListUser() ;
 
         try (Connection conn = this.connect();
              Statement stmt  = conn.createStatement();
@@ -109,11 +111,11 @@ public class Select {
                 System.out.println(rs.getString("rowid") + "\t" +
                         rs.getString("username") +  "\t" +
                         rs.getString("ip"));
+
+                name = rs.getString("username") ;
+                address = rs.getString("ip") ;
+                res.addUser(name, address, 1234); ;
             }
-            name = rs.getString("username") ;
-            address = rs.getString("ip") ;
-            User u = new User(name, address, 1234) ;
-            res.add(u) ;
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -121,10 +123,10 @@ public class Select {
         return res ;
     }
 
-    public static ArrayList<User> restoreUsers() {
-        ArrayList<User> res = new ArrayList<User>() ;
+    public static ListUser restoreUsers() {
+        ListUser res = new ListUser() ;
         Select app = new Select();
-        res = app.selectAllListUsers();
+        res = app.selectAllListUsers() ;
         return res ;
     }
 
