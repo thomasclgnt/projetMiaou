@@ -108,6 +108,11 @@ public class Service {
 
     }
 
+//PARTIE GESTION TCP
+    //connecter à une session
+
+    // envoyer un message + ajout bdd
+    //recevoir un message + ajout bdd
 
 
 }
