@@ -75,4 +75,15 @@ public class ListUser {
         System.out.println(listToString());
     }
 
+    public void addAll(ArrayList<User> list) {
+        list.addAll(this.activeUsers);
+    }
+
+    public ArrayList<User> convertToArrayList() {
+        ArrayList<User> list = null;
+        list.addAll(this.activeUsers);
+        return list ;
+    }
+
+
 }
