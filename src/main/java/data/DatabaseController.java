@@ -10,7 +10,7 @@ import static java.lang.Integer.parseInt;
 public class DatabaseController {
 
     public static void createDBmiaoudb() {
-        CreateDatabase.createNewDatabase("miaoudb.db");
+        CreateDatabase.createNewDatabase();
     }
 
     public static void createTableMsg() {

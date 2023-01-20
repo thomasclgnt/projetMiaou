@@ -10,13 +10,11 @@ public class CreateDatabase {
 
     /**
      * Connect to a sample database
-     *
-     * @param fileName the database file name
-     */
-    public static void createNewDatabase(String fileName) {
+     * */
+    public static void createNewDatabase() {
 
         /** Chemin relatif vers BDD" */
-        String url = "jdbc:sqlite:./database/miaoudb" + fileName ;
+        String url = "jdbc:sqlite:./database/miaoudb" ;
 
         /** lien pour la session Marie : */
         //String url = "jdbc:sqlite:/home/mecaliff/Bureau/4A/Projet_Miaou_local/projetMiaou/database/" + fileName;
@@ -38,6 +36,6 @@ public class CreateDatabase {
     }
 
     public static void main(String[] args) {
-            //createNewDatabase("miaoudb.db");
+            createNewDatabase();
         }
 }

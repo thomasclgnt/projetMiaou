@@ -116,7 +116,8 @@ public class CreateTable {
         createTableListUsers();
         createTableMyself();
         //dropTableMyself();
-        //dropTableListUsers();
-        //createTableMyself();
+        dropTableListUsers();
+        createTableMyself();
+        createTableListUsers();
     }
 }
