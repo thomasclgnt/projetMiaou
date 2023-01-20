@@ -29,8 +29,5 @@ public class Session {
     }
 
     // quand on sélectionne un USer => créer une session si elle existe pas déjà => classe liste session à créer avec la liste des sessions ?
-    //startSession, endSession (= au moins retirer la Session de la liste des Sessions)
-
-    //TODO créer classe ListSession
-
+    //startSession, endSession (= au moins retirer la Session de la liste des Sessions
 }

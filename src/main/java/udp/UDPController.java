@@ -1,8 +1,11 @@
 package udp;
 
 import data.*;
+
+import javax.xml.crypto.Data;
 import java.io.*;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,21 +60,30 @@ public class UDPController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+        } else if (msgSyst.equals("Remote User")){
+            String msgRest1 = segments[1];
+            receiveGetRemoteUsersAck(msgRest1, senderAddress);
+
+    }
 
     }
 
 
     public static void receiveGetRemoteUsers(InetAddress senderAddress) throws IOException {
-        //il faut récupère son propre nom :
+        //il faut récupère son propre nom, à part si on est nous même la personne faisant la demande
+        if (InetAddress.getLocalHost() != senderAddress) {
+            String myUsername = DatabaseController.getMyName();
+            System.out.println("My username : " + myUsername);
+            //InetAddress.getHostAddress() pour transformer en string
+            sendGetRemoteUsersAck(myUsername, senderAddress) ;
+        }
 
-        //InetAddress.getHostAddress() pour transformer en string
-        sendGetRemoteUsersAck("bidon", senderAddress) ;
     }
 
-    public static void receiveGetRemoteUsersAck() {
+    public static void receiveGetRemoteUsersAck(String remoteUsername, InetAddress connectedUserAddress) {
 
-
+        // ajouter à la base de donnée le nouvel utilisateur
+        DatabaseController.addUser(remoteUsername, connectedUserAddress.getHostAddress());
 
     }
 
@@ -99,23 +111,3 @@ public class UDPController {
 
 
 }
-
-/*
-public class data.Notify {
-
-    public static void notifyChangeUsername(String username) throws IOException{
-        udp.UDPSender.broadcast(username) ;
-        System.out.println("Pseudo changed");
-    }
-
-    public static ListUsers notifyGetUsers(){
-        //TODO
-        //on veut faire un broadcast où on au moins un utilisateur nous
-        //envoie en réponse sa ListUsers
-        //bonne idée ou plutot on build la liste nous même à chaque réponde user par user ?
-        //comment faire dans les deux cas ?
-    }
-
-
-}
-*/

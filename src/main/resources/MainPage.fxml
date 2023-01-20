@@ -61,7 +61,7 @@
         </Pane>
         <Pane layoutX="148.0" prefHeight="580.0" prefWidth="280.0" styleClass="childpan">
             <children>
-                <Label layoutX="28.0" layoutY="54.0" text="Chat" textFill="#404040">
+                <Label layoutX="28.0" layoutY="54.0" text="Connected users :" textFill="#404040">
                     <font>
                         <Font name="Calibri Bold" size="18.0" />
                     </font>
@@ -238,6 +238,11 @@
                         <DropShadow blurType="ONE_PASS_BOX" color="#bcb9b9" />
                     </effect>
                 </Pane>
+            <Label layoutX="306.0" layoutY="54.0" text="Chat" textFill="#404040">
+               <font>
+                  <Font name="Calibri Bold" size="18.0" />
+               </font>
+            </Label>
             </children>
         </Pane>
         <Label layoutX="666.0" layoutY="26.0" textFill="#545353">
@@ -249,7 +254,7 @@
             <children>
                 <Label text="Remote Username" textFill="#404040">
                     <font>
-                        <Font name="Calibri Bold" size="18.0" />
+                        <Font size="15.0" />
                     </font>
                 </Label>
                 <Label textFill="#9a9696">

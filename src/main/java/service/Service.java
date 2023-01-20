@@ -1,9 +1,6 @@
 package service;
 
-import data.ListUser;
-import data.Notify;
-import data.User;
-import data.UserNotFound;
+import data.*;
 import udp.UDPController;
 import udp.UDPReceiver;
 
@@ -66,9 +63,12 @@ public class Service {
         return users.checkUsernameAvailable(username) ;
     }
 
-    public void processGetRemoteUsers () throws IOException {
+    public void getListUsersFromDB(){
+        users = DatabaseController.restoreListUsers();
+    }
+
+    public void processGetRemoteUsers () throws IOException, InterruptedException {
         UDPController.sendGetRemoteUsers() ;
-        //appeler une méthode de UDP Controller
     }
 
 

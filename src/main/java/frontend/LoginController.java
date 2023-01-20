@@ -23,26 +23,32 @@ public class LoginController {
     private TextFlow usernameInvalid;
 
     @FXML
-    void sendLogin(ActionEvent event) throws IOException {
+    void sendLogin(ActionEvent event) throws IOException, InterruptedException {
         // on récupère l'username tapé sur l'interface
         String username = usernameChoice.getText();
 
         System.out.println("Login button pressed");
         System.out.println("Username chosen = " + username);
 
-
-        // on teste si l'username est déjà pris ou non et s'il est valide
-        //on appelle process NewConnection, selon ce qu'il renvoie true ou false
+        mainFXML.serv.processGetRemoteUsers();
+        mainFXML.serv.getListUsersFromDB();
+        boolean available = mainFXML.serv.processCheckUsername(username) ;
 
         if (username.equals("") || !mainFXML.isValid(username)) {
+
             Text text = new Text ("Please enter a valid username.");
-            //usernameVide.setStyle("-fx-background-color: red");
             usernameInvalid.getChildren().clear();
             usernameInvalid.getChildren().add(text);
 
-                // mainFXML.remoteUsers.checkUsernameAvailable(username)
-        } else if (true) {
-            //gérer l'ajout d'une nouvelle connexion
+        } else if (!available) {
+
+            Text text = new Text ("This username is already taken, please choose another one.");
+            usernameInvalid.getChildren().clear();
+            usernameInvalid.getChildren().add(text);
+
+        } else {
+
+            //passage à la page suivante
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MainPage.fxml"));
             Parent parent = loader.load();
 
@@ -54,8 +60,7 @@ public class LoginController {
             // client.setScene(scene);
             mainFXML.primaryStage.setTitle("Miaou Miaou - Connected");
             mainFXML.primaryStage.setScene(scene);
-        } else {
-            //TextFlow => ce nom d'utilisateur est déjà pris, veuillez en choisir un nouveau
+
         }
 
     }

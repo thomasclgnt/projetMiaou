@@ -29,7 +29,7 @@ public class ListUser {
             // rajouter en paramètre (addressIP);
         }
         return user ;
-    } //TODO problème à gérer si l'user est pas trouvé
+    }
 
     public User findUser(InetAddress addressIP) throws UserNotFound {
         return findUser(addressIP.getHostAddress());
