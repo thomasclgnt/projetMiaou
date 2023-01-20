@@ -80,7 +80,7 @@ public class ServiceTest {
         DatabaseController.dropTableMyself();
         Service serv = new Service();
         serv.lancerService();
-        Thread.sleep(1000);
+        Thread.sleep(5000);
         serv.processConnection("marielabest");
         System.out.println("Remote User connected");
         Thread.sleep(1000) ;
