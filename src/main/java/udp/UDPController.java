@@ -90,6 +90,7 @@ public class UDPController {
     public static void receiveConnexion(String username, String addressIP, String portTCP, ArrayList<Notify> subscribers){
         for (Notify sub : subscribers) {
             sub.notifyNewUser(username, addressIP, Integer.parseInt(portTCP));
+            DatabaseController.addUser(username, addressIP);
         }
     }
 
@@ -97,6 +98,7 @@ public class UDPController {
         for (Notify sub : subscribers) {
             try {
                 sub.notifyDeleteUser(addressIP);
+                //DatabaseController.deleteUser(addressIP);
             } catch (UserNotFound userNotFound) {
                 userNotFound.printStackTrace();
             }

@@ -48,6 +48,8 @@ public class LoginController {
 
         } else {
 
+            //processConnexion
+
             //passage à la page suivante
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MainPage.fxml"));
             Parent parent = loader.load();

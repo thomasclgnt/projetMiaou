@@ -71,19 +71,18 @@ public class Service {
         UDPController.sendGetRemoteUsers() ;
     }
 
+    // le username a déjà été validé avant de lancer processConnection
+    public void processConnection(String validUsername) throws IOException {
 
-    public void processConnection(String username) throws IOException {
-
-        userLocal.setUsername(username);
-
-        //remplir la liste des users connectés avec le retour de TCP
-
+        userLocal.setUsername(validUsername);
+        DatabaseController.addMyself(userLocal.username);
         UDPController.sendConnexion(userLocal);
 
     }
     public void processDeconnection() throws IOException {
 
         UDPController.sendDeconnexion(userLocal);
+        //clear database ?
 
     }
 
