@@ -96,12 +96,18 @@ public class ServiceTest {
         serv.lancerService();
 
         Thread.sleep(1000);
+        System.out.println("1");
         serv.processGetRemoteUsers();
+        System.out.println("4");
         serv.getListUsersFromDB();
+        System.out.println("5");
         String usernameChosen = "TDMKM" ;
+        System.out.println("6");
         boolean valid = serv.processCheckUsername(usernameChosen) ;
+        System.out.println("7");
 
         assertEquals(true, valid);
+        System.out.println("8");
 
         if (valid) {
             serv.processConnection(usernameChosen);
