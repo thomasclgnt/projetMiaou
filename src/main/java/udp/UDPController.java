@@ -49,7 +49,7 @@ public class UDPController {
             receiveConnexion(msgRest1, msgRest2, msgRest3, sub, senderAddress);
         } else if (msgSyst.equals("Deconnexion")){
             String msgRest1 = segments[1];
-            receiveDeconnexion(msgRest1, sub);
+            receiveDeconnexion(msgRest1, sub, senderAddress);
         } else if (msgSyst.equals("Username changed")){
             String msgRest1 = segments[1];
             String msgRest2 = segments[2];
@@ -109,13 +109,21 @@ public class UDPController {
         }
     }
 
-    public static  void receiveDeconnexion(String addressIP, ArrayList<Notify> subscribers){
-        for (Notify sub : subscribers) {
-            try {
-                sub.notifyDeleteUser(addressIP);
-                DatabaseController.deleteUser(addressIP);
-            } catch (UserNotFound userNotFound) {
-                userNotFound.printStackTrace();
+    public static  void receiveDeconnexion(String addressIP, ArrayList<Notify> subscribers, InetAddress senderAddress){
+
+        String myAddress = IPAddress.getLocalIP().getHostAddress() ;
+        String remoteAddress = senderAddress.getHostAddress();
+
+        boolean equals = (myAddress.equals(remoteAddress)) ;
+
+        if (!equals) {
+            for (Notify sub : subscribers) {
+                try {
+                    sub.notifyDeleteUser(addressIP);
+                    DatabaseController.deleteUser(addressIP);
+                } catch (UserNotFound userNotFound) {
+                    userNotFound.printStackTrace();
+                }
             }
         }
     }
