@@ -73,12 +73,13 @@ public class UDPController {
 
         String myAddress = IPAddress.getLocalIP().getHostAddress() ;
         String remoteAddress = senderAddress.getHostAddress();
-
         boolean equals = (myAddress.equals(remoteAddress)) ;
 
-        if (!equals) {
+        String myUsername = DatabaseController.getMyName() ;
+        boolean usernameVide = (myUsername.equals(""));
+
+        if (!equals || !usernameVide) {
             System.out.println("Comparaison ok : I am not the one asking for the remote users");
-            String myUsername = DatabaseController.getMyName();
             System.out.println("My username : " + myUsername);
             //InetAddress.getHostAddress() pour transformer en string
             sendGetRemoteUsersAck(myUsername, senderAddress) ;
