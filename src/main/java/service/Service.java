@@ -17,6 +17,28 @@ public class Service {
 
     public User userLocal = new User("", IPAddress.getLocalIP().getHostAddress(), 1234);
 
+    ListMessageIn receivedMessages = new ListMessageIn();
+
+    MessageReceivedCallback callback = new MessageReceivedCallback() {
+        @Override
+        public void received(InetAddress from, String message, String horodatage) {
+
+            try {
+                User distant = users.findUser(from);//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre //renvoie l'user correspondant à l'adresse ip
+                User us = users.findUser(IPAddress.getLocalIP());
+
+                MessageIn msgData = new MessageIn(distant.username, distant.addressIP, us.username, us.addressIP, message, horodatage);
+
+                System.out.println("Message received from " + msgData.source + " at address : " + msgData.IPsource + " : " + msgData.text);
+                receivedMessages.addMessage(msgData.source, msgData.IPsource, msgData.dest, msgData.IPdest, msgData.text, msgData.horodatage);
+
+            } catch (UserNotFound userNotFound) {
+                throw new AssertionError("no such user");
+            }
+
+        }
+    } ;
+
     public Service() throws UnknownHostException {
     }
 
@@ -63,30 +85,10 @@ public class Service {
         //si jamais c'est la première fois qu'on se connecte au service, sinon ne fait rien
         DatabaseController.createTableMsg();
 
-        ListMessageIn receivedMessages = new ListMessageIn();
 
-        MessageReceivedCallback callback = new MessageReceivedCallback() {
-            @Override
-            public void received(InetAddress from, String message, String horodatage) {
-
-                try {
-                    User distant = users.findUser(from) ;//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre //renvoie l'user correspondant à l'adresse ip
-                    User us = users.findUser(IPAddress.getLocalIP()) ;
-
-                    MessageIn msgData = new MessageIn(distant.username, distant.addressIP, us.username, us.addressIP, message, horodatage);
-
-                    System.out.println("Message received from " + msgData.source + " at address : " + msgData.IPsource + " : "+ msgData.text);
-                    receivedMessages.addMessage(msgData.source, msgData.IPsource, msgData.dest, msgData.IPdest, msgData.text, msgData.horodatage);
-
-                } catch (UserNotFound userNotFound) {
-                    throw new AssertionError("no such user") ;
-                }
-
-            }
 
         };
 
-    }
 
     public ListUser getUsers() {
         return users;
@@ -133,20 +135,23 @@ public class Service {
 
     }
 
-//PARTIE GESTION TCP
-
+//---------------------------------------------PARTIE GESTION TCP
 
 
     //connecter à une session
     public void processStartListening() throws IOException {
-       // TCPController.initListening(userLocal.portTCP, callback) ;
+        TCPController.initListening(userLocal.portTCP, callback) ;
+
+    }
+
+    public void processStartConversation() {
 
     }
 
     // envoyer un message + ajout bdd
     public void sendMessage(){
 
-        //TCPController.startConversation(String addressIP, userLocal.portTCP, MessageReceivedCallback callback) ;
+        //TCPController.startConversation(String addressIP, userLocal.portTCP, callback) ;
 
     }
     //recevoir un message + ajout bdd
