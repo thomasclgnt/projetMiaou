@@ -100,6 +100,7 @@ public class ServiceTest {
 
         Thread.sleep(1000);
         serv.processGetRemoteUsers();
+        Thread.sleep(5000);
         serv.getListUsersFromDB();
         String usernameChosen = "TDMKM" ;
         boolean valid = serv.processCheckUsername(usernameChosen) ;
