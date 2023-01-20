@@ -1,15 +1,14 @@
 package frontend;
 
+import data.ListUser;
+import data.User;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -18,8 +17,12 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
-public class MainPageController {
+public class MainPageController implements Initializable {
 
     @FXML
     private TextField changeUsernameField;
@@ -31,8 +34,12 @@ public class MainPageController {
     private HBox logoutButton;
     @FXML
     private AnchorPane scenePane;
+    @FXML
+    private ListView<User> listUsersView;
 
     Stage stage ;
+    ArrayList<User> connectedUsers = null ;
+    User currentConversation;
 
     @FXML
     void changeUsername(ActionEvent event) throws IOException {
@@ -90,4 +97,24 @@ public class MainPageController {
     }
 
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        ListUser listUser = mainFXML.serv.getUsers() ;
+        boolean listeVide = listUser.nbUsers() == 0 ;
+
+        if (!listeVide) {
+            connectedUsers = listUser.convertToArrayList() ;
+            listUsersView.getItems().addAll(connectedUsers);
+            listUsersView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<User>() {
+                @Override
+                public void changed(ObservableValue<? extends User> observableValue, User user, User t1) {
+                    currentConversation = listUsersView.getSelectionModel().getSelectedItem();
+                    //afficher les messages entre les deux utilisateurs
+                }
+            });
+        }
+
+
+    }
 }
