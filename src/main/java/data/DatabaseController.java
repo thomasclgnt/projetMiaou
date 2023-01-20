@@ -1,19 +1,30 @@
 package data;
 
-import bdd.MessageOut;
-import bdd.Select;
+import bdd.*;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 
 import static java.lang.Integer.parseInt;
 
-public class History {
+public class DatabaseController {
 
-    public static void restoreConversation(String IPsource, String IPdest) {
-        ArrayList<MessageOut> listeRecu = new ArrayList<MessageOut>() ;
-        ArrayList<MessageOut> listeEnvoi = new ArrayList<MessageOut>() ;
-        ArrayList<MessageOut> listeRes = new ArrayList<MessageOut>() ;
+    public static void createDBmiaoudb() {
+        CreateDatabase.createNewDatabase("miaoudb.db");
+    }
+
+    public static void createTableMsg() {
+        CreateTable.createTableMessageDB();
+    }
+
+    public static void createTableUsers() {
+        CreateTable.createTableListUsers();
+    }
+
+    public static ArrayList<MessageOut> restoreConversation(String IPsource, String IPdest) { //TODO void ou ArrayList ?
+        ArrayList<MessageOut> listeRecu  ;
+        ArrayList<MessageOut> listeEnvoi ;
+        ArrayList<MessageOut> listeRes = new ArrayList<>() ;
 
         listeRecu = Select.restore(IPdest, IPsource) ;
         listeEnvoi = Select.restore(IPsource, IPdest) ;
@@ -32,27 +43,42 @@ public class History {
             System.out.println(aux);
         }
 
+        return listeRes ;
+
         //TODO ajouter ce qu'on récupère à listMessageOut
 
     }
 
-    public static void restoreListUsers() {
-        ListUser listUsers = new ListUser() ;
+    public static ListUser restoreListUsers() { //TODO void ou ListUser ?
+        ListUser listUsers  ;
         listUsers = Select.restoreUsers() ;
         System.out.println("La liste des utilisateurs a été chargée :");
         String aux = listUsers.listToString() ;
         System.out.println(aux) ;
+
+        return listUsers ;
 
        // if (aux.contains("thomas")) { // peut être pratique de tchecker si le pseudo est libre comme ça
           //  System.out.println("c'est dedans");
         //}
     }
 
+    public static void deleteUser(User u) {
+        Delete.deleteUser(u);
+    }
+
+    public static void addMessage(Message m) {
+        Insert.add_data(m.source, m.IPsource, m.dest, m.IPdest, m.text, m.horodatage);
+    }
+
+    public static void addUser(User u) {
+        Insert.add_user(u.username, u.addressIP);
+    }
+
 
     public static void main(String[] args) {
-
         //restoreConversation("100","200");
-        restoreListUsers();
+        //restoreListUsers();
     }
 
 }

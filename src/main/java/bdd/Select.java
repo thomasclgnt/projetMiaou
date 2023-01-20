@@ -1,11 +1,9 @@
 package bdd;
 
 import data.ListUser;
-import data.User;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Select {
 
@@ -56,7 +54,6 @@ public class Select {
     /** ce sera notre restoreConversation : le but est de retrouver tous les messages de la bdd entre 2 utilisateurs :
      * notre user local en source et celui avec qui il veut converser en destination. retourne une liste de MessageOut  */
     public ArrayList select_conversation(String IPsource, String IPdest) {
-        String ligne ;
         ArrayList<MessageOut> messagesRecus = new ArrayList<MessageOut>() ;
 
         String sql = "SELECT rowid, source, IPsource, destinataire, IPdest, message, horodatage "
