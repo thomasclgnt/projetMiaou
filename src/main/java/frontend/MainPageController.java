@@ -105,6 +105,7 @@ public class MainPageController implements Initializable {
 
         if (!listeVide) {
             connectedUsers = listUser.convertToArrayList() ;
+            System.out.println(connectedUsers.toString()); //pour vérifier l'affichage dans ListView
             listUsersView.getItems().addAll(connectedUsers);
             listUsersView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<User>() {
                 @Override
