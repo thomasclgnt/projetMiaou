@@ -79,12 +79,12 @@ public class DatabaseController {
         Insert.add_Myself(name);
     }
 
-    public static String getMyname() {
+    public static String getMyName() {
         return Select.restoreMyself();
     }
 
     public static void changeMyname(String new_name) {
-        Update.runUpdateMyself(getMyname(), new_name);
+        Update.runUpdateMyself(getMyName(), new_name);
     }
 
 
