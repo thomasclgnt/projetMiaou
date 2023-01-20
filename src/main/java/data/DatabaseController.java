@@ -63,8 +63,8 @@ public class DatabaseController {
         //}
     }
 
-    public static void deleteUser(User u) {
-        Delete.deleteUser(u);
+    public static void deleteUser(String ip) {
+        Delete.deleteUser(ip);
     }
 
     public static void addMessage(Message m) {

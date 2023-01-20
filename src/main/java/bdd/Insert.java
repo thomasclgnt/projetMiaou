@@ -105,8 +105,8 @@ public class Insert {
         //A TESTER
         //Date time1 =  new Date(System.currentTimeMillis());//TODO marche, reste à comprendre le format
         //data.insert("Marie", "200", "Thomas", "100", "on est lundi", time1);
-        //data.insertUsers("bucy","001");
-        data.insertMyself("thomas");
+        data.insertUsers("thomas","100");
+        //data.insertMyself("thomas");
     }
 
 }

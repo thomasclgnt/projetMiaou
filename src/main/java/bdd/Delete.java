@@ -53,15 +53,14 @@ public class Delete {
             }
         }
 
-    public void deleteUserLine(String username, String ip) {
-        String sql = "DELETE FROM ListUsers WHERE username = ? AND ip = ?";
+    public void deleteUserLine(String ip) {
+        String sql = "DELETE FROM ListUsers WHERE ip = ?";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             // set the corresponding param
-            pstmt.setString(1, username);
-            pstmt.setString(2, ip);
+            pstmt.setString(1, ip);
             pstmt.executeUpdate();
             // execute the delete statement
             pstmt.executeUpdate();
@@ -72,9 +71,9 @@ public class Delete {
         }
     }
 
-    public static void deleteUser(User u) {
+    public static void deleteUser(String ip) {
             Delete app = new Delete() ;
-            app.deleteUserLine(u.username, u.addressIP);
+            app.deleteUserLine(ip);
     }
 
         /**
@@ -86,9 +85,8 @@ public class Delete {
             // delete the row with id 3
             //app.deleteData("marie", "ipmarie", "thomas", "ipthomas", "ok");
             //app.deleteData("Thomas", "ip10000", "Marie", "IP101", "on est vendredi");
-            User Leonie = new User("léonie", "105", 1234) ;
             //app.deleteUserLine("bucy","001");
-            //app.deleteUser (Leonie) ;
+            app.deleteUser ("100") ;
         }
 
     }
