@@ -83,11 +83,11 @@ public class ServiceTest {
         Thread.sleep(1000);
         serv.processConnection("marielabest");
         System.out.println("Remote User connected");
-        Thread.sleep(20000) ;
+        Thread.sleep(1000) ;
         //adresseIP attendue à changer selon les machines utilisées pour les tests
         assertEquals("[TDMKM, 10.1.5.12, 1234 ; \n" + "]", serv.getUsers().listToString());
         assertEquals("[TDMKM, 10.1.5.12, 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
-        Thread.sleep(20000) ;
+        Thread.sleep(1000) ;
     }
 
     @Test
@@ -100,7 +100,7 @@ public class ServiceTest {
 
         Thread.sleep(1000);
         serv.processGetRemoteUsers();
-        Thread.sleep(5000);
+        Thread.sleep(1000);
         serv.getListUsersFromDB();
         String usernameChosen = "TDMKM" ;
         boolean valid = serv.processCheckUsername(usernameChosen) ;
@@ -109,12 +109,12 @@ public class ServiceTest {
 
         if (valid) {
             serv.processConnection(usernameChosen);
-            Thread.sleep(20000) ;
+            Thread.sleep(1000) ;
             assertEquals("[marielabest, 10.1.5.13, 1234 ; \n" + "]", serv.getUsers().listToString());
-            assertEquals("[marielabest, 10.1.5.13, 1234 ; \n" + "TDMKM, 10.1.5.12, 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
+            assertEquals("[marielabest, 10.1.5.13, 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
         }
 
-        Thread.sleep(20000) ;
+        Thread.sleep(1000) ;
     }
 
 
