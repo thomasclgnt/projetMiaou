@@ -1,5 +1,7 @@
 package bdd;
 
+import data.User;
+
 import java.sql.*;
 
 public class Delete {
@@ -25,12 +27,8 @@ public class Delete {
 
         /**
          * Insert a new row into the Messagedb table
-         *
-         * @param source
-         * @param destinataire
-         * @param message
-         * @param horodatage
          */
+
         public void deleteData(String source, String IPsource, String destinataire, String IPdest, String message) {
             String sql = "DELETE FROM Messagedb WHERE source = ? AND IPsource = ? AND destinataire = ? AND IPdest = ? AND message = ?";
 
@@ -55,6 +53,30 @@ public class Delete {
             }
         }
 
+    public void deleteUserLine(String username, String ip) {
+        String sql = "DELETE FROM ListUsers WHERE username = ? AND ip = ?";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // set the corresponding param
+            pstmt.setString(1, username);
+            pstmt.setString(2, ip);
+            pstmt.executeUpdate();
+            // execute the delete statement
+            pstmt.executeUpdate();
+            System.out.println("L'entrée a été supprimée de la base de donnée");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage()); //TODO l'entrée n'a pas pu être supprimée => pas dans la bdd
+        }
+    }
+
+    public static void deleteUser(User u) {
+            Delete app = new Delete() ;
+            app.deleteUserLine(u.username, u.addressIP);
+    }
+
         /**
          * @param args the command line arguments
          */
@@ -62,8 +84,11 @@ public class Delete {
 
             Delete app = new Delete();
             // delete the row with id 3
-            app.deleteData("marie", "ipmarie", "thomas", "ipthomas", "ok");
-            app.deleteData("Thomas", "ip10000", "Marie", "IP101", "on est vendredi");
+            //app.deleteData("marie", "ipmarie", "thomas", "ipthomas", "ok");
+            //app.deleteData("Thomas", "ip10000", "Marie", "IP101", "on est vendredi");
+            User Leonie = new User("léonie", "105", 1234) ;
+            //app.deleteUserLine("bucy","001");
+            //app.deleteUser (Leonie) ;
         }
 
     }

@@ -6,7 +6,7 @@ import java.sql.*;
  *
  * @author sqlitetutorial.net
  */
-public class Database {
+public class CreateDatabase {
 
     /**
      * Connect to a sample database
