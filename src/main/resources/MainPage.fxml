@@ -19,39 +19,35 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="580.0" prefWidth="780.0" styleClass="childpan" stylesheets="@Stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.MainPageController">
+<AnchorPane id="AnchorPane" fx:id="scenePane" prefHeight="580.0" prefWidth="780.0" styleClass="childpan" stylesheets="@Stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.MainPageController">
     <children>
         <Pane prefHeight="580.0" prefWidth="148.0" styleClass="side-bar">
             <children>
-                <Circle fill="WHITE" layoutX="74.0" layoutY="67.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                <Circle fill="WHITE" layoutX="75.0" layoutY="60.0" radius="39.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                     <effect>
                         <DropShadow color="#c6c4c4" />
                     </effect>
                 </Circle>
-                <ImageView fitHeight="36.0" fitWidth="35.0" layoutX="57.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="64.0" fitWidth="78.0" layoutX="41.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@user_icon.jpg" />
+                  <Image url="@chat_carte.png" />
                </image></ImageView>
                 <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-3.0" layoutY="103.0" prefHeight="18.0" prefWidth="156.0" text="Username" textAlignment="CENTER" textFill="#404040">
                     <font>
                         <Font name="Calibri Bold" size="14.0" />
                     </font>
                 </Label>
-                <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="146.0" prefHeight="35.0" prefWidth="148.0" styleClass="sidebar-btn">
-                    <children>
-                        <Label styleClass="sidebar-btn-text" text="CHANGE USERNAME" textFill="#7e8290">
-                     <font>
-                        <Font size="11.0" />
-                     </font>
-                        </Label>
-                    </children>
-                </HBox>
+                  <Label layoutX="14.0" layoutY="158.0" styleClass="sidebar-btn-text" text="CHANGE USERNAME" textFill="#7e8290">
+               <font>
+                  <Font size="11.0" />
+               </font>
+                  </Label>
                 <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="181.0" prefHeight="35.0" prefWidth="148.0" styleClass="sidebar-btn">
                <children>
                   <TextField fx:id="changeUsernameField" onAction="#changeUsername" prefHeight="25.0" prefWidth="113.0" />
                </children>
                 </HBox>
-                <HBox alignment="CENTER_LEFT" layoutX="18.0" layoutY="216.0" prefHeight="35.0" prefWidth="148.0" styleClass="sidebar-btn">
+                <HBox fx:id="logoutButton" alignment="CENTER_LEFT" layoutX="18.0" layoutY="216.0" onMouseClicked="#logout" prefHeight="35.0" prefWidth="148.0" styleClass="sidebar-btn">
                     <children>
                         <Label styleClass="sidebar-btn-text" text="LOG OUT" textFill="#7e8290">
                             <font>
@@ -270,7 +266,7 @@
         </Circle>
         <ImageView fitHeight="29.0" fitWidth="30.0" layoutX="463.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@user_icon.jpg" />
+                <Image url="@cat_icon.png" />
             </image>
         </ImageView>
         <TextField alignment="TOP_LEFT" layoutX="511.0" layoutY="150.0" prefHeight="30.0" prefWidth="162.0" styleClass="txtfld" text="we invite you at our office" />
@@ -282,7 +278,7 @@
         </Circle>
         <ImageView fitHeight="29.0" fitWidth="30.0" layoutX="464.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@user_icon.jpg" />
+            <Image url="@cat_icon.png" />
          </image></ImageView>
         <TextField alignment="TOP_LEFT" layoutX="511.0" layoutY="275.0" prefHeight="30.0" prefWidth="94.0" styleClass="txtfld" text="Wellcome" />
         <Label layoutX="463.0" layoutY="185.0" text="18:30" textFill="#9a9696">

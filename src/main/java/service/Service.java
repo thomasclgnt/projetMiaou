@@ -72,13 +72,18 @@ public class Service {
     }
 
 
-    public void processNewConnection(String username) throws IOException {
+    public void processConnection(String username) throws IOException {
 
         userLocal.setUsername(username);
 
         //remplir la liste des users connectés avec le retour de TCP
 
         UDPController.sendConnexion(userLocal);
+
+    }
+    public void processDeconnection() throws IOException {
+
+        UDPController.sendDeconnexion(userLocal);
 
     }
 

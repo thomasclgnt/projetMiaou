@@ -2,8 +2,12 @@ package frontend;
 
 import data.ListUser;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import service.Service;
 
@@ -50,6 +54,20 @@ public class mainFXML extends Application {
         return valid;
     }
 
+    void logout(Stage stage) throws IOException {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION) ;
+        alert.setTitle("Log out");
+        alert.setHeaderText("You're about to be disconnected from the MiaouMiaou Chat App.");
+        alert.setContentText("Are you sure you want to log out ?");
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            //mainFXML.serv.processDeconnection();
+            System.out.println("You are logged out.");
+            stage.close();
+        }
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
 
@@ -65,6 +83,17 @@ public class mainFXML extends Application {
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
+
+        stage.setOnCloseRequest(event -> {
+            event.consume();
+            try {
+                logout(stage);
+                Platform.exit();
+                System.exit(0);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public static void main(String[] args) throws SocketException, UnknownHostException {
