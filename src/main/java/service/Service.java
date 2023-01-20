@@ -20,6 +20,10 @@ public class Service {
 
     public void lancerService() throws SocketException {
 
+        //sécurité pour les tests
+        DatabaseController.dropTableMyself();
+        DatabaseController.dropTableListUsers();
+
         //on crée un serveur avec socket associé
         UDPReceiver rec = new UDPReceiver();
 

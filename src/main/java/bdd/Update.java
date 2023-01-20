@@ -4,7 +4,6 @@ import java.sql.*;
 
 public class Update {
 
-    // TODO pas sûr de l'utilité pour le moment, on y reviendra
 
     private Connection connect() {
         // SQLite connection string
@@ -54,7 +53,7 @@ public class Update {
             pstmt.setString(2, ip);
             // update
             pstmt.executeUpdate();
-            System.out.println("le pseudo de l'utilisateur d'ip : '" + ip +"' a été modifié en '" + new_username + "'");
+            System.out.println("updateListUsers : Le pseudo de l'utilisateur d'ip : '" + ip +"' a été modifié en '" + new_username + "'");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -72,7 +71,7 @@ public class Update {
             pstmt.setString(2, old_name);
             // update
             pstmt.executeUpdate();
-            System.out.println("le nom local '" + old_name +"' a été modifié en '" + new_name + "'");
+            System.out.println("udpateMyself : Le nom local '" + old_name +"' a été modifié en '" + new_name + "'");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
