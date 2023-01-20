@@ -62,6 +62,11 @@ public class DatabaseController {
 
     }
 
+    public static void addMessage(Message m) {
+        Insert.add_data(m.source, m.IPsource, m.dest, m.IPdest, m.text, m.horodatage);
+    }
+
+//TABLE LISTUSERS
     public static ListUser restoreListUsers() { //TODO void ou ListUser ?
         ListUser listUsers  ;
         listUsers = Select.restoreUsers() ;
@@ -76,18 +81,20 @@ public class DatabaseController {
         //}
     }
 
-    public static void deleteUser(String ip) {
-        Delete.deleteUser(ip);
-    }
-
-    public static void addMessage(Message m) {
-        Insert.add_data(m.source, m.IPsource, m.dest, m.IPdest, m.text, m.horodatage);
-    }
 
     public static void addUser(String username, String addressIP) {
         Insert.add_user(username, addressIP);
     }
 
+    public static void updateUser(String new_username, String ip) {
+        Update.runUpdateListUsers(new_username, ip);
+    }
+
+    public static void deleteUser(String ip) {
+        Delete.deleteUser(ip);
+    }
+
+//TABLE MYSELF
     public static void addMyself(String name) {
         Insert.add_Myself(name);
     }

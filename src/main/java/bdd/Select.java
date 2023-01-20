@@ -105,9 +105,9 @@ public class Select {
 
             // loop through the result set
             while (rs.next()) {
-                //System.out.println(rs.getString("rowid") + "\t" +
-                   //     rs.getString("username") +  "\t" +
-                  //      rs.getString("ip"));
+                System.out.println(rs.getString("rowid") + "\t" +
+                        rs.getString("username") +  "\t" +
+                        rs.getString("ip"));
 
                 name = rs.getString("username") ;
                 address = rs.getString("ip") ;
@@ -162,7 +162,7 @@ public class Select {
         //app.selectAll();
         app.selectAllListUsers();
         //app.select_conversation("100","200");
-        app.selectAllMyself() ;
+        //app.selectAllMyself() ;
     }
 
 }

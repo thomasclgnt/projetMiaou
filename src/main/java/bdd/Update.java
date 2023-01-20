@@ -42,6 +42,24 @@ public class Update {
         }
     }
 
+    public void updateListUsers(String new_username, String ip) {
+        String sql = "UPDATE ListUsers SET username = ?"
+                + "WHERE ip = ?";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // set the corresponding param
+            pstmt.setString(1, new_username);
+            pstmt.setString(2, ip);
+            // update
+            pstmt.executeUpdate();
+            System.out.println("le pseudo de l'utilisateur d'ip : '" + ip +"' a été modifié en '" + new_username + "'");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void updateMyself(String old_name, String new_name) {
         String sql = "UPDATE Myself SET username = ?"
                 + "WHERE username = ?";
@@ -65,6 +83,11 @@ public class Update {
         app.updateMyself(old_name, new_name);
     }
 
+    public static void runUpdateListUsers(String new_username, String ip){
+        Update app = new Update() ;
+        app.updateListUsers(new_username, ip);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -72,7 +95,8 @@ public class Update {
 
         Update app = new Update();
         //app.updateMessage("on est lundi soir", "Marie", "200","Thomas","100","on est lundi");
-        app.updateMyself("thomas", "THOMAS");
+        //app.updateMyself("thomas", "THOMAS");
+        app.updateListUsers("THOMAS", "100");
     }
 
 }
