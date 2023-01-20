@@ -6,6 +6,7 @@ import udp.*;
 import java.io.IOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -162,8 +163,6 @@ public class ServiceTest {
         System.out.println("changement username");
         serv.processChangeUsername("marie_d_ac");
 
-        ///assert update myself
-
         Thread.sleep(5000) ;
     }
 
@@ -222,6 +221,45 @@ public class ServiceTest {
 
         assertEquals("[]", serv.getUsers().listToString());
         assertEquals("[]", DatabaseController.restoreListUsers().listToString());
+
+    }
+
+    @Test
+    public void testAddArrayList_Server() throws IOException, InterruptedException {
+        DatabaseController.dropTableListUsers();
+        DatabaseController.dropTableMyself();
+        Service serv = new Service();
+        serv.lancerService();
+        Thread.sleep(1000);
+        serv.processConnection("marielabest");
+        System.out.println("Remote User connected");
+        Thread.sleep(5000) ;
+
+        System.out.println("Server : " + serv.getUsers().listToString());
+        ArrayList<User> liste = serv.getUsers().convertToArrayList();
+        System.out.println("Server : " +liste.toString());
+
+    }
+
+    @Test
+    public void testAddArrayList_Client() throws IOException, InterruptedException {
+        DatabaseController.dropTableListUsers();
+        DatabaseController.dropTableMyself();
+
+        Service serv = new Service();
+        serv.lancerService();
+
+        Thread.sleep(1000);
+        serv.processGetRemoteUsers();
+        Thread.sleep(2000);
+        serv.getListUsersFromDB();
+        String usernameChosen = "TDMKM" ;
+        serv.processConnection(usernameChosen);
+        Thread.sleep(5000);
+
+        System.out.println("Client : " + serv.getUsers().listToString());
+        ArrayList<User> liste = serv.getUsers().convertToArrayList();
+        System.out.println("Client : " +liste.toString());
 
     }
 
