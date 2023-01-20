@@ -85,8 +85,6 @@ public class Service {
         //si jamais c'est la première fois qu'on se connecte au service, sinon ne fait rien
         DatabaseController.createTableMsg();
 
-
-
         };
 
 

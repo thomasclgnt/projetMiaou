@@ -20,7 +20,7 @@ public class TCPController {
             client.startClient(clientSocket, callback);
             System.out.println("[startSession] Connecté");
 
-            // à faire quand on reçoit un message => callback.received(socket.adress, message);
+            // à faire quand on reçoit un message => callback.received(socket.adress, message); TODO
 
             return clientSocket ;
 
