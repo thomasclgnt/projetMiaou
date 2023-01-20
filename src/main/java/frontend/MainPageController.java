@@ -3,6 +3,9 @@ package frontend;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -36,14 +39,30 @@ public class MainPageController {
         String new_username = changeUsernameField.getText();
 
         if (new_username.equals("") || !mainFXML.isValid(new_username)) {
+
             Text text = new Text ("Please enter a valid \n username.");
             usernameInvalid.getChildren().clear();
             usernameInvalid.getChildren().add(text);
 
         } else {
-            mainFXML.serv.processChangeUsername(new_username);
-            usernameInvalid.getChildren().clear();
-            usernameLabel.setText(new_username);
+
+            boolean available = mainFXML.serv.processCheckUsername(new_username) ;
+
+            if (!available) {
+
+                Text text = new Text ("This username is already taken, please choose another one.");
+                usernameInvalid.getChildren().clear();
+                usernameInvalid.getChildren().add(text);
+                System.out.println("Username taken");
+
+            } else {
+
+                mainFXML.serv.processChangeUsername(new_username);
+                usernameInvalid.getChildren().clear();
+                usernameLabel.setText(new_username);
+
+            }
+
         }
 
     }
