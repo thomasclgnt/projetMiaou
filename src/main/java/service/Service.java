@@ -20,7 +20,6 @@ public class Service {
 
     public void lancerService() throws SocketException {
 
-
         //on crée un serveur avec socket associé
         UDPReceiver rec = new UDPReceiver();
 
@@ -48,6 +47,11 @@ public class Service {
 
         //on démarre l'écoute du serveur
         rec.start();
+
+        DatabaseController.createTableMyself();
+        DatabaseController.createTableUsers();
+        //si jamais c'est la première fois qu'on se connecte au service, sinon ne fait rien
+        DatabaseController.createTableMsg();
 
     }
 
@@ -82,7 +86,8 @@ public class Service {
     public void processDeconnection() throws IOException {
 
         UDPController.sendDeconnexion(userLocal);
-        //clear database ?
+        DatabaseController.dropTableMyself();
+        DatabaseController.dropTableListUsers();
 
     }
 

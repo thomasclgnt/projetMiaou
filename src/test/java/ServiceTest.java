@@ -74,11 +74,12 @@ public class ServiceTest {
     }
 
     @Test
-    public void chooseUniqueUsername_remoteUserAlreadyConnected() throws UnknownHostException, SocketException {
+    public void chooseUniqueUsername_remoteUserAlreadyConnected() throws IOException, InterruptedException {
         Service serv = new Service();
         serv.lancerService();
-
+        serv.processConnection("marie");
         System.out.println("Remote User connected");
+        Thread.sleep(30000) ;
     }
 
     @Test
