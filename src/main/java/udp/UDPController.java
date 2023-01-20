@@ -74,7 +74,7 @@ public class UDPController {
         String myAddress = IPAddress.getLocalIP().getHostAddress() ;
         System.out.println(myAddress);
         String remoteAddress = senderAddress.getHostAddress();
-        System.out.println(myAddress);
+        System.out.println(remoteAddress);
 
         boolean egal = (myAddress == remoteAddress) ;
         boolean egalSize = (myAddress.length() == remoteAddress.length());
