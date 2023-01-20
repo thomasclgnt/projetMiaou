@@ -25,6 +25,10 @@ public class DatabaseController {
         CreateTable.dropTableMyself();
     }
 
+    public static void dropTableListUsers() {
+        CreateTable.dropTableListUsers();
+    }
+
     public static void createTableUsers() {
         CreateTable.createTableListUsers();
     }
