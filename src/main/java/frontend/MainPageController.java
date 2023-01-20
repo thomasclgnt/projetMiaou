@@ -58,7 +58,7 @@ public class MainPageController {
 
         if (alert.showAndWait().get() == ButtonType.OK) {
             stage = (Stage) scenePane.getScene().getWindow();
-            //mainFXML.serv.processDeconnection();
+            mainFXML.serv.processDeconnection();
             System.out.println("You are logged out.");
             stage.close();
             Platform.exit();

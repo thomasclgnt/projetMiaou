@@ -30,39 +30,45 @@ public class LoginController {
         System.out.println("Login button pressed");
         System.out.println("Username chosen = " + username);
 
-        mainFXML.serv.processGetRemoteUsers();
-        mainFXML.serv.getListUsersFromDB();
-        boolean available = mainFXML.serv.processCheckUsername(username) ;
-
         if (username.equals("") || !mainFXML.isValid(username)) {
 
             Text text = new Text ("Please enter a valid username.");
             usernameInvalid.getChildren().clear();
             usernameInvalid.getChildren().add(text);
-
-        } else if (!available) {
-
-            Text text = new Text ("This username is already taken, please choose another one.");
-            usernameInvalid.getChildren().clear();
-            usernameInvalid.getChildren().add(text);
+            System.out.println("Username invalide");
 
         } else {
 
-            //processConnexion
+            mainFXML.serv.processGetRemoteUsers();
+            Thread.sleep(1000);
+            mainFXML.serv.getListUsersFromDB();
+            boolean available = mainFXML.serv.processCheckUsername(username) ;
 
-            //passage à la page suivante
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MainPage.fxml"));
-            Parent parent = loader.load();
+            if (!available) {
 
-            MainPageController mainpagecontroller = loader.getController();
-            mainpagecontroller.displayUsername(username);
+                Text text = new Text ("This username is already taken, please choose another one.");
+                usernameInvalid.getChildren().clear();
+                usernameInvalid.getChildren().add(text);
+                System.out.println("Username taken");
 
-            Scene scene = new Scene(parent, 780, 580);
-            scene.getStylesheets().add("/Stylesheet.css");
-            // client.setScene(scene);
-            mainFXML.primaryStage.setTitle("Miaou Miaou - Connected");
-            mainFXML.primaryStage.setScene(scene);
+            } else {
 
+                mainFXML.serv.processConnection(username);
+
+                //passage à la page suivante
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MainPage.fxml"));
+                Parent parent = loader.load();
+
+                MainPageController mainpagecontroller = loader.getController();
+                mainpagecontroller.displayUsername(username);
+
+                Scene scene = new Scene(parent, 780, 580);
+                scene.getStylesheets().add("/Stylesheet.css");
+                // client.setScene(scene);
+                mainFXML.primaryStage.setTitle("Miaou Miaou - Connected");
+                mainFXML.primaryStage.setScene(scene);
+
+            }
         }
 
     }
