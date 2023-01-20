@@ -80,14 +80,13 @@ public class ServiceTest {
         DatabaseController.dropTableMyself();
         Service serv = new Service();
         serv.lancerService();
-        Thread.sleep(5000);
+        Thread.sleep(1000);
         serv.processConnection("marielabest");
         System.out.println("Remote User connected");
-        Thread.sleep(1000) ;
+        Thread.sleep(5000) ;
         //adresseIP attendue à changer selon les machines utilisées pour les tests
         assertEquals("[TDMKM, 10.1.5.12, 1234 ; \n" + "]", serv.getUsers().listToString());
         assertEquals("[TDMKM, 10.1.5.12, 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
-        Thread.sleep(1000) ;
     }
 
     @Test
@@ -113,8 +112,6 @@ public class ServiceTest {
             assertEquals("[marielabest, 10.1.5.13, 1234 ; \n" + "]", serv.getUsers().listToString());
             assertEquals("[marielabest, 10.1.5.13, 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
         }
-
-        Thread.sleep(1000) ;
     }
 
 
