@@ -34,7 +34,7 @@ public class ThreadTCP {
                         callback.received(socket.getInetAddress(), message, horodatage) ;
                         message = in.readLine();
                     }
-                    System.out.println("Client déconnecté");
+                    System.out.println("Client déconnecte");
                     socket.close();
 
                 } catch (IOException e) {
