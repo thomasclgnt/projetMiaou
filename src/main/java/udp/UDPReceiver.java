@@ -35,7 +35,7 @@ public class UDPReceiver extends Thread {
             // récupérer notre addresse actuelle : socket.getLocalAddress() ;
             //à utiliser si on souhaite répondre au broadcast => À FAIRE POUR RÉCUP LES REMOTE USERS
             InetAddress senderAddress = packet.getAddress();
-            int senderPort = packet.getPort();
+            //int senderPort = packet.getPort();
 
             String msgReceived = new String (packet.getData(), 0, packet.getLength());
             System.out.println("UDP Receiver : " + msgReceived);
