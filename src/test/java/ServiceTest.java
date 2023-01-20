@@ -9,6 +9,9 @@ import java.net.UnknownHostException;
 
 import static org.junit.Assert.*;
 
+// À TESTER AVEC DEUX ORDIS (TOUJOURS LANCER LA VERSION SERVER/REMOTE USER EN PREMIER,
+// ET LANCER RAPIDEMENT À LA SUITE L'AUTRE VERSION
+
 public class ServiceTest {
 
 
@@ -75,7 +78,7 @@ public class ServiceTest {
     }
 
     @Test
-    public void chooseUniqueUsername_remoteUserAlreadyConnected() throws IOException, InterruptedException {
+    public void connexionService_usernameOk_remoteUserAlreadyConnected() throws IOException, InterruptedException {
         DatabaseController.dropTableListUsers();
         DatabaseController.dropTableMyself();
         Service serv = new Service();
@@ -90,7 +93,7 @@ public class ServiceTest {
     }
 
     @Test
-    public void chooseUniqueUsername_newUser() throws IOException, InterruptedException {
+    public void connexionService_usernameOk_newUser() throws IOException, InterruptedException {
         DatabaseController.dropTableListUsers();
         DatabaseController.dropTableMyself();
 
@@ -113,6 +116,115 @@ public class ServiceTest {
             assertEquals("[marielabest, 10.1.5.13, 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
         }
     }
+
+    @Test
+    public void connexionService_usernameNotOk_remoteUserAlreadyConnected() throws IOException, InterruptedException {
+        DatabaseController.dropTableListUsers();
+        DatabaseController.dropTableMyself();
+        Service serv = new Service();
+        serv.lancerService();
+        Thread.sleep(1000);
+        serv.processConnection("marielabest");
+        System.out.println("Remote User connected");
+        Thread.sleep(5000) ;
+    }
+
+    @Test
+    public void connexionService_usernameNotOk_newUser() throws IOException, InterruptedException {
+        DatabaseController.dropTableListUsers();
+        DatabaseController.dropTableMyself();
+
+        Service serv = new Service();
+        serv.lancerService();
+
+        Thread.sleep(1000);
+        serv.processGetRemoteUsers();
+        Thread.sleep(2000);
+        serv.getListUsersFromDB();
+        String usernameChosen = "marielabest" ;
+        boolean valid = serv.processCheckUsername(usernameChosen) ;
+
+        assertEquals(false, valid);
+
+    }
+
+    @Test
+    public void changeUsernameService_remoteUserAlreadyConnected() throws IOException, InterruptedException {
+        DatabaseController.dropTableListUsers();
+        DatabaseController.dropTableMyself();
+        Service serv = new Service();
+        serv.lancerService();
+        Thread.sleep(1000);
+        serv.processConnection("marielabest");
+        System.out.println("Remote User connected");
+        Thread.sleep(5000) ;
+
+        System.out.println("changement username");
+        serv.processChangeUsername("marie_d_ac");
+
+        ///assert update myself
+
+        Thread.sleep(5000) ;
+    }
+
+    @Test
+    public void changeUsernameService_newUser() throws IOException, InterruptedException {
+        DatabaseController.dropTableListUsers();
+        DatabaseController.dropTableMyself();
+
+        Service serv = new Service();
+        serv.lancerService();
+
+        Thread.sleep(1000);
+        serv.processGetRemoteUsers();
+        Thread.sleep(2000);
+        serv.getListUsersFromDB();
+        String usernameChosen = "TDMKM" ;
+        serv.processConnection(usernameChosen);
+        Thread.sleep(5000);
+
+        assertEquals("[marie_d_ac, 10.1.5.13, 1234 ; \n" + "]", serv.getUsers().listToString());
+        assertEquals("[marie_d_ac, 10.1.5.13, 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
+
+        }
+    }
+
+    @Test
+    public void deconnexionService_remoteUserAlreadyConnected() throws IOException, InterruptedException {
+        DatabaseController.dropTableListUsers();
+        DatabaseController.dropTableMyself();
+        Service serv = new Service();
+        serv.lancerService();
+        Thread.sleep(1000);
+        serv.processConnection("marielabest");
+        System.out.println("Remote User connected");
+        Thread.sleep(5000) ;
+
+        System.out.println("Test deconnexion");
+        serv.processDeconnection();
+    }
+
+    @Test
+    public void deconnexionService_newUser() throws IOException, InterruptedException {
+        DatabaseController.dropTableListUsers();
+        DatabaseController.dropTableMyself();
+
+        Service serv = new Service();
+        serv.lancerService();
+
+        Thread.sleep(1000);
+        serv.processGetRemoteUsers();
+        Thread.sleep(2000);
+        serv.getListUsersFromDB();
+        String usernameChosen = "TDMKM" ;
+        serv.processConnection(usernameChosen);
+        Thread.sleep(5000) ;
+
+        assertEquals("[]", serv.getUsers().listToString());
+        assertEquals("[]", DatabaseController.restoreListUsers().listToString());
+
+    }
+
 
 
 }
