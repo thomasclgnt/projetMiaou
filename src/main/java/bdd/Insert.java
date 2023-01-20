@@ -78,6 +78,23 @@ public class Insert {
         data.insertUsers(username, ip) ;
     }
 
+    public void insertMyself(String username) {
+        String sql = "INSERT INTO Myself(username) VALUES(?)";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, username);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void add_Myself(String username) {
+        Insert data = new Insert() ;
+        data.insertMyself(username); ;
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -88,7 +105,8 @@ public class Insert {
         //A TESTER
         //Date time1 =  new Date(System.currentTimeMillis());//TODO marche, reste à comprendre le format
         //data.insert("Marie", "200", "Thomas", "100", "on est lundi", time1);
-        data.insertUsers("bucy","001");
+        //data.insertUsers("bucy","001");
+        data.insertMyself("thomas");
     }
 
 }

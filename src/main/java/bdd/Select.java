@@ -127,15 +127,42 @@ public class Select {
         return res ;
     }
 
+    public String selectAllMyself(){
+        String sql = "SELECT * FROM Myself ";
+        String name = "" ;
 
+
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            // loop through the result set
+            while (rs.next()) {
+                System.out.println(rs.getString("username"));
+
+                name = rs.getString("username") ;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return name ;
+    }
+
+    public static String restoreMyself() {
+        String res;
+        Select app = new Select();
+        res = app.selectAllMyself();
+        return res;
+    }
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         Select app = new Select();
         //app.selectAll();
-        app.selectAllListUsers();
+        //app.selectAllListUsers();
         //app.select_conversation("100","200");
+        app.selectAllMyself() ;
     }
 
 }

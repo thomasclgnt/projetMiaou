@@ -20,14 +20,6 @@ public class Update {
         return conn;
     }
 
-    /**
-     * Update data of a warehouse specified by the id
-     *
-     *  @param source
-     *  @param destinataire
-     *  @param message
-     *  @param horodatage
-     */
     public void updateMessage(String message_new, String source, String IPsource, String destinataire, String IPdest, String message_old) {
         String sql = "UPDATE Messagedb SET message = ?"
                 + "WHERE source = ? AND IPsource = ? AND destinataire = ? AND IPdest = ? AND message = ?";
@@ -50,13 +42,37 @@ public class Update {
         }
     }
 
+    public void updateMyself(String old_name, String new_name) {
+        String sql = "UPDATE Myself SET username = ?"
+                + "WHERE username = ?";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // set the corresponding param
+            pstmt.setString(1, new_name);
+            pstmt.setString(2, old_name);
+            // update
+            pstmt.executeUpdate();
+            System.out.println("le nom local '" + old_name +"' a été modifié en '" + new_name + "'");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void runUpdateMyself(String old_name, String new_name){
+        Update app = new Update() ;
+        app.updateMyself(old_name, new_name);
+    }
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
 
         Update app = new Update();
-        app.updateMessage("on est lundi soir", "Marie", "200","Thomas","100","on est lundi");
+        //app.updateMessage("on est lundi soir", "Marie", "200","Thomas","100","on est lundi");
+        app.updateMyself("thomas", "THOMAS");
     }
 
 }

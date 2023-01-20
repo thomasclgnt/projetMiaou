@@ -75,6 +75,18 @@ public class DatabaseController {
         Insert.add_user(u.username, u.addressIP);
     }
 
+    public static void addMyself(String name) {
+        Insert.add_Myself(name);
+    }
+
+    public static String getMyname() {
+        return Select.restoreMyself();
+    }
+
+    public static void changeMyname(String new_name) {
+        Update.runUpdateMyself(getMyname(), new_name);
+    }
+
 
     public static void main(String[] args) {
         //restoreConversation("100","200");
