@@ -72,9 +72,9 @@ public class Service {
     }
 
     public void getListUsersFromDB(){
-        System.out.println("ListUsers avant récup : " + users.listToString());
+
         users = DatabaseController.restoreListUsers();
-        System.out.println("ListUsers après récup : " + users.listToString());
+
     }
 
     public void processGetRemoteUsers () throws IOException, InterruptedException {

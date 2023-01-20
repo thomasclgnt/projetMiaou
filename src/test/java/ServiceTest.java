@@ -98,7 +98,7 @@ public class ServiceTest {
         Service serv = new Service();
         serv.lancerService();
 
-        Thread.sleep(5000);
+        Thread.sleep(3000);
         serv.processGetRemoteUsers();
         Thread.sleep(5000);
         serv.getListUsersFromDB();

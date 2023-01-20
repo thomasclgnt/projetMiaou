@@ -105,9 +105,9 @@ public class Select {
 
             // loop through the result set
             while (rs.next()) {
-                System.out.println(rs.getString("rowid") + "\t" +
-                        rs.getString("username") +  "\t" +
-                        rs.getString("ip"));
+                //System.out.println(rs.getString("rowid") + "\t" +
+                   //     rs.getString("username") +  "\t" +
+                  //      rs.getString("ip"));
 
                 name = rs.getString("username") ;
                 address = rs.getString("ip") ;
