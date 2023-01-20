@@ -76,6 +76,8 @@ public class ServiceTest {
 
     @Test
     public void chooseUniqueUsername_remoteUserAlreadyConnected() throws IOException, InterruptedException {
+        DatabaseController.dropTableListUsers();
+        DatabaseController.dropTableMyself();
         Service serv = new Service();
         serv.lancerService();
         Thread.sleep(1000);
