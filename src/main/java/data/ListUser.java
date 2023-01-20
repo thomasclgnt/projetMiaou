@@ -80,7 +80,7 @@ public class ListUser {
     }
 
     public ArrayList<User> convertToArrayList() {
-        ArrayList<User> list = null;
+        ArrayList<User> list = new ArrayList<User>();
         list.addAll(this.activeUsers);
         return list ;
     }
