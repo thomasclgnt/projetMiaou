@@ -37,7 +37,7 @@ public class CreateTable {
     public static void createTableListUsers() {
         // SQLite connection string
         /** Chemin relatif vers BDD" */
-        String url = "jdbc:sqlite:./database/miaoudb" ;
+        String url = "jdbc:sqlite:./miaoudb.db" ;
 
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS ListUsers (\n"
@@ -58,7 +58,7 @@ public class CreateTable {
     public static void createTableMyself() {
         // SQLite connection string
         /** Chemin relatif vers BDD" */
-        String url = "jdbc:sqlite:./database/miaoudb" ;
+        String url = "jdbc:sqlite:./miaoudb.db" ;
 
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS Myself (\n"
@@ -78,7 +78,7 @@ public class CreateTable {
     public static void dropTableMyself() {
         // SQLite connection string
         /** Chemin relatif vers BDD" */
-        String url = "jdbc:sqlite:./database/miaoudb" ;
+        String url = "jdbc:sqlite:./miaoudb.db" ;
 
         // SQL statement for creating a new table
         String sql = "DROP TABLE Myself"
@@ -96,7 +96,7 @@ public class CreateTable {
     public static void dropTableListUsers() {
         // SQLite connection string
         /** Chemin relatif vers BDD" */
-        String url = "jdbc:sqlite:./database/miaoudb.db" ;
+        String url = "jdbc:sqlite:./miaoudb.db" ;
 
         // SQL statement for creating a new table
         String sql = "DROP TABLE ListUsers"
@@ -116,8 +116,5 @@ public class CreateTable {
         createTableListUsers();
         createTableMyself();
         //dropTableMyself();
-        dropTableListUsers();
-        createTableMyself();
-        createTableListUsers();
     }
 }

@@ -48,8 +48,12 @@ public class Service {
         //on démarre l'écoute du serveur
         rec.start();
 
+        //si jamais c'est la première fois qu'on se connecte au service, sinon ne fait rien
+        DatabaseController.createDBmiaoudb();
+
         DatabaseController.createTableMyself();
         DatabaseController.createTableUsers();
+
         //si jamais c'est la première fois qu'on se connecte au service, sinon ne fait rien
         DatabaseController.createTableMsg();
 
