@@ -8,6 +8,7 @@ import udp.UDPReceiver;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
@@ -142,14 +143,19 @@ public class Service {
 
     }
 
-    public void processStartConversation() {
+    public Socket processStartConversation(User user_dest) throws IOException, InterruptedException {
 
+        return TCPController.startConversation(user_dest.addressIP, userLocal.portTCP, callback) ;
     }
 
     // envoyer un message + ajout bdd
-    public void sendMessage(){
+    public void processSendMessage(String message, User user_dest) throws IOException, InterruptedException {
+        Socket socket = processStartConversation(user_dest) ;
+        TCPController.sendMessage(message, socket) ;
+        //Message msg = new Message(userLocal.username, userLocal.addressIP, user_dest.username, user_dest.addressIP, message, )
+        //DatabaseController.addMessage();
 
-        //TCPController.startConversation(String addressIP, userLocal.portTCP, callback) ;
+
 
     }
     //recevoir un message + ajout bdd
