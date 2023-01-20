@@ -71,8 +71,8 @@ public class DatabaseController {
         Insert.add_data(m.source, m.IPsource, m.dest, m.IPdest, m.text, m.horodatage);
     }
 
-    public static void addUser(User u) {
-        Insert.add_user(u.username, u.addressIP);
+    public static void addUser(String username, String addressIP) {
+        Insert.add_user(username, addressIP);
     }
 
     public static void addMyself(String name) {
