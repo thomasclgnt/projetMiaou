@@ -38,7 +38,7 @@ public class UDPReceiver extends Thread {
             int senderPort = packet.getPort();
 
             String msgReceived = new String (packet.getData(), 0, packet.getLength());
-            System.out.println(msgReceived);
+            System.out.println("UDP Receiver : " + msgReceived);
             UDPController.messageReceived(msgReceived, this.subscribers, senderAddress);
 
             if (msgReceived.equals("end")) {
