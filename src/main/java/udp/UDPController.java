@@ -46,7 +46,7 @@ public class UDPController {
             String msgRest1 = segments[1];
             String msgRest2 = segments[2];
             String msgRest3 = segments[3];
-            receiveConnexion(msgRest1, msgRest2, msgRest3, sub);
+            receiveConnexion(msgRest1, msgRest2, msgRest3, sub, senderAddress);
         } else if (msgSyst.equals("Deconnexion")){
             String msgRest1 = segments[1];
             receiveDeconnexion(msgRest1, sub);
@@ -70,22 +70,11 @@ public class UDPController {
 
 
     public static void receiveGetRemoteUsers(InetAddress senderAddress) throws IOException {
-        //il faut récupère son propre nom, à part si on est nous même la personne faisant la demande
-        String myAddress = IPAddress.getLocalIP().getHostAddress() ;
-        //        System.out.println(myAddress);
-        String remoteAddress = senderAddress.getHostAddress();
-        //        System.out.println(remoteAddress);
-        //
-        //        boolean egal = (myAddress == remoteAddress) ;
-        //        boolean egalSize = (myAddress.length() == remoteAddress.length());
-        boolean equals = (myAddress.equals(remoteAddress)) ;
-        //        boolean egalTest = ("10.1.5.12" == "10.1.5.12");
-        //
-        //        System.out.println(String.valueOf(egal));
-        //        System.out.println(String.valueOf(egalSize));
-        //        System.out.println(String.valueOf(equals));
-        //        System.out.println(String.valueOf(egalTest));
 
+        String myAddress = IPAddress.getLocalIP().getHostAddress() ;
+        String remoteAddress = senderAddress.getHostAddress();
+
+        boolean equals = (myAddress.equals(remoteAddress)) ;
 
         if (!equals) {
             System.out.println("Comparaison ok : I am not the one asking for the remote users");
@@ -104,10 +93,19 @@ public class UDPController {
 
     }
 
-    public static void receiveConnexion(String username, String addressIP, String portTCP, ArrayList<Notify> subscribers){
-        for (Notify sub : subscribers) {
-            sub.notifyNewUser(username, addressIP, Integer.parseInt(portTCP));
-            DatabaseController.addUser(username, addressIP);
+    public static void receiveConnexion(String username, String addressIP, String portTCP, ArrayList<Notify> subscribers, InetAddress senderAddress){
+
+        String myAddress = IPAddress.getLocalIP().getHostAddress() ;
+        String remoteAddress = senderAddress.getHostAddress();
+
+        boolean equals = (myAddress.equals(remoteAddress)) ;
+
+        //ON IGNORE NOTRE PROPRE CONNEXION POUR NE PAS NOUS RAJOUTER NOUS MÊME À LA LISTE
+        if (!equals) {
+            for (Notify sub : subscribers) {
+                sub.notifyNewUser(username, addressIP, Integer.parseInt(portTCP));
+                DatabaseController.addUser(username, addressIP);
+            }
         }
     }
 
