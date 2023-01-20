@@ -12,7 +12,7 @@ public class CreateTable {
     public static void createTableMessageDB() {
         // SQLite connection string
         /** Chemin relatif vers BDD" */
-        String url = "jdbc:sqlite:./database/miaoudb" ;
+        String url = "jdbc:sqlite:./miaoudb.db" ;
 
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS Messagedb (\n"
@@ -96,7 +96,7 @@ public class CreateTable {
     public static void dropTableListUsers() {
         // SQLite connection string
         /** Chemin relatif vers BDD" */
-        String url = "jdbc:sqlite:./database/miaoudb" ;
+        String url = "jdbc:sqlite:./database/miaoudb.db" ;
 
         // SQL statement for creating a new table
         String sql = "DROP TABLE ListUsers"

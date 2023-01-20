@@ -14,7 +14,7 @@ public class Delete {
         private Connection connect() {
             // SQLite connection string
             /** Chemin relatif vers BDD" */
-            String url = "jdbc:sqlite:./database/miaoudb" ; ;
+            String url = "jdbc:sqlite:./miaoudb.db" ;
             Connection conn = null;
 
             try {
