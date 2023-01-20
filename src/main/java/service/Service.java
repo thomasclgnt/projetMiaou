@@ -13,7 +13,7 @@ public class Service {
 
     public ListUser users = new ListUser() ;
 
-    public User userLocal = new User("", InetAddress.getLocalHost().getHostAddress(), 1234);
+    public User userLocal = new User("", IPAddress.getLocalIP().getHostAddress(), 1234);
 
     public Service() throws UnknownHostException {
     }

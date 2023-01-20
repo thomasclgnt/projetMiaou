@@ -1,5 +1,7 @@
 package data;
 
+import javafx.application.Application;
+
 import java.net.*;
 import java.util.Enumeration;
 
@@ -21,5 +23,6 @@ public class IPAddress {
         }
         return localIP;
     }
+
 }
 

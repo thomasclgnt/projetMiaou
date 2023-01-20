@@ -80,11 +80,19 @@ public class ServiceTest {
         serv.processConnection("marie");
         System.out.println("Remote User connected");
         Thread.sleep(30000) ;
+        //adresseIP attendue à changer selon les machines utilisées pour les tests
+        assertEquals("[TDMKM, 10.1.5.12, 1234 ; \n" + "]", serv.getUsers().listToString());
+        assertEquals("[TDMKM, 10.1.5.12, 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
     }
 
     @Test
-    public void chooseUniqueUsername_newUser() {
-
+    public void chooseUniqueUsername_newUser() throws IOException, InterruptedException {
+        Service serv = new Service();
+        serv.lancerService();
+        serv.processConnection("TDMKM");
+        Thread.sleep(30000) ;
+        assertEquals("[marielabest, 10.1.5.13, 1234 ; \n" + "]", serv.getUsers().listToString());
+        assertEquals("[marielabest, 10.1.5.13, 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
     }
 
 
