@@ -17,9 +17,18 @@ public class DatabaseController {
         CreateTable.createTableMessageDB();
     }
 
+    public static void createTableMyself() {
+        CreateTable.createTableMyself();
+    }
+
+    public static void dropTableMyself() {
+        CreateTable.dropTableMyself();
+    }
+
     public static void createTableUsers() {
         CreateTable.createTableListUsers();
     }
+
 
     public static ArrayList<MessageOut> restoreConversation(String IPsource, String IPdest) { //TODO void ou ArrayList ?
         ArrayList<MessageOut> listeRecu  ;
