@@ -137,7 +137,6 @@
                                 </Label>
                             </children>
                         </Pane>
-                  <ListView fx:id="listUsersView" layoutX="16.0" layoutY="-45.0" prefHeight="200.0" prefWidth="200.0" />
                     </children>
                     <effect>
                         <DropShadow blurType="ONE_PASS_BOX" color="#bcb9b9" />
@@ -244,6 +243,7 @@
                   <Font name="Calibri Bold" size="18.0" />
                </font>
             </Label>
+            <ListView fx:id="listUsersView" layoutX="40.0" layoutY="102.0" prefHeight="425.0" prefWidth="200.0" />
             </children>
         </Pane>
         <VBox layoutX="453.0" layoutY="87.0" prefHeight="35.0" prefWidth="314.0" styleClass="searchicon">
