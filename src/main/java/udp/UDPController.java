@@ -77,8 +77,10 @@ public class UDPController {
         System.out.println(myAddress);
 
         boolean egal = (myAddress == remoteAddress) ;
+        boolean egalSize = (myAddress.length() == remoteAddress.length());
 
         System.out.println(String.valueOf(egal));
+        System.out.println(String.valueOf(egalSize));
 
         if (!egal) {
             System.out.println("Comparaison ok : I am not the one asking for the remote users");
