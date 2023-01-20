@@ -75,7 +75,9 @@ public class UDPController {
         System.out.println(myAddress);
         String remoteAddress = senderAddress.getHostAddress();
         System.out.println(myAddress);
+
         if (myAddress != remoteAddress) {
+            System.out.println("Comparaison ok : I am not the one asking for tej remote users");
             String myUsername = DatabaseController.getMyName();
             System.out.println("My username : " + myUsername);
             //InetAddress.getHostAddress() pour transformer en string
