@@ -14,7 +14,7 @@ public class CreateDatabase {
     public static void createNewDatabase() {
 
         /** Chemin relatif vers BDD" */
-        String url = "jdbc:sqlite:./miaoudb" ;
+        String url = "jdbc:sqlite:./miaoudb.db" ;
 
         /** lien pour la session Marie : */
         //String url = "jdbc:sqlite:/home/mecaliff/Bureau/4A/Projet_Miaou_local/projetMiaou/database/" + fileName;
