@@ -1,4 +1,5 @@
 import data.*;
+import frontend.mainFXML;
 import org.junit.*;
 import service.Service;
 import udp.*;
@@ -78,25 +79,36 @@ public class ServiceTest {
         Service serv = new Service();
         serv.lancerService();
         Thread.sleep(1000);
-        serv.processConnection("marie");
+        serv.processConnection("marielabest");
         System.out.println("Remote User connected");
-        Thread.sleep(30000) ;
+        Thread.sleep(20000) ;
         //adresseIP attendue à changer selon les machines utilisées pour les tests
         assertEquals("[TDMKM, 10.1.5.12, 1234 ; \n" + "]", serv.getUsers().listToString());
         assertEquals("[TDMKM, 10.1.5.12, 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
-        Thread.sleep(30000) ;
+        Thread.sleep(20000) ;
     }
 
     @Test
     public void chooseUniqueUsername_newUser() throws IOException, InterruptedException {
         Service serv = new Service();
         serv.lancerService();
+
         Thread.sleep(1000);
-        serv.processConnection("TDMKM");
-        Thread.sleep(30000) ;
-        assertEquals("[marielabest, 10.1.5.13, 1234 ; \n" + "]", serv.getUsers().listToString());
-        assertEquals("[marielabest, 10.1.5.13, 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
-        Thread.sleep(30000) ;
+        serv.processGetRemoteUsers();
+        serv.getListUsersFromDB();
+        String usernameChosen = "TDMKM" ;
+        boolean valid = serv.processCheckUsername(usernameChosen) ;
+
+        assertEquals(true, valid);
+
+        if (valid) {
+            serv.processConnection(usernameChosen);
+            Thread.sleep(20000) ;
+            assertEquals("[marielabest, 10.1.5.13, 1234 ; \n" + "]", serv.getUsers().listToString());
+            assertEquals("[marielabest, 10.1.5.13, 1234 ; \n" + "TDMKM, 10.1.5.12, 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
+        }
+
+        Thread.sleep(20000) ;
     }
 
 
