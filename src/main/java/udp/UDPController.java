@@ -71,9 +71,7 @@ public class UDPController {
 
     public static void receiveGetRemoteUsers(InetAddress senderAddress) throws IOException {
         //il faut récupère son propre nom, à part si on est nous même la personne faisant la demande
-        System.out.println(IPAddress.getLocalIP().getHostAddress());
-        System.out.println(senderAddress.getHostAddress());
-        if (IPAddress.getLocalIP() != senderAddress) {
+        if (IPAddress.getLocalIP().getHostAddress() != senderAddress.getHostAddress()) {
             String myUsername = DatabaseController.getMyName();
             System.out.println("My username : " + myUsername);
             //InetAddress.getHostAddress() pour transformer en string

@@ -92,6 +92,9 @@ public class ServiceTest {
 
     @Test
     public void chooseUniqueUsername_newUser() throws IOException, InterruptedException {
+        DatabaseController.dropTableListUsers();
+        DatabaseController.dropTableMyself();
+
         Service serv = new Service();
         serv.lancerService();
 
