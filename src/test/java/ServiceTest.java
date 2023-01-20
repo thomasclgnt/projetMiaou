@@ -186,8 +186,8 @@ public class ServiceTest {
         assertEquals("[marie_d_ac, 10.1.5.13, 1234 ; \n" + "]", serv.getUsers().listToString());
         assertEquals("[marie_d_ac, 10.1.5.13, 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
 
-        }
     }
+
 
     @Test
     public void deconnexionService_remoteUserAlreadyConnected() throws IOException, InterruptedException {

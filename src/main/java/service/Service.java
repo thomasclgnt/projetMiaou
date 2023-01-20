@@ -100,6 +100,7 @@ public class Service {
     public void processChangeUsername(String new_username) throws IOException {
 
         UDPController.sendNewUsername(userLocal, new_username);
+        DatabaseController.updateMyself(new_username);
 
     }
 

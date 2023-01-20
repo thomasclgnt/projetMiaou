@@ -103,7 +103,7 @@ public class DatabaseController {
         return Select.restoreMyself();
     }
 
-    public static void changeMyname(String new_name) {
+    public static void updateMyself(String new_name) {
         Update.runUpdateMyself(getMyName(), new_name);
     }
 

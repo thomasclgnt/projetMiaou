@@ -104,8 +104,8 @@ public class UDPController {
         if (!equals) {
             for (Notify sub : subscribers) {
                 sub.notifyNewUser(username, addressIP, Integer.parseInt(portTCP));
-                DatabaseController.addUser(username, addressIP);
             }
+            DatabaseController.addUser(username, addressIP);
         }
     }
 
@@ -113,7 +113,7 @@ public class UDPController {
         for (Notify sub : subscribers) {
             try {
                 sub.notifyDeleteUser(addressIP);
-                //DatabaseController.deleteUser(addressIP);
+                DatabaseController.deleteUser(addressIP);
             } catch (UserNotFound userNotFound) {
                 userNotFound.printStackTrace();
             }
@@ -124,6 +124,7 @@ public class UDPController {
         for (Notify sub : subscribers) {
             sub.notifyChangeUsername(new_username, addressIP);
         }
+        DatabaseController.updateUser(new_username, addressIP);
     }
 
 
