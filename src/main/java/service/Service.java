@@ -17,7 +17,7 @@ public class Service {
 
     public ListUser users = new ListUser();
 
-    public User userLocal = new User("local", IPAddress.getLocalIP().getHostAddress(), 1234);
+    public User userLocal = new User("", IPAddress.getLocalIP().getHostAddress(), 1234);
 
     ListMessageIn receivedMessages = new ListMessageIn();
 
@@ -27,7 +27,7 @@ public class Service {
            try {
                 User distant = getUsers().findUser(from.getHostAddress());//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre //renvoie l'user correspondant à l'adresse ip
                 User us = new User(DatabaseController.getMyName(), IPAddress.getLocalIP().getHostAddress(), 1234) ;
-                System.out.println("nom dans myself : " + DatabaseController.getMyName());
+
                 MessageIn msgData = new MessageIn(distant.username, distant.addressIP, us.username, us.addressIP, message, horodatage);
 
                 System.out.println("Message received from " + msgData.source + " at address : " + msgData.IPsource + " : " + msgData.text);
@@ -122,6 +122,7 @@ public class Service {
 
         userLocal.setUsername(validUsername);
         DatabaseController.addMyself(userLocal.username);
+        System.out.println("mon nom est : " + DatabaseController.getMyName());
         UDPController.sendConnexion(userLocal);
 
     }

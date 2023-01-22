@@ -162,7 +162,7 @@ public class Select {
         //app.selectAll();
         //app.selectAllListUsers();
         //app.select_conversation("100","200");
-        app.selectAllMyself() ;
+        System.out.println(restoreMyself()) ;
     }
 
 }

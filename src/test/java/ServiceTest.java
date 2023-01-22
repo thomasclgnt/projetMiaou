@@ -271,8 +271,8 @@ public class ServiceTest {
 
         User dest = new User("pc_droite", "192.168.1.79", 1234) ;
         User Gauche = new User("ordi_gauche", "192.168.1.71", 1234);
-
-        UDPController.sendConnexion(Gauche);
+        serv.processConnection("ordi_gauche");
+        //UDPController.sendConnexion(Gauche);
         Thread.sleep(2000);
         System.out.println("udp connecté");
         serv.processStartListening();
