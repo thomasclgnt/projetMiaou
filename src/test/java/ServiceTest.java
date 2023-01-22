@@ -293,8 +293,8 @@ public class ServiceTest {
         Thread.sleep(10000);
 
         System.out.println("users connectés : " + serv.getUsers().listToString());
-        //assertEquals("[ordi_gauche, 192.168.1.71, 1234 ; \n" +
-         //       "]", serv.getUsers().listToString());
+        assertEquals("[ordi_gauche, 192.168.1.71, 1234 ; \n" +
+                "]", serv.getUsers().listToString());
 
         //ListUser users = new ListUser();
         //User distant = new User("thomas gauche", "192.168.1.71", 1234) ;
