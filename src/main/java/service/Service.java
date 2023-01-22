@@ -25,8 +25,10 @@ public class Service {
         public void received(InetAddress from, String message, String horodatage) {
 
             try {
-                User distant = users.findUser(from);//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre //renvoie l'user correspondant à l'adresse ip
-                User us = users.findUser(IPAddress.getLocalIP());
+                //User distant = users.findUser(from);//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre //renvoie l'user correspondant à l'adresse ip
+                //User us = users.findUser(IPAddress.getLocalIP());
+                User distant = getUsers().findUser(from);//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre //renvoie l'user correspondant à l'adresse ip
+                User us = getUsers().findUser(IPAddress.getLocalIP());
 
                 MessageIn msgData = new MessageIn(distant.username, distant.addressIP, us.username, us.addressIP, message, horodatage);
 
