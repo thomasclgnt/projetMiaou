@@ -273,12 +273,12 @@ public class ServiceTest {
         User Gauche = new User("ordi_gauche", "192.168.1.71", 1234);
 
         UDPController.sendConnexion(Gauche);
-        Thread.sleep(5000);
+        Thread.sleep(2000);
         System.out.println("udp connecté");
         serv.processStartListening();
 
         System.out.println("tcp connecté au port");
-        Thread.sleep(10000);
+        Thread.sleep(3000);
 
         serv.processSendMessage("bonjour droite", dest);
         System.out.println("envoyé");
@@ -291,21 +291,14 @@ public class ServiceTest {
         Service serv = new Service();
         serv.lancerService();
         System.out.println("service udp lancé");
-        Thread.sleep(10000);
+        Thread.sleep(3000);
 
         System.out.println("users connectés : " + serv.getUsers().listToString());
         assertEquals("[ordi_gauche, 192.168.1.71, 1234 ; \n" +
                 "]", serv.getUsers().listToString());
 
-        //ListUser users = new ListUser();
-        //User distant = new User("thomas gauche", "192.168.1.71", 1234) ;
-        //User local = new User("local thomas droite","192.168.1.79", 1234) ;
-        //users.addUser(distant.username, distant.addressIP, distant.portTCP);
-        //users.addUser(local.username, local.addressIP, local.portTCP) ;
-
-        Thread.sleep(4000) ;
         serv.processStartListening();
-        Thread.sleep(10000);
+        Thread.sleep(7000);
         System.out.println(serv.getListMessage().listToString());
         //assertEquals("[bonjour droite , ordi_gauche, , " + TCPController.horodatage() + " ;\n ]" , serv.getListMessage().listToString());
     }
