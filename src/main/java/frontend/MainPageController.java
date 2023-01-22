@@ -39,8 +39,10 @@ public class MainPageController implements Initializable {
     private AnchorPane scenePane;
     @FXML
     private ListView<String> listUsersView;
+    @FXML
+    private Label remoteUsernameLabel;
 
-    private ObservableList<User> observableListUsers ;
+    //private ObservableList<User> observableListUsers ;
     private ObservableList<String> observableListUsernames ;
 
     Stage stage ;
@@ -122,6 +124,7 @@ public class MainPageController implements Initializable {
 
                 User currentConversationUser ;
                 currentConversationUsername = listUsersView.getSelectionModel().getSelectedItem();
+                remoteUsernameLabel.setText(currentConversationUsername);
                 try {
                     currentConversationUser = mainFXML.serv.getUsers().findUserWithUsername(currentConversationUsername);
                 } catch (UserNotFound userNotFound) {

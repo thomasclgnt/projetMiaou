@@ -248,7 +248,7 @@
         </Pane>
         <VBox layoutX="453.0" layoutY="87.0" prefHeight="35.0" prefWidth="314.0" styleClass="searchicon">
             <children>
-                <Label text="Remote Username" textFill="#404040">
+                <Label fx:id="remoteUsernameLabel" text="Remote Username" textFill="#404040">
                     <font>
                         <Font size="15.0" />
                     </font>
