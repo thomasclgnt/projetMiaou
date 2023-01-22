@@ -342,7 +342,7 @@ public class ServiceTest {
 
         Thread.sleep(3000);
         serv.processSendMessage("oui et toi ?? ", serv.getUsers().convertToArrayList().get(0));
-        Thread.sleep(5000);
+        Thread.sleep(9000);
         System.out.println(serv.getListMessage().listToString());
     }
 
