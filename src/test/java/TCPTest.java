@@ -132,7 +132,7 @@ public class TCPTest {
 
         };
         System.out.println("debut");
-        TCPController.initListening(local.portTCP, callback);
+        TCPController.initListening(distant.portTCP, callback);
         Thread.sleep(8000);
         Thread.sleep(4000);
         System.out.println(receivedMessages.listToString());
