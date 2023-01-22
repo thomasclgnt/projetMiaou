@@ -29,6 +29,7 @@ public class Service {
                 //User us = users.findUser(IPAddress.getLocalIP());
                 User distant = getUsers().findUser(from);//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre //renvoie l'user correspondant à l'adresse ip
                 User us = getUsers().findUser(IPAddress.getLocalIP());
+                System.out.println("on est dans le callback, voici liste des users données par service : \n" + getUsers().listToString());
 
                 MessageIn msgData = new MessageIn(distant.username, distant.addressIP, us.username, us.addressIP, message, horodatage);
 
@@ -36,7 +37,7 @@ public class Service {
                 receivedMessages.addMessage(msgData.source, msgData.IPsource, msgData.dest, msgData.IPdest, msgData.text, msgData.horodatage);
 
             } catch (UserNotFound userNotFound) {
-                throw new AssertionError("[callback]no such user");
+                throw new AssertionError("[callback] no such user");
             }
 
         }
