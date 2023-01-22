@@ -138,7 +138,7 @@ public class Select {
 
             // loop through the result set
             while (rs.next()) {
-                System.out.println(rs.getString("username"));
+                //System.out.println(rs.getString("username"));
 
                 name = rs.getString("username") ;
             }
