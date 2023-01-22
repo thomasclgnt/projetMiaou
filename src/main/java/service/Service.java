@@ -24,20 +24,9 @@ public class Service {
     MessageReceivedCallback callback = new MessageReceivedCallback() {
         @Override
         public void received(InetAddress from, String message, String horodatage) {
-            System.out.println("on est dans le callback, voici liste des users données par service : \n" + getUsers().listToString());
-            System.out.println("on est dans le callback, voici liste des users données par service : \n" + users.listToString());
-            System.out.println("l'user qu'on cherche a pour adresse ip : " + from.getHostAddress());
-            try {
-                //User distant = users.findUser(from);//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre //renvoie l'user correspondant à l'adresse ip
-                //User us = users.findUser(IPAddress.getLocalIP());
-                System.out.println("on est dans le callback0, voici liste des users données par service : \n" + getUsers().listToString());
+           try {
                 User distant = getUsers().findUser(from.getHostAddress());//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre //renvoie l'user correspondant à l'adresse ip
-                System.out.println("on arrive meme jusque la");
-                System.out.println("dans la bdd myself, on a : " + DatabaseController.getMyName());
-                //User us = getUsers().findUser(IPAddress.getLocalIP().getHostAddress());
                 User us = new User(DatabaseController.getMyName(), IPAddress.getLocalIP().getHostAddress(), 1234) ;
-                System.out.println("on est dans le callback1, voici liste des users données par service : \n" + getUsers().listToString());
-                us.toString() ;
 
                 MessageIn msgData = new MessageIn(distant.username, distant.addressIP, us.username, us.addressIP, message, horodatage);
 
@@ -168,7 +157,6 @@ public class Service {
     // envoyer un message + ajout bdd
     public void processSendMessage(String message, User user_dest) throws IOException, InterruptedException {
         Socket socket = processStartConversation(user_dest);
-        Thread.sleep(1000);
         TCPController.sendMessage(message, socket);
 
         Message msg = new Message(userLocal.username, userLocal.addressIP, user_dest.username, user_dest.addressIP, message, TCPController.horodatage());
