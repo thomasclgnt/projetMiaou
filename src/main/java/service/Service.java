@@ -27,9 +27,10 @@ public class Service {
             try {
                 //User distant = users.findUser(from);//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre //renvoie l'user correspondant à l'adresse ip
                 //User us = users.findUser(IPAddress.getLocalIP());
+                System.out.println("on est dans le callback0, voici liste des users données par service : \n" + getUsers().listToString());
                 User distant = getUsers().findUser(from);//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre //renvoie l'user correspondant à l'adresse ip
                 User us = getUsers().findUser(IPAddress.getLocalIP());
-                System.out.println("on est dans le callback, voici liste des users données par service : \n" + getUsers().listToString());
+                System.out.println("on est dans le callback1, voici liste des users données par service : \n" + getUsers().listToString());
 
                 MessageIn msgData = new MessageIn(distant.username, distant.addressIP, us.username, us.addressIP, message, horodatage);
 
@@ -160,6 +161,7 @@ public class Service {
     // envoyer un message + ajout bdd
     public void processSendMessage(String message, User user_dest) throws IOException, InterruptedException {
         Socket socket = processStartConversation(user_dest);
+        Thread.sleep(1000);
         TCPController.sendMessage(message, socket);
 
         Message msg = new Message(userLocal.username, userLocal.addressIP, user_dest.username, user_dest.addressIP, message, TCPController.horodatage());
