@@ -89,7 +89,7 @@ public class TCPTest {
         };
 
         TCPController.initListening(Thomas2.portTCP, callback);
-        Thread.sleep(200);
+        Thread.sleep(5000);
         Socket socket = TCPController.startConversation(Thomas2.addressIP, Thomas2.portTCP, callback);
         TCPController.sendMessage("hello server comment tu vas ? ", socket );
 
@@ -131,9 +131,9 @@ public class TCPTest {
             }
 
         };
-
-        Thread.sleep(3000);
+        System.out.println("debut");
         TCPController.initListening(local.portTCP, callback);
+        Thread.sleep(8000);
         Thread.sleep(4000);
         System.out.println(receivedMessages.listToString());
 
