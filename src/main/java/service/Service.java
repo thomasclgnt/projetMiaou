@@ -31,6 +31,7 @@ public class Service {
                 //User us = users.findUser(IPAddress.getLocalIP());
                 System.out.println("on est dans le callback0, voici liste des users données par service : \n" + getUsers().listToString());
                 User distant = getUsers().findUser(from.getHostAddress());//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre //renvoie l'user correspondant à l'adresse ip
+                System.out.println("on arrive meme jusque la");
                 User us = getUsers().findUser(IPAddress.getLocalIP());
                 System.out.println("on est dans le callback1, voici liste des users données par service : \n" + getUsers().listToString());
 
