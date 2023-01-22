@@ -293,7 +293,7 @@ public class ServiceTest {
         System.out.println("service udp lancé");
         User dest = new User("pc_droite", "192.168.1.79", 1234) ;
         UDPController.sendConnexion(dest);
-
+        Thread.sleep(5000) ;
         System.out.println("users connectés : " + serv.getUsers().listToString());
         assertEquals("[ordi_gauche, 192.168.1.71, 1234 ; \n" +
                 "]", serv.getUsers().listToString());
