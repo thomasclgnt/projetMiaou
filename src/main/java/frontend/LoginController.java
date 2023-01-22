@@ -35,7 +35,7 @@ public class LoginController {
             Text text = new Text ("Please enter a valid username.");
             usernameInvalid.getChildren().clear();
             usernameInvalid.getChildren().add(text);
-            System.out.println("Username invalide");
+            System.out.println("Username invalid");
 
         } else {
 

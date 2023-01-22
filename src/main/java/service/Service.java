@@ -122,8 +122,8 @@ public class Service {
 
         userLocal.setUsername(validUsername);
         DatabaseController.addMyself(userLocal.username);
-        System.out.println("mon nom est : " + DatabaseController.getMyName());
         UDPController.sendConnexion(userLocal);
+        processStartListening() ;
 
     }
 
@@ -139,6 +139,7 @@ public class Service {
 
         UDPController.sendNewUsername(userLocal, new_username);
         DatabaseController.updateMyself(new_username);
+        //TODO est ce qu'il faut pas relancer un process start listening ? pour que le callback ait le bon nom user_local ?
 
     }
 

@@ -270,12 +270,11 @@ public class ServiceTest {
         serv.lancerService();
 
         User dest = new User("pc_droite", "192.168.1.79", 1234) ;
-        User Gauche = new User("ordi_gauche", "192.168.1.71", 1234);
         serv.processConnection("ordi_gauche");
         //UDPController.sendConnexion(Gauche);
         Thread.sleep(2000);
         System.out.println("udp connecté");
-        serv.processStartListening();
+        //serv.processStartListening();
 
         System.out.println("tcp connecté au port");
         Thread.sleep(3000);
@@ -291,18 +290,15 @@ public class ServiceTest {
         Service serv = new Service();
         serv.lancerService();
         System.out.println("service udp lancé");
-        User dest = new User("pc_droite", "192.168.1.79", 1234) ;
         serv.processConnection("pc_droite");
-        //UDPController.sendConnexion(dest);
         Thread.sleep(5000) ;
         System.out.println("users connectés : " + serv.getUsers().listToString());
         assertEquals("[ordi_gauche, 192.168.1.71, 1234 ; \n" +
                 "]", serv.getUsers().listToString());
 
-        serv.processStartListening();
+        //serv.processStartListening();
         Thread.sleep(7000);
         System.out.println(serv.getListMessage().listToString());
-        //assertEquals("[bonjour droite , ordi_gauche, , " + TCPController.horodatage() + " ;\n ]" , serv.getListMessage().listToString());
     }
 
 
