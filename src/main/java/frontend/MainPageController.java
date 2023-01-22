@@ -2,9 +2,12 @@ package frontend;
 
 import data.ListUser;
 import data.User;
+import data.UserNotFound;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -35,11 +38,13 @@ public class MainPageController implements Initializable {
     @FXML
     private AnchorPane scenePane;
     @FXML
-    private ListView<User> listUsersView;
+    private ListView<String> listUsersView;
+
+    private ObservableList<User> observableListUsers ;
+    private ObservableList<String> observableListUsernames ;
 
     Stage stage ;
-    ArrayList<User> connectedUsers = null ;
-    User currentConversation;
+    String currentConversationUsername;
 
     @FXML
     void changeUsername(ActionEvent event) throws IOException {
@@ -57,7 +62,7 @@ public class MainPageController implements Initializable {
 
             if (!available) {
 
-                Text text = new Text ("This username is already taken, please choose another one.");
+                Text text = new Text ("This username is already taken, \n please choose another one.");
                 usernameInvalid.getChildren().clear();
                 usernameInvalid.getChildren().add(text);
                 System.out.println("Username taken");
@@ -96,26 +101,46 @@ public class MainPageController implements Initializable {
         usernameLabel.setText(username);
     }
 
+    public void updateListConnectedUsers(){
+
+        Platform.runLater(() -> {
+            //this.observableListUsers = FXCollections.observableArrayList(mainFXML.serv.getUsers().convertToArrayList());
+            this.observableListUsernames = FXCollections.observableArrayList(mainFXML.serv.getUsers().toUsernameList());
+        });
+
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        ListUser listUser = mainFXML.serv.getUsers() ;
-        boolean listeVide = listUser.nbUsers() == 0 ;
+        //System.out.println(connectedUsers.toString()) pour vérifier l'affichage dans ListView
+        listUsersView.setItems(observableListUsernames);
+        listUsersView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableUsername, String s, String t1) {
 
-        if (!listeVide) {
-            connectedUsers = listUser.convertToArrayList() ;
-            System.out.println(connectedUsers.toString()); //pour vérifier l'affichage dans ListView
-            listUsersView.getItems().addAll(connectedUsers);
-            listUsersView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<User>() {
-                @Override
-                public void changed(ObservableValue<? extends User> observableValue, User user, User t1) {
-                    currentConversation = listUsersView.getSelectionModel().getSelectedItem();
-                    //afficher les messages entre les deux utilisateurs
+                User currentConversationUser ;
+                currentConversationUsername = listUsersView.getSelectionModel().getSelectedItem();
+                try {
+                    currentConversationUser = mainFXML.serv.getUsers().findUserWithUsername(currentConversationUsername);
+                } catch (UserNotFound userNotFound) {
+                    userNotFound.printStackTrace();
                 }
-            });
-        }
 
+                //coder une méthode externe qu'on appelle dans laquelle on :
+                    //processStartSession avec ce User
+                    //ajouter session à la liste de sessions ? sinon à quoi elle sert ?
+                    //penser à faire processInitListening après la connexion
+                    //récupérer l'historique des messages
+                    //afficher les messages
 
+            }
+
+            //TODO coder dans changed() ce qu'il le passe quand on clique sur un user
+            // càd ouverture d'une session de chat et récupération de l'historique de chat
+
+        });
     }
+
 }

@@ -35,6 +35,20 @@ public class ListUser {
         return findUser(addressIP.getHostAddress());
     }
 
+    public User findUserWithUsername(String username) throws UserNotFound{
+        User user = null ;
+        for (User u : this.activeUsers){
+            if (u.username.equals(username)) {
+                user = u ;
+            }
+        }
+        if (user == null) {
+            throw new UserNotFound();
+            // rajouter en paramètre (addressIP);
+        }
+        return user ;
+    }
+
     public void deleteUser(String addressIP) throws UserNotFound {
         this.activeUsers.remove(findUser(addressIP));
     }
@@ -85,5 +99,12 @@ public class ListUser {
         return list ;
     }
 
+    public ArrayList<String> toUsernameList(){
+        ArrayList<String> usernameList = new ArrayList<>();
+        for (User user : this.activeUsers){
+            usernameList.add(user.username);
+        }
+        return usernameList ;
+    }
 
 }
