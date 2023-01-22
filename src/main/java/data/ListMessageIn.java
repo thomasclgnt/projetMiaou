@@ -34,4 +34,9 @@ public class ListMessageIn {
     public void printList(){
         System.out.println(listToString());
     }
+
+    public MessageIn get(int i) {
+        return this.messagesSession.get(i) ;
+    }
+
 }

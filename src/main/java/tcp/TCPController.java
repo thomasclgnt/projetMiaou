@@ -2,7 +2,10 @@ package tcp;
 
 import java.io.*;
 import java.net.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.Scanner;
 
 public class TCPController {
@@ -35,4 +38,13 @@ public class TCPController {
         out.println(message + " ");
         out.flush(); //vider les buffers
         }
+
+    //dater les messages
+    public static String horodatage() {
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        String horodatage = formatter.format(date);
+        return horodatage ;
+    }
+
     }

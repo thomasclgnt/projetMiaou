@@ -15,7 +15,7 @@ public class TCPTest {
     @Test
     public void givenTCPClient_whenServerRespondsWhenStarted_thenCorrect() throws IOException, InterruptedException {
 
-        User Thomas = new User("TDMKM", "127.0.0.1", 1234);
+        User Thomas = new User("thomas", "127.0.0.1", 1234);
 
         ListMessageIn receivedMessages = new ListMessageIn();
         //créer une seule instance de listUser dans le main de l'application
@@ -30,9 +30,9 @@ public class TCPTest {
                     User distant = users.findUser(from) ;//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre
                     User us = users.findUser("127.0.0.1") ;
 
-                    MessageIn msgData = new MessageIn(us.username, us.addressIP, distant.username, distant.addressIP, message, horodatage);
+                    MessageIn msgData = new MessageIn(distant.username, distant.addressIP, us.username, us.addressIP, message, horodatage);
 
-                    System.out.println("Message received from " + distant.addressIP + " : "+ message.toString());
+                    System.out.println("Message received from " + distant.addressIP + " : "+ message);
                     receivedMessages.addMessage(msgData.source, msgData.IPsource, msgData.dest, msgData.IPdest, msgData.text, msgData.horodatage);
 
                 } catch (UserNotFound userNotFound) {
@@ -50,12 +50,94 @@ public class TCPTest {
 
         Thread.sleep(1000); // il nous faut du temps sinon ça coupe les actions avant de mettre en bdd
 
-        // assertEquals("hello server", receivedMessages.get(0).startsWith("hello_server"));
+        assertEquals("hello server ", receivedMessages.get(0).text);
 
         System.out.println("done");
 
     }
 
+    @Test
+    public void TCPSender() throws IOException, InterruptedException {
 
+        User Thomas2 = new User("thomas2 droite", "192.168.1.79", 1234);
+
+        ListMessageIn receivedMessages = new ListMessageIn();
+        //créer une seule instance de listUser dans le main de l'application
+        ListUser users = new ListUser();
+        users.addUser(Thomas2.username, Thomas2.addressIP, Thomas2.portTCP);
+
+        MessageReceivedCallback callback = new MessageReceivedCallback() {
+            @Override
+            public void received(InetAddress from, String message, String horodatage) {
+
+                try {
+                    User distant = users.findUser(from) ;//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre
+                    //User us = users.findUser("127.0.0.1") ;
+                    User us = new User ("thomas","192.168.1.71",1234) ;
+
+                    MessageIn msgData = new MessageIn(distant.username, distant.addressIP, us.username, us.addressIP, message, horodatage);
+
+                    System.out.println("Message received from " + distant.addressIP + " : "+ message);
+                    receivedMessages.addMessage(msgData.source, msgData.IPsource, msgData.dest, msgData.IPdest, msgData.text, msgData.horodatage);
+
+                } catch (UserNotFound userNotFound) {
+                    throw new AssertionError("no such user") ;
+                }
+
+            }
+
+        };
+
+        TCPController.initListening(Thomas2.portTCP, callback);
+        Thread.sleep(200);
+        Socket socket = TCPController.startConversation(Thomas2.addressIP, Thomas2.portTCP, callback);
+        TCPController.sendMessage("hello server comment tu vas ? ", socket );
+
+        Thread.sleep(1000); // il nous faut du temps sinon ça coupe les actions avant de mettre en bdd
+
+        //assertEquals("hello server ", receivedMessages.get(0).text);
+
+        System.out.println("send");
+
+    }
+
+    @Test
+    public void receiveTCP() throws IOException, InterruptedException {
+        User local = new User("thomas", "192.168.1.71", 1234);
+
+        ListMessageIn receivedMessages = new ListMessageIn();
+        //créer une seule instance de listUser dans le main de l'application
+        ListUser users = new ListUser();
+        users.addUser(local.username, local.addressIP, local.portTCP);
+
+        MessageReceivedCallback callback = new MessageReceivedCallback() {
+            @Override
+            public void received(InetAddress from, String message, String horodatage) {
+
+                try {
+                    User distant = users.findUser(from) ;//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre
+                    //User us = users.findUser("127.0.0.1") ;
+                    User us = new User ("thomas","192.168.1.71",1234) ;
+
+                    MessageIn msgData = new MessageIn(distant.username, distant.addressIP, us.username, us.addressIP, message, horodatage);
+
+                    System.out.println("Message received from " + distant.addressIP + " : "+ message);
+                    receivedMessages.addMessage(msgData.source, msgData.IPsource, msgData.dest, msgData.IPdest, msgData.text, msgData.horodatage);
+
+                } catch (UserNotFound userNotFound) {
+                    throw new AssertionError("no such user") ;
+                }
+
+            }
+
+        };
+
+        TCPController.initListening(local.portTCP, callback);
+        Thread.sleep(4000);
+        System.out.println(receivedMessages.listToString());
+
+
+
+    }
 
 }

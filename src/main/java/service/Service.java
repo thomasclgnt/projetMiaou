@@ -134,13 +134,12 @@ public class Service {
 
     }
 
-//---------------------------------------------PARTIE GESTION TCP
+//---------------------------------------------PARTIE GESTION TCP-------------------------------------------------------
 
 
     //connecter à une session
     public void processStartListening() throws IOException {
         TCPController.initListening(userLocal.portTCP, callback) ;
-
     }
 
     public Socket processStartConversation(User user_dest) throws IOException, InterruptedException {
@@ -152,13 +151,15 @@ public class Service {
     public void processSendMessage(String message, User user_dest) throws IOException, InterruptedException {
         Socket socket = processStartConversation(user_dest) ;
         TCPController.sendMessage(message, socket) ;
-        //Message msg = new Message(userLocal.username, userLocal.addressIP, user_dest.username, user_dest.addressIP, message, )
-        //DatabaseController.addMessage();
 
-
+        Message msg = new Message(userLocal.username, userLocal.addressIP, user_dest.username, user_dest.addressIP, message, TCPController.horodatage() ) ;
+        DatabaseController.addMessage(msg);
 
     }
     //recevoir un message + ajout bdd
+    public void processReceiveMessage() {
+        //callback.received();
+    }
 
 
 }
