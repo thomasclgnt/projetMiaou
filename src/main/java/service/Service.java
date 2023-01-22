@@ -25,6 +25,7 @@ public class Service {
         public void received(InetAddress from, String message, String horodatage) {
             System.out.println("on est dans le callback, voici liste des users données par service : \n" + getUsers().listToString());
             System.out.println("on est dans le callback, voici liste des users données par service : \n" + users.listToString());
+            System.out.println("l'user qu'on cherche a pour adresse ip : " + from.getHostAddress());
             try {
                 //User distant = users.findUser(from);//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre //renvoie l'user correspondant à l'adresse ip
                 //User us = users.findUser(IPAddress.getLocalIP());
