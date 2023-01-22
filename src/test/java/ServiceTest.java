@@ -2,6 +2,7 @@ import data.*;
 import frontend.mainFXML;
 import org.junit.*;
 import service.Service;
+import tcp.TCPController;
 import udp.*;
 import java.io.IOException;
 import java.net.SocketException;
@@ -306,7 +307,7 @@ public class ServiceTest {
         serv.processStartListening();
         Thread.sleep(10000);
         System.out.println(serv.getListMessage().listToString());
-        //assertEquals("[marie_d_ac, 10.1.5.13, 1234 ; \n" + "]", serv.getListMessage().listToString());
+        assertEquals("[bonjour droite , ordi_gauche, , " + TCPController.horodatage() + " ;\n ]" , serv.getListMessage().listToString());
     }
 
 
