@@ -20,9 +20,8 @@ public class ServiceTest {
     public void connectionClient() throws InterruptedException, IOException {
         Service serv = new Service();
         serv.lancerService();
-        //User Marie = new User("marielabest", "192.168.3.101", 1234);
-        User Gauche = new User("gauche", "192.168.1.71",1234) ;
-        UDPController.sendConnexion(Gauche);
+        User Marie = new User("marielabest", "192.168.3.101", 1234);
+        UDPController.sendConnexion(Marie);
         Thread.sleep(5000);
         UDPSender.broadcast("end"); //pas forcément utile
     }
@@ -32,9 +31,8 @@ public class ServiceTest {
         Service serv = new Service();
         serv.lancerService();
         Thread.sleep(10000);
-        System.out.println(serv.getUsers().listToString());
-        //assertEquals("[marielabest, 192.168.3.101, 1234 ; \n" +
-               // "]", serv.getUsers().listToString());
+        assertEquals("[marielabest, 192.168.3.101, 1234 ; \n" +
+                "]", serv.getUsers().listToString());
     }
 
     @Test
@@ -278,7 +276,7 @@ public class ServiceTest {
         serv.processStartListening();
 
         System.out.println("tcp connecté au port");
-        Thread.sleep(5000);
+        Thread.sleep(10000);
 
         serv.processSendMessage("bonjour droite", dest);
         System.out.println("envoyé");
@@ -287,12 +285,19 @@ public class ServiceTest {
 
     @Test
     public void testReceiveMessage_Server() throws IOException, InterruptedException {
-        ListUser users = new ListUser();
-        User distant = new User("thomas gauche", "192.168.1.71", 1234) ;
-        User local = new User("local thomas droite","192.168.1.79", 1234) ;
-        users.addUser(distant.username, distant.addressIP, distant.portTCP);
-        users.addUser(local.username, local.addressIP, local.portTCP) ;
+
         Service serv = new Service();
+        serv.lancerService();
+        System.out.println("service udp lancé");
+        Thread.sleep(10000);
+        assertEquals("[ordi_gauche, 192.168.1.71, 1234 ; \n" +
+                "]", serv.getUsers().listToString());
+
+        //ListUser users = new ListUser();
+        //User distant = new User("thomas gauche", "192.168.1.71", 1234) ;
+        //User local = new User("local thomas droite","192.168.1.79", 1234) ;
+        //users.addUser(distant.username, distant.addressIP, distant.portTCP);
+        //users.addUser(local.username, local.addressIP, local.portTCP) ;
 
         Thread.sleep(4000) ;
         serv.processStartListening();
