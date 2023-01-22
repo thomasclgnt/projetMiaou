@@ -117,7 +117,7 @@ public class TCPTest {
                 try {
                     User distant = users.findUser(from) ;//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre
                     //User us = users.findUser("127.0.0.1") ;
-                    User us = new User ("thomas","192.168.1.71",1234) ;
+                    User us = new User ("thomas","192.168.1.79",1234) ;
 
                     MessageIn msgData = new MessageIn(distant.username, distant.addressIP, us.username, us.addressIP, message, horodatage);
 

@@ -281,7 +281,9 @@ public class ServiceTest {
     public void testReceiveMessage_Server() throws IOException, InterruptedException {
         ListUser users = new ListUser();
         User distant = new User("thomas gauche", "192.168.1.71", 1234) ;
+        User local = new User("local thomas droite","192.168.1.79", 1234) ;
         users.addUser(distant.username, distant.addressIP, distant.portTCP);
+        users.addUser(local.username, local.addressIP, local.portTCP) ;
         Service serv = new Service();
 
         Thread.sleep(4000) ;
