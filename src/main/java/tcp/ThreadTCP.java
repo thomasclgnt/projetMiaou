@@ -28,7 +28,6 @@ public class ThreadTCP {
                     while (message != null) {
                         //type Date
                         //SimpleDateFormat
-
                         String horodatage = TCPController.horodatage() ;
                         callback.received(socket.getInetAddress(), message, horodatage) ;
                         message = in.readLine();
