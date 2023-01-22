@@ -269,7 +269,7 @@ public class ServiceTest {
         serv.lancerService();
 
         User dest = new User("pc_droite", "192.168.1.79", 1234) ;
-        User Gauche = new User("ordi_gauche", "192.168.3.71", 1234);
+        User Gauche = new User("ordi_gauche", "192.168.1.71", 1234);
 
         UDPController.sendConnexion(Gauche);
         Thread.sleep(5000);
