@@ -34,7 +34,7 @@ public class Service {
                 receivedMessages.addMessage(msgData.source, msgData.IPsource, msgData.dest, msgData.IPdest, msgData.text, msgData.horodatage);
 
             } catch (UserNotFound userNotFound) {
-                throw new AssertionError("no such user");
+                throw new AssertionError("[callback]no such user");
             }
 
         }

@@ -268,13 +268,19 @@ public class ServiceTest {
         Service serv = new Service() ;
         User dest = new User("pc_droite", "192.168.1.79", 1234) ;
 
+        serv.processStartListening();
+        System.out.println("connecté");
+        Thread.sleep(5000);
+
         serv.processSendMessage("bonjour droite", dest);
+        System.out.println("envoyé");
 
     }
 
     @Test
     public void testReceiveMessage_Server() throws IOException, InterruptedException {
         Service serv = new Service();
+        Thread.sleep(4000) ;
         serv.processStartListening();
         Thread.sleep(10000);
         System.out.println(serv.getListMessage().listToString());
