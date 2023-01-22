@@ -103,12 +103,12 @@ public class TCPTest {
 
     @Test
     public void receiveTCP() throws IOException, InterruptedException {
-        User local = new User("thomas", "192.168.1.71", 1234);
+        User distant = new User("ordi gauche", "192.168.1.71", 1234);
 
         ListMessageIn receivedMessages = new ListMessageIn();
         //créer une seule instance de listUser dans le main de l'application
         ListUser users = new ListUser();
-        users.addUser(local.username, local.addressIP, local.portTCP);
+        users.addUser(distant.username, distant.addressIP, distant.portTCP);
 
         MessageReceivedCallback callback = new MessageReceivedCallback() {
             @Override
