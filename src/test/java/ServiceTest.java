@@ -322,7 +322,7 @@ public class ServiceTest {
         serv.processSendMessage("bonjour droite", dest);
         serv.processSendMessage("tu vas ?", dest);
         System.out.println("envoyé 1 ");
-        Thread.sleep(2000);
+        Thread.sleep(5000);
         serv.processSendMessage("ouuui cool :) ", dest);
     }
 
@@ -340,7 +340,8 @@ public class ServiceTest {
 
 
         Thread.sleep(3000);
-        serv.processSendMessage("tu vas ?? ", serv.getUsers().convertToArrayList().get(0));
+        serv.processSendMessage("oui et toi ?? ", serv.getUsers().convertToArrayList().get(0));
+        Thread.sleep(5000);
         System.out.println(serv.getListMessage().listToString());
     }
 

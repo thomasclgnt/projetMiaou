@@ -159,10 +159,10 @@ public class Select {
      */
     public static void main(String[] args) {
         Select app = new Select();
-        //app.selectAll();
+        app.selectAll();
         //app.selectAllListUsers();
         //app.select_conversation("100","200");
-        System.out.println(restoreMyself()) ;
+        //System.out.println(restoreMyself()) ;
     }
 
 }
