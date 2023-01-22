@@ -138,7 +138,7 @@ public class Select {
 
             // loop through the result set
             while (rs.next()) {
-                //System.out.println(rs.getString("username"));
+                System.out.println(rs.getString("username"));
 
                 name = rs.getString("username") ;
             }
@@ -159,10 +159,10 @@ public class Select {
      */
     public static void main(String[] args) {
         Select app = new Select();
-        app.selectAll();
+        //app.selectAll();
         //app.selectAllListUsers();
         //app.select_conversation("100","200");
-        //app.selectAllMyself() ;
+        app.selectAllMyself() ;
     }
 
 }
