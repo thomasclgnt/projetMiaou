@@ -271,10 +271,9 @@ public class ServiceTest {
 
         User dest = new User("pc_droite", "192.168.1.79", 1234) ;
         serv.processConnection("ordi_gauche");
-        //UDPController.sendConnexion(Gauche);
         Thread.sleep(2000);
         System.out.println("udp connecté");
-        //serv.processStartListening();
+
 
         System.out.println("tcp connecté au port");
         Thread.sleep(3000);
@@ -289,15 +288,59 @@ public class ServiceTest {
 
         Service serv = new Service();
         serv.lancerService();
-        System.out.println("service udp lancé");
+
         serv.processConnection("pc_droite");
         Thread.sleep(5000) ;
+
         System.out.println("users connectés : " + serv.getUsers().listToString());
+
         assertEquals("[ordi_gauche, 192.168.1.71, 1234 ; \n" +
                 "]", serv.getUsers().listToString());
 
         //serv.processStartListening();
         Thread.sleep(7000);
+        System.out.println(serv.getListMessage().listToString());
+    }
+
+
+    @Test
+    public void testSendAndReceive_Client() throws IOException, InterruptedException {
+
+        Service serv = new Service();
+        serv.lancerService();
+
+        User dest = new User("pc_droite", "192.168.1.79", 1234) ;
+
+        serv.processConnection("ordi_gauche");
+        Thread.sleep(2000);
+        System.out.println("udp connecté");
+
+
+        System.out.println("tcp connecté au port");
+        Thread.sleep(3000);
+
+        serv.processSendMessage("bonjour droite", dest);
+        serv.processSendMessage("tu vas ?", dest);
+        System.out.println("envoyé 1 ");
+        Thread.sleep(2000);
+        serv.processSendMessage("ouuui cool :) ", dest);
+    }
+
+    @Test
+    public void testSendAndReceive_Server() throws IOException, InterruptedException {
+        Service serv = new Service();
+        serv.lancerService();
+
+        serv.processConnection("pc_droite");
+        Thread.sleep(5000) ;
+
+        System.out.println("users connectés : " + serv.getUsers().listToString());
+
+        //assertEquals("[ordi_gauche, 192.168.1.71, 1234 ; \n" + "]", serv.getUsers().listToString());
+
+
+        Thread.sleep(3000);
+        serv.processSendMessage("tu vas ?? ", serv.getUsers().convertToArrayList().get(0));
         System.out.println(serv.getListMessage().listToString());
     }
 
