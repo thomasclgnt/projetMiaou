@@ -312,8 +312,9 @@ public class ServiceTest {
         User dest = new User("pc_droite", "192.168.1.79", 1234) ;
 
         serv.processConnection("ordi_gauche");
+        serv.processGetRemoteUsers();
         Thread.sleep(2000);
-        System.out.println("udp connecté");
+        System.out.println("remote users récupérés");
 
 
         System.out.println("tcp connecté au port");
@@ -332,7 +333,7 @@ public class ServiceTest {
         serv.lancerService();
 
         serv.processConnection("pc_droite");
-        Thread.sleep(5000) ;
+        Thread.sleep(9000) ;
 
         System.out.println("users connectés : " + serv.getUsers().listToString());
 

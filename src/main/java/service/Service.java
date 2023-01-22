@@ -25,9 +25,8 @@ public class Service {
         @Override
         public void received(InetAddress from, String message, String horodatage) {
            try {
-               System.out.println("ici ?");
+               getListUsersFromDB() ; // on met à jour la liste users en faisant un appel à la bdd
                User distant = getUsers().findUser(from.getHostAddress());//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre //renvoie l'user correspondant à l'adresse ip
-               System.out.println("là ?");
                User us = new User(DatabaseController.getMyName(), IPAddress.getLocalIP().getHostAddress(), 1234) ;
 
                MessageIn msgData = new MessageIn(distant.username, distant.addressIP, us.username, us.addressIP, message, horodatage);
