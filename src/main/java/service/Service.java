@@ -14,9 +14,9 @@ import java.net.UnknownHostException;
 
 public class Service {
 
-    public ListUser users = new ListUser() ;
+    public ListUser users = new ListUser();
 
-    public User userLocal = new User("", IPAddress.getLocalIP().getHostAddress(), 1234);
+    public User userLocal = new User("local", IPAddress.getLocalIP().getHostAddress(), 1234);
 
     ListMessageIn receivedMessages = new ListMessageIn();
 
@@ -38,7 +38,7 @@ public class Service {
             }
 
         }
-    } ;
+    };
 
     public Service() throws UnknownHostException {
     }
@@ -86,29 +86,35 @@ public class Service {
         //si jamais c'est la première fois qu'on se connecte au service, sinon ne fait rien
         DatabaseController.createTableMsg();
 
-        };
+    }
+
+    ;
 
 
     public ListUser getUsers() {
         return users;
     }
 
+    public ListMessageIn getListMessage() {
+        return receivedMessages;
+    }
+
     public String getMyUsername() {
-        return userLocal.username ;
+        return userLocal.username;
     }
 
-    public boolean processCheckUsername (String username) {
-        return users.checkUsernameAvailable(username) ;
+    public boolean processCheckUsername(String username) {
+        return users.checkUsernameAvailable(username);
     }
 
-    public void getListUsersFromDB(){
+    public void getListUsersFromDB() {
 
         users = DatabaseController.restoreListUsers();
 
     }
 
-    public void processGetRemoteUsers () throws IOException, InterruptedException {
-        UDPController.sendGetRemoteUsers() ;
+    public void processGetRemoteUsers() throws IOException, InterruptedException {
+        UDPController.sendGetRemoteUsers();
     }
 
     // le username a déjà été validé avant de lancer processConnection
@@ -119,6 +125,7 @@ public class Service {
         UDPController.sendConnexion(userLocal);
 
     }
+
     public void processDeconnection() throws IOException {
 
         UDPController.sendDeconnexion(userLocal);
@@ -139,26 +146,22 @@ public class Service {
 
     //connecter à une session
     public void processStartListening() throws IOException {
-        TCPController.initListening(userLocal.portTCP, callback) ;
+        TCPController.initListening(userLocal.portTCP, callback);
     }
 
     public Socket processStartConversation(User user_dest) throws IOException, InterruptedException {
 
-        return TCPController.startConversation(user_dest.addressIP, userLocal.portTCP, callback) ;
+        return TCPController.startConversation(user_dest.addressIP, userLocal.portTCP, callback);
     }
 
     // envoyer un message + ajout bdd
     public void processSendMessage(String message, User user_dest) throws IOException, InterruptedException {
-        Socket socket = processStartConversation(user_dest) ;
-        TCPController.sendMessage(message, socket) ;
+        Socket socket = processStartConversation(user_dest);
+        TCPController.sendMessage(message, socket);
 
-        Message msg = new Message(userLocal.username, userLocal.addressIP, user_dest.username, user_dest.addressIP, message, TCPController.horodatage() ) ;
+        Message msg = new Message(userLocal.username, userLocal.addressIP, user_dest.username, user_dest.addressIP, message, TCPController.horodatage());
         DatabaseController.addMessage(msg);
 
-    }
-    //recevoir un message + ajout bdd
-    public void processReceiveMessage() {
-        //callback.received();
     }
 
 

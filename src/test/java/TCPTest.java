@@ -59,7 +59,7 @@ public class TCPTest {
     @Test
     public void TCPSender() throws IOException, InterruptedException {
 
-        User Thomas2 = new User("thomas2 droite", "192.168.1.71", 1234);
+        User Thomas2 = new User("thomas2 droite", "192.168.1.79", 1234);
 
         ListMessageIn receivedMessages = new ListMessageIn();
         //créer une seule instance de listUser dans le main de l'application

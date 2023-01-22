@@ -263,4 +263,23 @@ public class ServiceTest {
 
     }
 
+    @Test
+    public void testSendMessage_Client() throws IOException, InterruptedException {
+        Service serv = new Service() ;
+        User dest = new User("pc_droite", "192.168.1.79", 1234) ;
+
+        serv.processSendMessage("bonjour droite", dest);
+
+    }
+
+    @Test
+    public void testReceiveMessage_Server() throws IOException, InterruptedException {
+        Service serv = new Service();
+        serv.processStartListening();
+        Thread.sleep(10000);
+        System.out.println(serv.getListMessage().listToString());
+        //assertEquals("[marie_d_ac, 10.1.5.13, 1234 ; \n" + "]", serv.getListMessage().listToString());
+    }
+
+
 }
