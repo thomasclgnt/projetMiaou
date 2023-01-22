@@ -94,6 +94,7 @@ public class UDPController {
         DatabaseController.addUser(remoteUsername, connectedUserAddress.getHostAddress());
 
 
+
     }
 
     public static void receiveConnexion(String username, String addressIP, String portTCP, ArrayList<Notify> subscribers, InetAddress senderAddress){
