@@ -292,16 +292,15 @@
                 <Font name="Calibri Bold" size="10.0" />
             </font>
         </Label>
-        <TextField alignment="CENTER" layoutX="453.0" layoutY="453.0" prefHeight="30.0" prefWidth="94.0" styleClass="txtfld" text="Wellcome">
-            <effect>
-                <DropShadow blurType="ONE_PASS_BOX" color="#cdc9c9" />
-            </effect>
-        </TextField>
-        <TextField alignment="CENTER" layoutX="556.0" layoutY="453.0" prefHeight="30.0" prefWidth="94.0" styleClass="txtfld" text="Hello there.">
-            <effect>
-                <DropShadow blurType="ONE_PASS_BOX" color="#cdc9c9" />
-            </effect>
-        </TextField>
-      <TextArea layoutX="453.0" layoutY="492.0" prefHeight="46.0" prefWidth="314.0" />
+      <ScrollPane fx:id="spConv" hbarPolicy="NEVER" layoutX="451.0" layoutY="137.0" prefHeight="333.0" prefWidth="314.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="333.0" prefWidth="307.0">
+               <children>
+                  <VBox fx:id="vboxMessages" layoutY="-2.0" prefHeight="333.0" prefWidth="314.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <TextField fx:id="messageToSend" layoutX="451.0" layoutY="486.0" onAction="#sendMessage" prefHeight="46.0" prefWidth="273.0" />
     </children>
 </AnchorPane>

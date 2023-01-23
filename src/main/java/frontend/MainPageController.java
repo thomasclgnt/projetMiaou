@@ -4,7 +4,6 @@ import bdd.MessageOut;
 import data.DatabaseController;
 import data.IPAddress;
 import data.User;
-import data.UserNotFound;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -13,10 +12,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
@@ -42,6 +44,12 @@ public class MainPageController implements Initializable {
     private ListView<String> listUsersView;
     @FXML
     private Label remoteUsernameLabel;
+    @FXML
+    private VBox vboxMessages;
+    @FXML
+    private ScrollPane spConv;
+    @FXML
+    private TextField messageToSend;
 
     //private ObservableList<User> observableListUsers ;
     private ObservableList<String> observableListUsernames ;
@@ -54,32 +62,22 @@ public class MainPageController implements Initializable {
         String new_username = changeUsernameField.getText();
 
         if (new_username.equals("") || !mainFXML.isValid(new_username)) {
-
             Text text = new Text ("Please enter a valid \n username.");
             usernameInvalid.getChildren().clear();
             usernameInvalid.getChildren().add(text);
-
         } else {
-
             boolean available = mainFXML.serv.processCheckUsername(new_username) ;
-
             if (!available) {
-
                 Text text = new Text ("This username is already taken, \n please choose another one.");
                 usernameInvalid.getChildren().clear();
                 usernameInvalid.getChildren().add(text);
                 System.out.println("Username taken");
-
             } else {
-
                 mainFXML.serv.processChangeUsername(new_username);
                 usernameInvalid.getChildren().clear();
                 usernameLabel.setText(new_username);
-
             }
-
         }
-
     }
 
     @FXML
@@ -99,6 +97,12 @@ public class MainPageController implements Initializable {
             System.exit(0);
         }
     }
+
+    @FXML
+    void sendMessage(ActionEvent event) {
+
+    }
+
 
     public void displayUsername(String username) {
         usernameLabel.setText(username);
@@ -126,18 +130,9 @@ public class MainPageController implements Initializable {
                 remoteUsernameLabel.setText(currentConversationUsername);
                 currentConversationUser = mainFXML.serv.getUsers().findUserWithUsername(currentConversationUsername);
 
-
-
-                //coder une méthode externe qu'on appelle dans laquelle on :
-
-
-                    //processStartSession avec ce User
-                Socket socket = null;
                 try {
-                    socket = mainFXML.serv.processStartConversation(currentConversationUser);
-                    //récupérer l'historique des messages
-                    ArrayList<MessageOut> Listmsg = DatabaseController.restoreConversation(IPAddress.getLocalIP().getHostAddress(), currentConversationUser.addressIP) ;
-                    for (MessageOut messageOut : Listmsg) {
+                    ArrayList<MessageOut> conversation = openConversation(currentConversationUser);
+                    for (MessageOut messageOut : conversation) {
                         String msg = messageOut.text;
                         String horodatage = messageOut.horodatage;
                         System.out.println("message : " + msg + "\n" + "   et heure = " + horodatage);
@@ -146,22 +141,69 @@ public class MainPageController implements Initializable {
                 } catch (IOException | InterruptedException e) {
                     e.printStackTrace();
                 }
-
-                //ajouter session à la liste de sessions ? sinon à quoi elle sert ?
-
-
-                    //récupérer l'historique des messages
-
-                    //afficher les messages
-
                 //envoyer message
                 //mainFXML.serv.processSendMessage("" , currentConversationUser, socket);
             }
-
-            //TODO coder dans changed() ce qu'il le passe quand on clique sur un user
-            // càd ouverture d'une session de chat et récupération de l'historique de chat
-
         });
+
+        vboxMessages.heightProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
+                spConv.setVvalue((Double) newValue);
+            }
+        });
+    }
+
+    public ArrayList<MessageOut> openConversation(User remoteUser) throws IOException, InterruptedException {
+        Socket socket = mainFXML.serv.processStartConversation(remoteUser);
+        //récupérer l'historique des messages
+        ArrayList<MessageOut> Listmsg = DatabaseController.restoreConversation(IPAddress.getLocalIP().getHostAddress(), remoteUser.addressIP) ;
+        return Listmsg ;
+    }
+
+    public void displayConversation (ArrayList<MessageOut> conversation){
+
+    }
+
+    public void addMessageReceived(String message, String horodatage, VBox vBox){
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER_LEFT);
+        hBox.setPadding(new Insets(5,5,5,10));
+        Text textMessage = new Text(message) ;
+        TextFlow textFlowMessage = new TextFlow(textMessage);
+        textFlowMessage.getStyleClass().clear();
+        textFlowMessage.getStyleClass().add("txt-fld");
+        textFlowMessage.setPadding(new Insets(5,10,5,10));
+        hBox.getChildren().add(textFlowMessage);
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                vBox.getChildren().add(hBox);
+            }
+        });
+
+    }
+
+    public void addMessageSent(String horodatage, VBox vBox){
+        String message = messageToSend.getText();
+        //        HBox hBox = new HBox();
+        //        hBox.setAlignment(Pos.CENTER_LEFT);
+        //        hBox.setPadding(new Insets(5,5,5,10));
+        //        Text textMessage = new Text(message) ;
+        //        TextFlow textFlowMessage = new TextFlow(textMessage);
+        //        textFlowMessage.getStyleClass().clear();
+        //        textFlowMessage.getStyleClass().add("txt-fld");
+        //        textFlowMessage.setPadding(new Insets(5,10,5,10));
+        //        hBox.getChildren().add(textFlowMessage);
+        //
+        //        Platform.runLater(new Runnable() {
+        //            @Override
+        //            public void run() {
+        //                vBox.getChildren().add(hBox);
+        //            }
+        //        });
+
     }
 
     public void updateListUsers() {
