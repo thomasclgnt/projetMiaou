@@ -1,5 +1,8 @@
 package frontend;
 
+import bdd.MessageOut;
+import data.DatabaseController;
+import data.IPAddress;
 import data.User;
 import data.UserNotFound;
 import javafx.application.Platform;
@@ -19,6 +22,7 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
 import java.util.*;
 
@@ -120,19 +124,38 @@ public class MainPageController implements Initializable {
                 User currentConversationUser ;
                 currentConversationUsername = listUsersView.getSelectionModel().getSelectedItem();
                 remoteUsernameLabel.setText(currentConversationUsername);
-                try {
-                    currentConversationUser = mainFXML.serv.getUsers().findUserWithUsername(currentConversationUsername);
-                } catch (UserNotFound userNotFound) {
-                    userNotFound.printStackTrace();
-                }
+                currentConversationUser = mainFXML.serv.getUsers().findUserWithUsername(currentConversationUsername);
+
+
 
                 //coder une méthode externe qu'on appelle dans laquelle on :
+
+
                     //processStartSession avec ce User
-                    //ajouter session à la liste de sessions ? sinon à quoi elle sert ?
-                    //penser à faire processInitListening après la connexion
+                Socket socket = null;
+                try {
+                    socket = mainFXML.serv.processStartConversation(currentConversationUser);
                     //récupérer l'historique des messages
+                    ArrayList<MessageOut> Listmsg = DatabaseController.restoreConversation(IPAddress.getLocalIP().getHostAddress(), currentConversationUser.addressIP) ;
+                    for (MessageOut messageOut : Listmsg) {
+                        String msg = messageOut.text;
+                        String horodatage = messageOut.horodatage;
+                        System.out.println("message : " + msg + "\n" + "   et heure = " + horodatage);
+                    }
+
+                } catch (IOException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                //ajouter session à la liste de sessions ? sinon à quoi elle sert ?
+
+
+                    //récupérer l'historique des messages
+
                     //afficher les messages
 
+                //envoyer message
+                //mainFXML.serv.processSendMessage("" , currentConversationUser, socket);
             }
 
             //TODO coder dans changed() ce qu'il le passe quand on clique sur un user
@@ -144,7 +167,6 @@ public class MainPageController implements Initializable {
     public void updateListUsers() {
         this.observableListUsernames = FXCollections.observableArrayList(mainFXML.serv.getUsers().toUsernameList());
         listUsersView.setItems(this.observableListUsernames);
-        remoteUsernameLabel.setText(currentConversationUsername);
     }
 
     class MyUpdate extends TimerTask {

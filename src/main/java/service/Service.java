@@ -157,8 +157,7 @@ public class Service {
     }
 
     // envoyer un message + ajout bdd
-    public void processSendMessage(String message, User user_dest) throws IOException, InterruptedException {
-        Socket socket = processStartConversation(user_dest);
+    public void processSendMessage(String message, User user_dest, Socket socket) throws IOException, InterruptedException {
         TCPController.sendMessage(message, socket);
 
         Message msg = new Message(userLocal.username, userLocal.addressIP, user_dest.username, user_dest.addressIP, message, TCPController.horodatage());

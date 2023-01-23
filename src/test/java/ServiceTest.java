@@ -278,7 +278,7 @@ public class ServiceTest {
         System.out.println("tcp connecté au port");
         Thread.sleep(3000);
 
-        serv.processSendMessage("bonjour droite", dest);
+        serv.processSendMessage("bonjour droite", dest, serv.processStartConversation(dest));
         System.out.println("envoyé");
 
     }
@@ -320,11 +320,11 @@ public class ServiceTest {
         System.out.println("tcp connecté au port");
         Thread.sleep(3000);
 
-        serv.processSendMessage("bonjour droite", dest);
-        serv.processSendMessage("tu vas ?", dest);
+        serv.processSendMessage("bonjour droite", dest, serv.processStartConversation(dest));
+        serv.processSendMessage("tu vas ?", dest, serv.processStartConversation(dest));
         System.out.println("envoyé 1 ");
         Thread.sleep(5000);
-        serv.processSendMessage("ouuui cool :) ", dest);
+        serv.processSendMessage("ouuui cool :) ", dest, serv.processStartConversation(dest));
     }
 
     @Test
@@ -341,7 +341,7 @@ public class ServiceTest {
 
 
         Thread.sleep(3000);
-        serv.processSendMessage("oui et toi ?? ", serv.getUsers().convertToArrayList().get(0));
+        serv.processSendMessage("oui et toi ?? ", serv.getUsers().convertToArrayList().get(0), serv.processStartConversation(serv.getUsers().convertToArrayList().get(0)));
         Thread.sleep(9000);
         System.out.println(serv.getListMessage().listToString());
     }

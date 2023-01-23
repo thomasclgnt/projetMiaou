@@ -35,16 +35,12 @@ public class ListUser {
         return findUser(addressIP.getHostAddress());
     }
 
-    public User findUserWithUsername(String username) throws UserNotFound{
+    public User findUserWithUsername(String username) {
         User user = null ;
         for (User u : this.activeUsers){
             if (u.username.equals(username)) {
                 user = u ;
             }
-        }
-        if (user == null) {
-            throw new UserNotFound();
-            // rajouter en paramètre (addressIP);
         }
         return user ;
     }
