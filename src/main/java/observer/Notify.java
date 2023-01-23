@@ -1,4 +1,6 @@
-package data;
+package observer;
+
+import data.UserNotFound;
 
 import java.io.* ;
 import java.net.* ;

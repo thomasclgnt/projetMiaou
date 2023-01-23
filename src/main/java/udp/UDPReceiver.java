@@ -1,6 +1,7 @@
 package udp;
 
-import data.*;
+import observer.Notify;
+
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;

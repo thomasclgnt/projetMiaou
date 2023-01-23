@@ -1,6 +1,9 @@
 package service;
 
 import data.*;
+import observer.Notify;
+import observer.Observable;
+import observer.Observer;
 import tcp.MessageReceivedCallback;
 import tcp.TCPController;
 import udp.UDPController;
@@ -11,9 +14,8 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.Date;
 
-public class Service {
+public class Service implements Observable {
 
     public ListUser users = new ListUser();
 
@@ -168,4 +170,20 @@ public class Service {
     }
 
 
+    @Override
+    public void suscribe(Observer observer) {
+        System.out.println("New suscriber : " + observer);
+        this.observers.add(observer);
+    }
+
+    @Override
+    public void notifyChangeListUsers() {
+        System.out.println("The list of users has changed.");
+        this.observers.forEach(Observer::updateListUsers);
+    }
+
+    @Override
+    public void notifyChangeConversation() {
+        //TODO
+    }
 }

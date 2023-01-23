@@ -8,6 +8,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,6 +19,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import observer.Observable;
+import observer.Observer;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class MainPageController implements Initializable {
+public class MainPageController implements Initializable, Observer {
 
     @FXML
     private TextField changeUsernameField;
@@ -103,21 +106,13 @@ public class MainPageController implements Initializable {
         usernameLabel.setText(username);
     }
 
-    public void updateListConnectedUsers(){
-
-        Platform.runLater(() -> {
-            //this.observableListUsers = FXCollections.observableArrayList(mainFXML.serv.getUsers().convertToArrayList());
-            this.observableListUsernames = FXCollections.observableArrayList(mainFXML.serv.getUsers().toUsernameList());
-        });
-
-    }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         //System.out.println(connectedUsers.toString()) pour vérifier l'affichage dans ListView
-        listUsersView.setItems(observableListUsernames);
+
+        //listUsersView.setItems(observableListUsernames);
         listUsersView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableUsername, String s, String t1) {
@@ -145,5 +140,21 @@ public class MainPageController implements Initializable {
 
         });
     }
+
+    @Override
+    public void updateListUsers() {
+
+        Platform.runLater(() -> {
+            this.observableListUsernames = FXCollections.observableArrayList(mainFXML.serv.getUsers().toUsernameList());
+            this.listUsersView.setItems(this.observableListUsernames);
+        });
+
+    }
+
+    @Override
+    public void updateConversation() {
+
+    }
+
 
 }
