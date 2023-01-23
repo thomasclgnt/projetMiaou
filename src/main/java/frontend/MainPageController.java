@@ -144,6 +144,7 @@ public class MainPageController implements Initializable {
     public void updateListUsers() {
         this.observableListUsernames = FXCollections.observableArrayList(mainFXML.serv.getUsers().toUsernameList());
         listUsersView.setItems(this.observableListUsernames);
+        remoteUsernameLabel.setText(currentConversationUsername);
     }
 
     class MyUpdate extends TimerTask {
