@@ -145,6 +145,8 @@ public class MainPageController implements Initializable, Observer {
     public void updateListUsers() {
 
         Platform.runLater(() -> {
+            System.out.println("le run later tourne");
+            System.out.println("la liste est composée de : " + mainFXML.serv.getUsers().toUsernameList());
             this.observableListUsernames = FXCollections.observableArrayList(mainFXML.serv.getUsers().toUsernameList());
             this.listUsersView.setItems(this.observableListUsernames);
         });

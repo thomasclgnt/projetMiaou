@@ -62,6 +62,7 @@ public class Service implements Observable {
             public void notifyNewUser(String username, String addressIP, int portTCP) {
                 System.out.println("new user");
                 users.addUser(username, addressIP, portTCP);
+                this.notifyChangeListUsers();
             }
 
             @Override
@@ -142,7 +143,6 @@ public class Service implements Observable {
 
         UDPController.sendNewUsername(userLocal, new_username);
         DatabaseController.updateMyself(new_username);
-        this.notifyChangeListUsers();
         //TODO est ce qu'il faut pas relancer un process start listening ? pour que le callback ait le bon nom user_local ?
 
     }
@@ -181,6 +181,7 @@ public class Service implements Observable {
     public void notifyChangeListUsers() {
         System.out.println("The list of users has changed.");
         this.observers.forEach(Observer::updateListUsers);
+        System.out.println("ListUsers updated.");
     }
 
     @Override
