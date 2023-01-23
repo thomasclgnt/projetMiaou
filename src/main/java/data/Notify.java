@@ -1,4 +1,4 @@
-package observer;
+package data;
 
 import data.UserNotFound;
 
@@ -8,8 +8,6 @@ import java.net.* ;
 
 
 public interface Notify {
-
-    //PROCHAINE FOIS : CODER CHANGE USERNAME ET TESTER LE TOUT
 
     void notifyNewUser(String username, String addressIP, int portTCP) ;
 

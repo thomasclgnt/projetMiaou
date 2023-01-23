@@ -1,7 +1,6 @@
 package udp;
 
-import observer.Notify;
-import observer.Observer;
+import data.Notify;
 
 import java.io.*;
 import java.net.*;

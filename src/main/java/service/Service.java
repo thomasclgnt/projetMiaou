@@ -1,9 +1,7 @@
 package service;
 
 import data.*;
-import observer.Notify;
-import observer.Observable;
-import observer.Observer;
+import data.Notify;
 import tcp.MessageReceivedCallback;
 import tcp.TCPController;
 import udp.UDPController;
@@ -168,22 +166,4 @@ public class Service {
 
     }
 
-/*
-    @Override
-    public void suscribe(Observer observer) {
-        System.out.println("New suscriber : " + observer);
-        this.observers.add(observer);
-    }
-
-    @Override
-    public void notifyChangeListUsers() {
-        System.out.println("The list of users has changed.");
-        this.observers.forEach(Observer::updateListUsers);
-        System.out.println("ListUsers updated.");
-    }
-
-    @Override
-    public void notifyChangeConversation() {
-        //TODO
-    }   */
 }

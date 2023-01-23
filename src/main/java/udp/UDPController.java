@@ -1,7 +1,7 @@
 package udp;
 
 import data.*;
-import observer.Notify;
+import data.Notify;
 
 import java.io.*;
 import java.net.InetAddress;

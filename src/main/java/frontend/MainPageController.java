@@ -1,6 +1,5 @@
 package frontend;
 
-import data.ListUser;
 import data.User;
 import data.UserNotFound;
 import javafx.application.Platform;
@@ -8,7 +7,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,8 +17,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
-import observer.Observable;
-import observer.Observer;
 
 import java.io.IOException;
 import java.net.URL;
@@ -147,9 +143,7 @@ public class MainPageController implements Initializable {
 
     public void updateListUsers() {
         this.observableListUsernames = FXCollections.observableArrayList(mainFXML.serv.getUsers().toUsernameList());
-        System.out.println("la liste est composée de : " + mainFXML.serv.getUsers().toUsernameList());
         listUsersView.setItems(this.observableListUsernames);
-        //this.listUsersView.setItems(this.observableListUsernames);
     }
 
     class MyUpdate extends TimerTask {
@@ -157,7 +151,6 @@ public class MainPageController implements Initializable {
         @Override
         public void run() {
             Platform.runLater(() -> {
-                System.out.println("le run later tourne");
                 updateListUsers() ;
             });
         }
