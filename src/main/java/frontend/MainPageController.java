@@ -24,11 +24,9 @@ import observer.Observer;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
-public class MainPageController implements Initializable, Observer {
+public class MainPageController implements Initializable {
 
     @FXML
     private TextField changeUsernameField;
@@ -112,7 +110,13 @@ public class MainPageController implements Initializable, Observer {
 
         //System.out.println(connectedUsers.toString()) pour vérifier l'affichage dans ListView
 
-        //listUsersView.setItems(observableListUsernames);
+
+        MyUpdate update = new MyUpdate();
+        Timer timer = new Timer(true);
+        timer.scheduleAtFixedRate(update, 500, 500);
+
+        listUsersView.setItems(observableListUsernames);
+
         listUsersView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableUsername, String s, String t1) {
@@ -141,22 +145,21 @@ public class MainPageController implements Initializable, Observer {
         });
     }
 
-    @Override
     public void updateListUsers() {
-
-        Platform.runLater(() -> {
-            System.out.println("le run later tourne");
-            System.out.println("la liste est composée de : " + mainFXML.serv.getUsers().toUsernameList());
-            this.observableListUsernames = FXCollections.observableArrayList(mainFXML.serv.getUsers().toUsernameList());
-            this.listUsersView.setItems(this.observableListUsernames);
-        });
-
+        this.observableListUsernames = FXCollections.observableArrayList(mainFXML.serv.getUsers().toUsernameList());
+        //this.listUsersView.setItems(this.observableListUsernames);
     }
 
-    @Override
-    public void updateConversation() {
+    class MyUpdate extends TimerTask {
 
+        @Override
+        public void run() {
+            Platform.runLater(() -> {
+                System.out.println("le run later tourne");
+                System.out.println("la liste est composée de : " + mainFXML.serv.getUsers().toUsernameList());
+                updateListUsers() ;
+            });
+        }
     }
-
 
 }

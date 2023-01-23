@@ -15,7 +15,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
-public class Service implements Observable {
+public class Service {
 
     public ListUser users = new ListUser();
 
@@ -62,6 +62,7 @@ public class Service implements Observable {
             public void notifyNewUser(String username, String addressIP, int portTCP) {
                 System.out.println("new user");
                 users.addUser(username, addressIP, portTCP);
+
             }
 
             @Override
@@ -123,7 +124,6 @@ public class Service implements Observable {
 
         userLocal.setUsername(validUsername);
         DatabaseController.addMyself(userLocal.username);
-        this.notifyChangeListUsers();
         UDPController.sendConnexion(userLocal);
         processStartListening() ;
 
@@ -134,7 +134,6 @@ public class Service implements Observable {
         UDPController.sendDeconnexion(userLocal);
         DatabaseController.dropTableMyself();
         DatabaseController.dropTableListUsers();
-        this.notifyChangeListUsers();
 
     }
 
@@ -142,7 +141,6 @@ public class Service implements Observable {
 
         UDPController.sendNewUsername(userLocal, new_username);
         DatabaseController.updateMyself(new_username);
-        this.notifyChangeListUsers();
         //TODO est ce qu'il faut pas relancer un process start listening ? pour que le callback ait le bon nom user_local ?
 
     }
@@ -170,7 +168,7 @@ public class Service implements Observable {
 
     }
 
-
+/*
     @Override
     public void suscribe(Observer observer) {
         System.out.println("New suscriber : " + observer);
@@ -187,5 +185,5 @@ public class Service implements Observable {
     @Override
     public void notifyChangeConversation() {
         //TODO
-    }
+    }   */
 }
