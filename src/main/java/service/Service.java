@@ -11,32 +11,28 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Date;
 
 public class Service {
 
     public ListUser users = new ListUser();
 
-    public User userLocal = new User("local", IPAddress.getLocalIP().getHostAddress(), 1234);
+    public User userLocal = new User("", IPAddress.getLocalIP().getHostAddress(), 1234);
 
     ListMessageIn receivedMessages = new ListMessageIn();
 
     MessageReceivedCallback callback = new MessageReceivedCallback() {
         @Override
         public void received(InetAddress from, String message, String horodatage) {
-            System.out.println("on est dans le callback, voici liste des users données par service : \n" + getUsers().listToString());
-            System.out.println("on est dans le callback, voici liste des users données par service : \n" + users.listToString());
-            try {
-                //User distant = users.findUser(from);//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre //renvoie l'user correspondant à l'adresse ip
-                //User us = users.findUser(IPAddress.getLocalIP());
-                System.out.println("on est dans le callback0, voici liste des users données par service : \n" + getUsers().listToString());
-                User distant = getUsers().findUser(from.getHostAddress());//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre //renvoie l'user correspondant à l'adresse ip
-                User us = getUsers().findUser(IPAddress.getLocalIP());
-                System.out.println("on est dans le callback1, voici liste des users données par service : \n" + getUsers().listToString());
+           try {
+               getListUsersFromDB() ; // on met à jour la liste users en faisant un appel à la bdd
+               User distant = getUsers().findUser(from.getHostAddress());//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre //renvoie l'user correspondant à l'adresse ip
+               User us = new User(DatabaseController.getMyName(), IPAddress.getLocalIP().getHostAddress(), 1234) ;
 
-                MessageIn msgData = new MessageIn(distant.username, distant.addressIP, us.username, us.addressIP, message, horodatage);
+               MessageIn msgData = new MessageIn(distant.username, distant.addressIP, us.username, us.addressIP, message, horodatage);
 
-                System.out.println("Message received from " + msgData.source + " at address : " + msgData.IPsource + " : " + msgData.text);
-                receivedMessages.addMessage(msgData.source, msgData.IPsource, msgData.dest, msgData.IPdest, msgData.text, msgData.horodatage);
+               System.out.println("Message received from " + msgData.source + " at address : " + msgData.IPsource + " : " + msgData.text);
+               receivedMessages.addMessage(msgData.source, msgData.IPsource, msgData.dest, msgData.IPdest, msgData.text, msgData.horodatage);
 
             } catch (UserNotFound userNotFound) {
                 throw new AssertionError("[callback] no such user");
@@ -128,6 +124,7 @@ public class Service {
         userLocal.setUsername(validUsername);
         DatabaseController.addMyself(userLocal.username);
         UDPController.sendConnexion(userLocal);
+        processStartListening() ;
 
     }
 
@@ -143,6 +140,7 @@ public class Service {
 
         UDPController.sendNewUsername(userLocal, new_username);
         DatabaseController.updateMyself(new_username);
+        //TODO est ce qu'il faut pas relancer un process start listening ? pour que le callback ait le bon nom user_local ?
 
     }
 
@@ -162,7 +160,6 @@ public class Service {
     // envoyer un message + ajout bdd
     public void processSendMessage(String message, User user_dest) throws IOException, InterruptedException {
         Socket socket = processStartConversation(user_dest);
-        Thread.sleep(1000);
         TCPController.sendMessage(message, socket);
 
         Message msg = new Message(userLocal.username, userLocal.addressIP, user_dest.username, user_dest.addressIP, message, TCPController.horodatage());

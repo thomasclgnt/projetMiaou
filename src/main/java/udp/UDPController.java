@@ -93,6 +93,8 @@ public class UDPController {
         // ajouter à la base de donnée le nouvel utilisateur
         DatabaseController.addUser(remoteUsername, connectedUserAddress.getHostAddress());
 
+
+
     }
 
     public static void receiveConnexion(String username, String addressIP, String portTCP, ArrayList<Notify> subscribers, InetAddress senderAddress){
@@ -106,6 +108,7 @@ public class UDPController {
         if (!equals) {
             for (Notify sub : subscribers) {
                 sub.notifyNewUser(username, addressIP, Integer.parseInt(portTCP));
+                DatabaseController.addUser(username, addressIP);
             }
             DatabaseController.addUser(username, addressIP);
         }
@@ -123,6 +126,7 @@ public class UDPController {
                 try {
                     sub.notifyDeleteUser(addressIP);
                     DatabaseController.deleteUser(addressIP);
+
                 } catch (UserNotFound userNotFound) {
                     userNotFound.printStackTrace();
                 }

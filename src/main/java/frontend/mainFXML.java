@@ -30,7 +30,7 @@ public class mainFXML extends Application {
     }
 
     public static boolean isValid(String username) {
-        String legalCharacters = "abcdefghijklmnopqrstuvwxzy0123456789";
+        String legalCharacters = "abcdefghijklmnopqrstuvwxzy0123456789éèëê-";
         boolean valid = true;
         if (username.length() < 3 || username.length() > 16) {
             valid = false;

@@ -90,7 +90,7 @@ public class Insert {
         }
     }
 
-    public static void add_Myself(String username) {
+    public static void addMyself(String username) {
         Insert data = new Insert() ;
         data.insertMyself(username); ;
     }
@@ -104,9 +104,9 @@ public class Insert {
         // insert three new rows
         //A TESTER
         //Date time1 =  new Date(System.currentTimeMillis());//TODO marche, reste à comprendre le format
-        data.insert("Marie", "200", "Thomas", "100", "on est lundi", "10:00");
-        data.insertUsers("thomas","100");
-        //data.insertMyself("thomas");
+        //data.insert("Marie", "200", "Thomas", "100", "on est lundi", "10:00");
+        //data.insertUsers("thomas","100");
+        data.insertMyself("thomas");
     }
 
 }

@@ -2,6 +2,7 @@ import data.*;
 import frontend.mainFXML;
 import org.junit.*;
 import service.Service;
+import tcp.TCPController;
 import udp.*;
 import java.io.IOException;
 import java.net.SocketException;
@@ -269,15 +270,13 @@ public class ServiceTest {
         serv.lancerService();
 
         User dest = new User("pc_droite", "192.168.1.79", 1234) ;
-        User Gauche = new User("ordi_gauche", "192.168.1.71", 1234);
-
-        UDPController.sendConnexion(Gauche);
-        Thread.sleep(5000);
+        serv.processConnection("ordi_gauche");
+        Thread.sleep(2000);
         System.out.println("udp connecté");
-        serv.processStartListening();
+
 
         System.out.println("tcp connecté au port");
-        Thread.sleep(10000);
+        Thread.sleep(3000);
 
         serv.processSendMessage("bonjour droite", dest);
         System.out.println("envoyé");
@@ -289,24 +288,62 @@ public class ServiceTest {
 
         Service serv = new Service();
         serv.lancerService();
-        System.out.println("service udp lancé");
-        Thread.sleep(10000);
+
+        serv.processConnection("pc_droite");
+        Thread.sleep(5000) ;
 
         System.out.println("users connectés : " + serv.getUsers().listToString());
+
         assertEquals("[ordi_gauche, 192.168.1.71, 1234 ; \n" +
                 "]", serv.getUsers().listToString());
 
-        //ListUser users = new ListUser();
-        //User distant = new User("thomas gauche", "192.168.1.71", 1234) ;
-        //User local = new User("local thomas droite","192.168.1.79", 1234) ;
-        //users.addUser(distant.username, distant.addressIP, distant.portTCP);
-        //users.addUser(local.username, local.addressIP, local.portTCP) ;
-
-        Thread.sleep(4000) ;
-        serv.processStartListening();
-        Thread.sleep(10000);
+        //serv.processStartListening();
+        Thread.sleep(7000);
         System.out.println(serv.getListMessage().listToString());
-        //assertEquals("[marie_d_ac, 10.1.5.13, 1234 ; \n" + "]", serv.getListMessage().listToString());
+    }
+
+
+    @Test
+    public void testSendAndReceive_Client() throws IOException, InterruptedException {
+
+        Service serv = new Service();
+        serv.lancerService();
+
+        User dest = new User("pc_droite", "192.168.1.79", 1234) ;
+
+        serv.processConnection("ordi_gauche");
+        serv.processGetRemoteUsers();
+        Thread.sleep(2000);
+        System.out.println("remote users récupérés");
+
+
+        System.out.println("tcp connecté au port");
+        Thread.sleep(3000);
+
+        serv.processSendMessage("bonjour droite", dest);
+        serv.processSendMessage("tu vas ?", dest);
+        System.out.println("envoyé 1 ");
+        Thread.sleep(5000);
+        serv.processSendMessage("ouuui cool :) ", dest);
+    }
+
+    @Test
+    public void testSendAndReceive_Server() throws IOException, InterruptedException {
+        Service serv = new Service();
+        serv.lancerService();
+
+        serv.processConnection("pc_droite");
+        Thread.sleep(9000) ;
+
+        System.out.println("users connectés : " + serv.getUsers().listToString());
+
+        //assertEquals("[ordi_gauche, 192.168.1.71, 1234 ; \n" + "]", serv.getUsers().listToString());
+
+
+        Thread.sleep(3000);
+        serv.processSendMessage("oui et toi ?? ", serv.getUsers().convertToArrayList().get(0));
+        Thread.sleep(9000);
+        System.out.println(serv.getListMessage().listToString());
     }
 
 
