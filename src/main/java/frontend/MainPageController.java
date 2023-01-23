@@ -115,7 +115,7 @@ public class MainPageController implements Initializable {
         Timer timer = new Timer(true);
         timer.scheduleAtFixedRate(update, 500, 500);
 
-        listUsersView.setItems(observableListUsernames);
+        listUsersView.setItems(this.observableListUsernames);
 
         listUsersView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -147,6 +147,7 @@ public class MainPageController implements Initializable {
 
     public void updateListUsers() {
         this.observableListUsernames = FXCollections.observableArrayList(mainFXML.serv.getUsers().toUsernameList());
+        System.out.println("la liste est composée de : " + mainFXML.serv.getUsers().toUsernameList());
         //this.listUsersView.setItems(this.observableListUsernames);
     }
 
@@ -156,7 +157,6 @@ public class MainPageController implements Initializable {
         public void run() {
             Platform.runLater(() -> {
                 System.out.println("le run later tourne");
-                System.out.println("la liste est composée de : " + mainFXML.serv.getUsers().toUsernameList());
                 updateListUsers() ;
             });
         }
