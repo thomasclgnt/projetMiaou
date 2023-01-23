@@ -148,6 +148,7 @@ public class MainPageController implements Initializable {
     public void updateListUsers() {
         this.observableListUsernames = FXCollections.observableArrayList(mainFXML.serv.getUsers().toUsernameList());
         System.out.println("la liste est composée de : " + mainFXML.serv.getUsers().toUsernameList());
+        listUsersView.setItems(this.observableListUsernames);
         //this.listUsersView.setItems(this.observableListUsernames);
     }
 
