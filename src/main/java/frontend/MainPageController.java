@@ -204,8 +204,7 @@ public class MainPageController implements Initializable {
         textFlowMessage.getStyleClass().add("txtfld");
         textFlowMessage.setPadding(new Insets(5,10,5,10));
         hBox.getChildren().add(textFlowMessage);
-
-        Platform.runLater(() -> vBox.getChildren().add(hBox));
+        vBox.getChildren().add(hBox);
 
     }
 
