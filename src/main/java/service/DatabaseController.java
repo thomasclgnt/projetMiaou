@@ -1,6 +1,8 @@
-package data;
+package service;
 
 import bdd.*;
+import data.ListUser;
+import data.Message;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -70,7 +72,7 @@ public class DatabaseController {
 
     public static void addMessage(Message m) {
         Insert.add_data(m.source, m.IPsource, m.dest, m.IPdest, m.text, m.horodatage);
-        System.out.println("[db_controller] Le message de " + m.dest + " a été ajouté à la base de donnée") ;
+        System.out.println("[db_controller] Le message à " + m.dest + " a été ajouté à la base de donnée") ;
     }
 
 //TABLE LISTUSERS

@@ -1,4 +1,8 @@
-package tcp;
+package service;
+
+import tcp.MessageReceivedCallback;
+import tcp.TCPClient;
+import tcp.TCPServer;
 
 import java.io.*;
 import java.net.*;

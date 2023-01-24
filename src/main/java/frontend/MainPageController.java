@@ -1,7 +1,7 @@
 package frontend;
 
 import bdd.MessageOut;
-import data.DatabaseController;
+import service.DatabaseController;
 import data.IPAddress;
 import data.User;
 import javafx.application.Platform;
@@ -27,8 +27,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
 import java.util.*;
-
-import static service.Service.horodatage;
 
 public class MainPageController implements Initializable {
 
@@ -106,10 +104,11 @@ public class MainPageController implements Initializable {
     @FXML
     void sendMessage(ActionEvent event) throws IOException, InterruptedException {
         String message = messageToSend.getText();
-        String horodatage = mainFXML.serv.processSendMessage(message, currentRemoteUser, currentSocket);
-        addMessageSent(message, horodatage, vboxMessages);
+        if (!message.isEmpty()) {
+            String horodatage = mainFXML.serv.processSendMessage(message, currentRemoteUser, currentSocket);
+            addMessageSent(message, horodatage, vboxMessages);
+        }
     }
-
 
     public void displayUsername(String username) {
         usernameLabel.setText(username);
@@ -199,28 +198,24 @@ public class MainPageController implements Initializable {
         textFlowMessage.setPadding(new Insets(5,10,5,10));
         hBox.getChildren().add(textFlowMessage);
         vBox.getChildren().add(hBox);
-
     }
 
     //String message = messageToSend.getText(); à faire dans sendMessage
     //et utiliser ce message dans l'appel de addMesageSent
     public void addMessageSent(String message, String horodatage, VBox vBox){
-        if (!message.isEmpty()){
-            HBox hBox = new HBox();
-            hBox.setAlignment(Pos.CENTER_RIGHT);
-            hBox.setPadding(new Insets(5,5,5,10));
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER_RIGHT);
+        hBox.setPadding(new Insets(5,5,5,10));
 
-            Text textMessage = new Text(message) ;
-            TextFlow textFlowMessage = new TextFlow(textMessage);
-            textFlowMessage.getStyleClass().clear();
-            textFlowMessage.getStyleClass().add("txt-fld");
-            textFlowMessage.setPadding(new Insets(5,10,5,10));
+        Text textMessage = new Text(message) ;
+        TextFlow textFlowMessage = new TextFlow(textMessage);
+        textFlowMessage.getStyleClass().clear();
+        textFlowMessage.getStyleClass().add("txt-fld");
+        textFlowMessage.setPadding(new Insets(5,10,5,10));
 
-            hBox.getChildren().add(textFlowMessage);
-            vBox.getChildren().add(hBox);
-            messageToSend.clear();
-        }
-
+        hBox.getChildren().add(textFlowMessage);
+        vBox.getChildren().add(hBox);
+        messageToSend.clear();
     }
 
     public void updateListUsers() {
