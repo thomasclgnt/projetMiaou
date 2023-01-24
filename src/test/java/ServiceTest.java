@@ -316,7 +316,6 @@ public class ServiceTest {
         Thread.sleep(2000);
         System.out.println("remote users récupérés");
 
-
         System.out.println("tcp connecté au port");
         Thread.sleep(3000);
 

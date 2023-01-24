@@ -8,12 +8,9 @@ public class MessageOut extends Message {
 
     /** Text of the message. Public because it is immutable (final + String type). */
     public String rowid ;
-
-
     public MessageOut(String source, String IPsource, String dest, String IPdest, String text, String horodatage, String rowid){
         super(source, IPsource, dest, IPdest, text, horodatage) ;
         this.rowid = rowid ;
-
     }
 
     @Override

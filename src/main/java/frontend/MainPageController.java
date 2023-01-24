@@ -132,17 +132,10 @@ public class MainPageController implements Initializable {
 
                 try {
                     ArrayList<MessageOut> conversation = openConversation(currentConversationUser);
-                    for (MessageOut messageOut : conversation) {
-                        String msg = messageOut.text;
-                        String horodatage = messageOut.horodatage;
-                        System.out.println("message : " + msg + "\n" + "   et heure = " + horodatage);
-                    }
-
+                    displayConversation(conversation);
                 } catch (IOException | InterruptedException e) {
-                    e.printStackTrace();
+                    throw new RuntimeException(e);
                 }
-                //envoyer message
-                //mainFXML.serv.processSendMessage("" , currentConversationUser, socket);
             }
         });
 
@@ -154,15 +147,26 @@ public class MainPageController implements Initializable {
         });
     }
 
+    //récupérer l'historique des messages
     public ArrayList<MessageOut> openConversation(User remoteUser) throws IOException, InterruptedException {
         Socket socket = mainFXML.serv.processStartConversation(remoteUser);
-        //récupérer l'historique des messages
         ArrayList<MessageOut> Listmsg = DatabaseController.restoreConversation(IPAddress.getLocalIP().getHostAddress(), remoteUser.addressIP) ;
         return Listmsg ;
     }
 
     public void displayConversation (ArrayList<MessageOut> conversation){
-
+        for (MessageOut messageOut : conversation) {
+            String msg = messageOut.text;
+            String horodatage = messageOut.horodatage;
+            String IPsource = messageOut.IPsource ;
+            String myLocalIP = IPAddress.getLocalIP().getHostAddress();
+            if (myLocalIP.equals(IPsource)){
+                addMessageSent(msg, horodatage, vboxMessages);
+            } else {
+                addMessageReceived(msg, horodatage, vboxMessages);
+            }
+            System.out.println("message : " + msg + "\n" + "   et heure = " + horodatage);
+        }
     }
 
     public void addMessageReceived(String message, String horodatage, VBox vBox){
@@ -176,33 +180,28 @@ public class MainPageController implements Initializable {
         textFlowMessage.setPadding(new Insets(5,10,5,10));
         hBox.getChildren().add(textFlowMessage);
 
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                vBox.getChildren().add(hBox);
-            }
-        });
+        Platform.runLater(() -> vBox.getChildren().add(hBox));
 
     }
 
-    public void addMessageSent(String horodatage, VBox vBox){
-        String message = messageToSend.getText();
-        //        HBox hBox = new HBox();
-        //        hBox.setAlignment(Pos.CENTER_LEFT);
-        //        hBox.setPadding(new Insets(5,5,5,10));
-        //        Text textMessage = new Text(message) ;
-        //        TextFlow textFlowMessage = new TextFlow(textMessage);
-        //        textFlowMessage.getStyleClass().clear();
-        //        textFlowMessage.getStyleClass().add("txt-fld");
-        //        textFlowMessage.setPadding(new Insets(5,10,5,10));
-        //        hBox.getChildren().add(textFlowMessage);
-        //
-        //        Platform.runLater(new Runnable() {
-        //            @Override
-        //            public void run() {
-        //                vBox.getChildren().add(hBox);
-        //            }
-        //        });
+    //String message = messageToSend.getText(); à faire dans sendMessage
+    //et utiliser ce message dans l'appel de addMesageSent
+    public void addMessageSent(String message, String horodatage, VBox vBox){
+        if (!message.isEmpty()){
+            HBox hBox = new HBox();
+            hBox.setAlignment(Pos.CENTER_RIGHT);
+            hBox.setPadding(new Insets(5,5,5,10));
+
+            Text textMessage = new Text(message) ;
+            TextFlow textFlowMessage = new TextFlow(textMessage);
+            textFlowMessage.getStyleClass().clear();
+            textFlowMessage.getStyleClass().add("txtfld");
+            textFlowMessage.setPadding(new Insets(5,10,5,10));
+
+            hBox.getChildren().add(textFlowMessage);
+            vBox.getChildren().add(hBox);
+            messageToSend.clear();
+        }
 
     }
 
