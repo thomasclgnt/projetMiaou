@@ -127,7 +127,6 @@ public class MainPageController implements Initializable {
         listUsersView.setOnMouseClicked(event -> {
             String currentConversationUsername = listUsersView.getSelectionModel().getSelectedItem() ;
             User currentConversationUser ;
-            System.out.println("en boucleeeeuh");
             if(currentConversationUsername != null) {
                 remoteUsernameLabel.setText(currentConversationUsername);
                 currentConversationUser = mainFXML.serv.getUsers().findUserWithUsername(currentConversationUsername);
@@ -181,16 +180,12 @@ public class MainPageController implements Initializable {
             String horodatage = messageOut.horodatage;
             String IPsource = messageOut.IPsource ;
             String myLocalIP = IPAddress.getLocalIP().getHostAddress();
-            System.out.println("message en cours : " + msg);
 
             if (myLocalIP.equals(IPsource)){
-                System.out.println("J'ajoute un message envoyé");
                 addMessageSent(msg, horodatage, vboxMessages);
             } else {
                 addMessageReceived(msg, horodatage, vboxMessages);
-                System.out.println("J'ajoute un message reçu");
             }
-            System.out.println("message : " + msg + "\n" + "   et heure = " + horodatage);
         }
     }
 
