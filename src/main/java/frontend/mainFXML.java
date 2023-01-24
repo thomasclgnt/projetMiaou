@@ -62,7 +62,7 @@ public class mainFXML extends Application {
         alert.setContentText("Are you sure you want to log out ?");
 
         if (alert.showAndWait().get() == ButtonType.OK) {
-            //mainFXML.serv.processDeconnection();
+            mainFXML.serv.processDeconnection();
             System.out.println("You are logged out.");
             stage.close();
         }
@@ -88,7 +88,6 @@ public class mainFXML extends Application {
             event.consume();
             try {
                 logout(stage);
-
                 Platform.exit();
                 System.exit(0);
             } catch (IOException e) {
