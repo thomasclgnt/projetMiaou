@@ -123,13 +123,14 @@ public class MainPageController implements Initializable {
 
         listUsersView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void changed(ObservableValue<? extends String> observableUsername, String s, String t1) {
+            public void changed(ObservableValue<? extends String> observableUsername, String oldValue, String newValue) {
 
                 User currentConversationUser ;
-                currentConversationUsername = listUsersView.getSelectionModel().getSelectedItem();
-                remoteUsernameLabel.setText(currentConversationUsername);
-                if (!currentConversationUsername.equals(null)) {
-                    currentConversationUser = mainFXML.serv.getUsers().findUserWithUsername(currentConversationUsername);
+                //currentConversationUsername = listUsersView.getSelectionModel().getSelectedItem();
+                System.out.println("NULLLL ?" + newValue);
+                if (!newValue.equals(null)) {
+                    remoteUsernameLabel.setText(newValue);
+                    currentConversationUser = mainFXML.serv.getUsers().findUserWithUsername(newValue);
                     try {
                         ArrayList<MessageOut> conversation = openConversation(currentConversationUser);
                         displayConversation(conversation);
