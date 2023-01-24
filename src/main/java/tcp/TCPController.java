@@ -37,14 +37,7 @@ public class TCPController {
 
         out.println(message + " ");
         out.flush(); //vider les buffers
-        }
-
-    //dater les messages
-    public static String horodatage() {
-        Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-        String horodatage = formatter.format(date);
-        return horodatage ;
     }
 
-    }
+
+}

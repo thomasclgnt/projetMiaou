@@ -12,6 +12,8 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Service {
 
@@ -157,12 +159,21 @@ public class Service {
     }
 
     // envoyer un message + ajout bdd
-    public void processSendMessage(String message, User user_dest, Socket socket) throws IOException, InterruptedException {
+    public String processSendMessage(String message, User user_dest, Socket socket) throws IOException, InterruptedException {
         TCPController.sendMessage(message, socket);
-
-        Message msg = new Message(userLocal.username, userLocal.addressIP, user_dest.username, user_dest.addressIP, message, TCPController.horodatage());
+        String horodatage = horodatage();
+        Message msg = new Message(userLocal.username, userLocal.addressIP, user_dest.username, user_dest.addressIP, message, horodatage);
         DatabaseController.addMessage(msg);
 
+        return horodatage;
+
+    }
+
+    public static String horodatage() {
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        String horodatage = formatter.format(date);
+        return horodatage ;
     }
 
 }

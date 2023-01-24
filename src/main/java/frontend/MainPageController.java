@@ -28,6 +28,8 @@ import java.net.Socket;
 import java.net.URL;
 import java.util.*;
 
+import static service.Service.horodatage;
+
 public class MainPageController implements Initializable {
 
     @FXML
@@ -51,11 +53,11 @@ public class MainPageController implements Initializable {
     @FXML
     private TextField messageToSend;
 
-    //private ObservableList<User> observableListUsers ;
     private ObservableList<String> observableListUsernames ;
 
     Stage stage ;
-    String currentConversationUsername;
+    User currentRemoteUser ;
+    Socket currentSocket ;
 
     @FXML
     void changeUsername(ActionEvent event) throws IOException {
@@ -102,8 +104,10 @@ public class MainPageController implements Initializable {
     }
 
     @FXML
-    void sendMessage(ActionEvent event) {
-
+    void sendMessage(ActionEvent event) throws IOException, InterruptedException {
+        String message = messageToSend.getText();
+        String horodatage = mainFXML.serv.processSendMessage(message, currentRemoteUser, currentSocket);
+        addMessageSent(message, horodatage, vboxMessages);
     }
 
 
@@ -115,9 +119,6 @@ public class MainPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        //System.out.println(connectedUsers.toString()) pour vérifier l'affichage dans ListView
-
-
         MyUpdate update = new MyUpdate();
         Timer timer = new Timer(true);
         timer.scheduleAtFixedRate(update, 500, 500);
@@ -126,13 +127,11 @@ public class MainPageController implements Initializable {
 
         listUsersView.setOnMouseClicked(event -> {
             String currentConversationUsername = listUsersView.getSelectionModel().getSelectedItem() ;
-            User currentConversationUser ;
             if(currentConversationUsername != null) {
                 remoteUsernameLabel.setText(currentConversationUsername);
-                currentConversationUser = mainFXML.serv.getUsers().findUserWithUsername(currentConversationUsername);
+                currentRemoteUser = mainFXML.serv.getUsers().findUserWithUsername(currentConversationUsername);
                 try {
-                    ArrayList<MessageOut> conversation = openConversation(currentConversationUser);
-                    displayConversation(conversation);
+                    openConversation(currentRemoteUser);
                 } catch (IOException | InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -168,10 +167,10 @@ public class MainPageController implements Initializable {
     }
 
     //récupérer l'historique des messages
-    public ArrayList<MessageOut> openConversation(User remoteUser) throws IOException, InterruptedException {
-        // A FAIRE EN DEHORS POUR RECUP LE SOCKET Socket socket = mainFXML.serv.processStartConversation(remoteUser);
-        ArrayList<MessageOut> Listmsg = DatabaseController.restoreConversation(IPAddress.getLocalIP().getHostAddress(), remoteUser.addressIP) ;
-        return Listmsg ;
+    public void openConversation(User remoteUser) throws IOException, InterruptedException {
+        currentSocket = mainFXML.serv.processStartConversation(remoteUser);
+        ArrayList<MessageOut> conversation = DatabaseController.restoreConversation(IPAddress.getLocalIP().getHostAddress(), remoteUser.addressIP) ;
+        displayConversation(conversation);
     }
 
     public void displayConversation (ArrayList<MessageOut> conversation){
