@@ -127,8 +127,9 @@ public class MainPageController implements Initializable {
 
                 User currentConversationUser ;
                 //currentConversationUsername = listUsersView.getSelectionModel().getSelectedItem();
-                System.out.println("NULLLL ?" + newValue);
-                if (!newValue.equals(null)) {
+                System.out.println("NULLLL ? " + newValue);
+
+                if(newValue != null) {
                     remoteUsernameLabel.setText(newValue);
                     currentConversationUser = mainFXML.serv.getUsers().findUserWithUsername(newValue);
                     try {
