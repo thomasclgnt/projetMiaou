@@ -121,7 +121,6 @@ public class DatabaseController {
     public static void main(String[] args) {
         restoreConversation("192.168.1.71","192.168.1.79");
         //restoreListUsers();
-        //addMyself("josé");
         //System.out.println(getMyName());
     }
 

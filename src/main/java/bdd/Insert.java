@@ -104,9 +104,11 @@ public class Insert {
         // insert three new rows
         //A TESTER
         //Date time1 =  new Date(System.currentTimeMillis());//TODO marche, reste à comprendre le format
-        //data.insert("Marie", "200", "Thomas", "100", "on est lundi", "10:00");
+        data.insert("Marie", "10.0.0.22", "Thomas", "10.0.0.17", "on avance ?", "10:00");
+        data.insert("Marie", "10.0.0.22", "Thomas", "10.0.0.17", "ça va ?", "11:00");
+        data.insert("Thomas", "10.0.0.17", "Marie", "10.0.0.22", "oui ça passe", "12:00");
         //data.insertUsers("thomas","100");
-        data.insertMyself("thomas");
+        //data.insertMyself("thomas");
     }
 
 }
