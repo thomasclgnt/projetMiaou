@@ -126,8 +126,6 @@ public class MainPageController implements Initializable {
             public void changed(ObservableValue<? extends String> observableUsername, String oldValue, String newValue) {
 
                 User currentConversationUser ;
-                //currentConversationUsername = listUsersView.getSelectionModel().getSelectedItem();
-                System.out.println("NULLLL ? " + newValue);
 
                 if(newValue != null) {
                     remoteUsernameLabel.setText(newValue);
@@ -153,8 +151,7 @@ public class MainPageController implements Initializable {
 
     //récupérer l'historique des messages
     public ArrayList<MessageOut> openConversation(User remoteUser) throws IOException, InterruptedException {
-        //Socket socket = mainFXML.serv.processStartConversation(remoteUser);
-        System.out.println(remoteUser.toString());
+        Socket socket = mainFXML.serv.processStartConversation(remoteUser);
         ArrayList<MessageOut> Listmsg = DatabaseController.restoreConversation(IPAddress.getLocalIP().getHostAddress(), remoteUser.addressIP) ;
         return Listmsg ;
     }
