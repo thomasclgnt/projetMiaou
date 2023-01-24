@@ -106,25 +106,7 @@ public class Insert {
         // insert three new rows
         //A TESTER
         //Date time1 =  new Date(System.currentTimeMillis());//TODO marche, reste à comprendre le format
-        data.insert("Marie", "10.0.0.22", "Thomas", "10.0.0.17", "Parfait", "10:00");
-        data.insert("Marie", "10.0.0.22", "Thomas", "10.0.0.17", "Parfait c", TCPController.horodatage());
-        data.insert("Marie", "10.0.0.22", "Thomas", "10.0.0.17", "Parfait d", TCPController.horodatage());
-        data.insert("Marie", "10.0.0.22", "Thomas", "10.0.0.17", "Parfait conn", TCPController.horodatage());
-
-        data.insert("Marie", "10.0.0.22", "Thomas", "10.0.0.17", "Parfait eries", TCPController.horodatage());
-
-        data.insert("Marie", "10.0.0.22", "Thomas", "10.0.0.17", "Parfait t", TCPController.horodatage());
-
-        data.insert("Marie", "10.0.0.22", "Thomas", "10.0.0.17", "Parfait o", TCPController.horodatage());
-
-        data.insert("Marie", "10.0.0.22", "Thomas", "10.0.0.17", "Parfait u", TCPController.horodatage());
-
-        data.insert("Marie", "10.0.0.22", "Thomas", "10.0.0.17", "Parfait tee", TCPController.horodatage());
-
-        data.insert("Marie", "10.0.0.22", "Thomas", "10.0.0.17", "Parfait ç", TCPController.horodatage());
-
-        data.insert("Marie", "10.0.0.22", "Thomas", "10.0.0.17", "Parfait a", TCPController.horodatage());
-
+        //data.insert("Marie", "10.0.0.22", "Thomas", "10.0.0.17", "Parfait", "10:00");
 
         //data.insertUsers("thomas","100");
         //data.insertMyself("thomas");
