@@ -181,10 +181,14 @@ public class MainPageController implements Initializable {
             String horodatage = messageOut.horodatage;
             String IPsource = messageOut.IPsource ;
             String myLocalIP = IPAddress.getLocalIP().getHostAddress();
+            System.out.println("message en cours : " + msg);
+
             if (myLocalIP.equals(IPsource)){
+                System.out.println("J'ajoute un message envoyé");
                 addMessageSent(msg, horodatage, vboxMessages);
             } else {
                 addMessageReceived(msg, horodatage, vboxMessages);
+                System.out.println("J'ajoute un message reçu");
             }
             System.out.println("message : " + msg + "\n" + "   et heure = " + horodatage);
         }
@@ -197,7 +201,7 @@ public class MainPageController implements Initializable {
         Text textMessage = new Text(message) ;
         TextFlow textFlowMessage = new TextFlow(textMessage);
         textFlowMessage.getStyleClass().clear();
-        textFlowMessage.getStyleClass().add("txt-fld");
+        textFlowMessage.getStyleClass().add("txtfld");
         textFlowMessage.setPadding(new Insets(5,10,5,10));
         hBox.getChildren().add(textFlowMessage);
 
@@ -216,7 +220,7 @@ public class MainPageController implements Initializable {
             Text textMessage = new Text(message) ;
             TextFlow textFlowMessage = new TextFlow(textMessage);
             textFlowMessage.getStyleClass().clear();
-            textFlowMessage.getStyleClass().add("txtfld");
+            textFlowMessage.getStyleClass().add("txt-fld");
             textFlowMessage.setPadding(new Insets(5,10,5,10));
 
             hBox.getChildren().add(textFlowMessage);
