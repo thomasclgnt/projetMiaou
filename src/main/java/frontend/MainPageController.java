@@ -151,7 +151,7 @@ public class MainPageController implements Initializable {
 
     //récupérer l'historique des messages
     public ArrayList<MessageOut> openConversation(User remoteUser) throws IOException, InterruptedException {
-        Socket socket = mainFXML.serv.processStartConversation(remoteUser);
+        // A FAIRE EN DEHORS POUR RECUP LE SOCKET Socket socket = mainFXML.serv.processStartConversation(remoteUser);
         ArrayList<MessageOut> Listmsg = DatabaseController.restoreConversation(IPAddress.getLocalIP().getHostAddress(), remoteUser.addressIP) ;
         return Listmsg ;
     }
