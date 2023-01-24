@@ -46,7 +46,6 @@ public class Delete {
                 // execute the delete statement
                 pstmt.executeUpdate();
 
-                System.out.println("L'entrée a été supprimée de la base de donnée");
 
             } catch (SQLException e) {
                 System.out.println(e.getMessage()); //TODO l'entrée n'a pas pu être supprimée => pas dans la bdd
@@ -64,7 +63,6 @@ public class Delete {
             pstmt.executeUpdate();
             // execute the delete statement
             pstmt.executeUpdate();
-            System.out.println("L'entrée d'adresse IP : " + ip + " a été supprimée de la base de donnée");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage()); //TODO l'entrée n'a pas pu être supprimée => pas dans la bdd

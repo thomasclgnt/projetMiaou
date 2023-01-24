@@ -11,17 +11,17 @@ public class DatabaseController {
 
     public static void createDBmiaoudb() {
         CreateDatabase.createNewDatabase();
-        System.out.println("[db_controller] La Base de donnée a été crée") ;
+        System.out.println("[db_controller] La Base de donnée a été créée") ;
     }
 
     public static void createTableMsg() {
         CreateTable.createTableMessageDB();
-        System.out.println("[db_controller] La table MessageDB a été créé dans la base de donnée") ;
+        System.out.println("[db_controller] La table MessageDB a été créée dans la base de donnée") ;
     }
 
     public static void createTableMyself() {
         CreateTable.createTableMyself();
-        System.out.println("[db_controller] La table Myself a été créé dans la base de donnée") ;
+        System.out.println("[db_controller] La table Myself a été créée dans la base de donnée") ;
     }
 
     public static void dropTableMyself() {
@@ -36,7 +36,7 @@ public class DatabaseController {
 
     public static void createTableUsers() {
         CreateTable.createTableListUsers();
-        System.out.println("[db_controller] La table Users a été créé dans la base de donnée") ;
+        System.out.println("[db_controller] La table Users a été créée dans la base de donnée") ;
     }
 
 
@@ -107,14 +107,17 @@ public class DatabaseController {
 //TABLE MYSELF
     public static void addMyself(String name) {
         Insert.addMyself(name);
+        System.out.println("[db_controller] Le pseudo local a été ajouté à la base de donnée Myself") ;
     }
 
     public static String getMyName() {
-        return Select.restoreMyself();
+        System.out.println("[db_controller] Le pseudo local a été récupéré") ;
+        return Select.restoreMyself() ;
     }
 
     public static void updateMyself(String new_name) {
         Update.runUpdateMyself(getMyName(), new_name);
+        System.out.println("[db_controller] Le pseudo local a été mis à jour") ;
     }
 
 
