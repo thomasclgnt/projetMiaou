@@ -124,12 +124,28 @@ public class MainPageController implements Initializable {
 
         listUsersView.setItems(this.observableListUsernames);
 
+        listUsersView.setOnMouseClicked(event -> {
+            String currentConversationUsername = listUsersView.getSelectionModel().getSelectedItem() ;
+            User currentConversationUser ;
+            System.out.println("en boucleeeeuh");
+            if(currentConversationUsername != null) {
+                remoteUsernameLabel.setText(currentConversationUsername);
+                currentConversationUser = mainFXML.serv.getUsers().findUserWithUsername(currentConversationUsername);
+                try {
+                    ArrayList<MessageOut> conversation = openConversation(currentConversationUser);
+                    displayConversation(conversation);
+                } catch (IOException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        /*
         listUsersView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableUsername, String oldValue, String newValue) {
-
                 User currentConversationUser ;
-
+                System.out.println("en boucleeeeuh");
                 if(newValue != null) {
                     remoteUsernameLabel.setText(newValue);
                     currentConversationUser = mainFXML.serv.getUsers().findUserWithUsername(newValue);
@@ -142,7 +158,7 @@ public class MainPageController implements Initializable {
                 }
 
             }
-        });
+        });*/
 
         vboxMessages.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
