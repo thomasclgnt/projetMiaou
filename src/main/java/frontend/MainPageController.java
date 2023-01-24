@@ -128,14 +128,16 @@ public class MainPageController implements Initializable {
                 User currentConversationUser ;
                 currentConversationUsername = listUsersView.getSelectionModel().getSelectedItem();
                 remoteUsernameLabel.setText(currentConversationUsername);
-                currentConversationUser = mainFXML.serv.getUsers().findUserWithUsername(currentConversationUsername);
-
-                try {
-                    ArrayList<MessageOut> conversation = openConversation(currentConversationUser);
-                    displayConversation(conversation);
-                } catch (IOException | InterruptedException e) {
-                    throw new RuntimeException(e);
+                if (!currentConversationUsername.equals(null)) {
+                    currentConversationUser = mainFXML.serv.getUsers().findUserWithUsername(currentConversationUsername);
+                    try {
+                        ArrayList<MessageOut> conversation = openConversation(currentConversationUser);
+                        displayConversation(conversation);
+                    } catch (IOException | InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
+
             }
         });
 
@@ -149,7 +151,8 @@ public class MainPageController implements Initializable {
 
     //récupérer l'historique des messages
     public ArrayList<MessageOut> openConversation(User remoteUser) throws IOException, InterruptedException {
-        Socket socket = mainFXML.serv.processStartConversation(remoteUser);
+        //Socket socket = mainFXML.serv.processStartConversation(remoteUser);
+        System.out.println(remoteUser.toString());
         ArrayList<MessageOut> Listmsg = DatabaseController.restoreConversation(IPAddress.getLocalIP().getHostAddress(), remoteUser.addressIP) ;
         return Listmsg ;
     }

@@ -43,6 +43,7 @@ public class ListUser {
             }
         }
         return user ;
+
     }
 
     public void deleteUser(String addressIP) throws UserNotFound {
