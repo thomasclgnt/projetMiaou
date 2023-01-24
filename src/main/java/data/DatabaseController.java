@@ -54,13 +54,13 @@ public class DatabaseController {
         System.out.println("[db_controller] L'historique de la conversation a été chargé"); //TODO voir si on garde le message ?
 
         //affichage et futurs tests :
-        System.out.println("[db_controller] Taille historique : " + listeRes.size()); //vérifier que taille finale est bien la somme des deux tailles
-        //System.out.println(listeRes.toArray()[3].toString()) ;
+        System.out.println("[db_controller] Taille historique : " + listeRes.size());
 
-        for (int i=0 ; i<listeRes.size() ; i++) {
-            String aux = listeRes.toArray()[i].toString() ;
-            System.out.println(aux);
-        }
+
+       /* for (int i=0 ; i<listeRes.size() ; i++) {
+            //String aux = listeRes.toArray()[i].toString() ;
+            //System.out.println(aux);
+        }*/
 
         return listeRes ;
 
@@ -122,7 +122,7 @@ public class DatabaseController {
 
 
     public static void main(String[] args) {
-        restoreConversation("192.168.1.71","192.168.1.79");
+        //restoreConversation("192.168.1.71","192.168.1.79");
         //restoreListUsers();
         //System.out.println(getMyName());
     }
