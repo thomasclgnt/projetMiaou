@@ -78,11 +78,14 @@ public class MainPageController implements Initializable {
                 usernameLabel.setText(new_username);
             }
         }
+
+        changeUsernameField.clear();
     }
 
     @FXML
     void logout(MouseEvent event) throws IOException {
 
+        System.out.println("I am trying to log out.");
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION) ;
         alert.setTitle("Log out");
         alert.setHeaderText("You're about to be disconnected from the MiaouMiaou Chat App.");

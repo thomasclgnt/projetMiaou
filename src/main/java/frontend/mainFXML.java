@@ -88,6 +88,7 @@ public class mainFXML extends Application {
             event.consume();
             try {
                 logout(stage);
+
                 Platform.exit();
                 System.exit(0);
             } catch (IOException e) {
