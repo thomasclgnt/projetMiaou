@@ -74,5 +74,8 @@
 .txt-fld{
     -fx-background-radius:20px;
     -fx-background-color:blue;
-    -fx-text-fill:white;
+}
+
+.txt-fld > Text{
+    -fx-fill:white;
 }
