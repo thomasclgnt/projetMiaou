@@ -2,6 +2,7 @@ package service;
 
 import data.*;
 import data.Notify;
+import frontend.MainPageController;
 import tcp.MessageReceivedCallback;
 import udp.UDPReceiver;
 
@@ -19,7 +20,7 @@ public class Service {
 
     public User userLocal = new User("", IPAddress.getLocalIP().getHostAddress(), 1234);
 
-    ListMessageIn receivedMessages = new ListMessageIn();
+    public ListMessageIn receivedMessages = new ListMessageIn();
 
     MessageReceivedCallback callback = new MessageReceivedCallback() {
         @Override
@@ -33,6 +34,7 @@ public class Service {
 
                System.out.println("Message received from " + msgData.source + " at address : " + msgData.IPsource + " : " + msgData.text);
                receivedMessages.addMessage(msgData.source, msgData.IPsource, msgData.dest, msgData.IPdest, msgData.text, msgData.horodatage);
+               //processUpdateFront(msgData.IPsource, msgData.text, msgData.horodatage);
 
             } catch (UserNotFound userNotFound) {
                 throw new AssertionError("[callback] no such user");
@@ -90,7 +92,6 @@ public class Service {
 
     }
 
-
     public ListUser getUsers() {
         return users;
     }
@@ -108,9 +109,7 @@ public class Service {
     }
 
     public void getListUsersFromDB() {
-
         users = DatabaseController.restoreListUsers();
-
     }
 
     public void processGetRemoteUsers() throws IOException, InterruptedException {
@@ -173,5 +172,9 @@ public class Service {
         String horodatage = formatter.format(date);
         return horodatage ;
     }
+
+    //public void processUpdateFront(String IPsource, String message, String horodatage){
+    //        MainPageController.updateMessage(message, horodatage, IPsource);
+    //    }
 
 }

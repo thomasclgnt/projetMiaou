@@ -1,6 +1,7 @@
 package frontend;
 
-import bdd.MessageOut;
+import data.MessageOut;
+import data.MessageIn;
 import service.DatabaseController;
 import data.IPAddress;
 import data.User;
@@ -44,6 +45,7 @@ public class MainPageController implements Initializable {
     private ListView<String> listUsersView;
     @FXML
     private Label remoteUsernameLabel;
+
     @FXML
     private VBox vboxMessages;
     @FXML
@@ -52,10 +54,14 @@ public class MainPageController implements Initializable {
     private TextField messageToSend;
 
     private ObservableList<String> observableListUsernames ;
+    private ObservableList<MessageIn> observableListMessages ;
 
     Stage stage ;
     User currentRemoteUser ;
     Socket currentSocket ;
+
+    int indexPrint ;
+    int sizeHistory = 0 ;
 
     @FXML
     void changeUsername(ActionEvent event) throws IOException {
@@ -137,26 +143,6 @@ public class MainPageController implements Initializable {
             }
         });
 
-        /*
-        listUsersView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableUsername, String oldValue, String newValue) {
-                User currentConversationUser ;
-                System.out.println("en boucleeeeuh");
-                if(newValue != null) {
-                    remoteUsernameLabel.setText(newValue);
-                    currentConversationUser = mainFXML.serv.getUsers().findUserWithUsername(newValue);
-                    try {
-                        ArrayList<MessageOut> conversation = openConversation(currentConversationUser);
-                        displayConversation(conversation);
-                    } catch (IOException | InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-
-            }
-        });*/
-
         vboxMessages.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
@@ -170,6 +156,7 @@ public class MainPageController implements Initializable {
         currentSocket = mainFXML.serv.processStartConversation(remoteUser);
         ArrayList<MessageOut> conversation = DatabaseController.restoreConversation(IPAddress.getLocalIP().getHostAddress(), remoteUser.addressIP) ;
         displayConversation(conversation);
+        sizeHistory = conversation.size();
     }
 
     public void displayConversation (ArrayList<MessageOut> conversation){
@@ -185,6 +172,23 @@ public class MainPageController implements Initializable {
                 addMessageReceived(msg, horodatage, vboxMessages);
             }
         }
+        indexPrint = 0 ;
+    }
+
+    public void displayConversationIn(ArrayList<MessageIn> conversation){
+        for (MessageIn messageIn : conversation) {
+            String msg = messageIn.text;
+            String horodatage = messageIn.horodatage;
+            String IPsource = messageIn.IPsource ;
+            String myLocalIP = IPAddress.getLocalIP().getHostAddress();
+
+            if (myLocalIP.equals(IPsource)){
+                addMessageSent(msg, horodatage, vboxMessages);
+            } else {
+                addMessageReceived(msg, horodatage, vboxMessages);
+            }
+        }
+        indexPrint = 0 ;
     }
 
     public void addMessageReceived(String message, String horodatage, VBox vBox){
@@ -198,10 +202,9 @@ public class MainPageController implements Initializable {
         textFlowMessage.setPadding(new Insets(5,10,5,10));
         hBox.getChildren().add(textFlowMessage);
         vBox.getChildren().add(hBox);
+        indexPrint ++ ;
     }
 
-    //String message = messageToSend.getText(); à faire dans sendMessage
-    //et utiliser ce message dans l'appel de addMesageSent
     public void addMessageSent(String message, String horodatage, VBox vBox){
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_RIGHT);
@@ -223,12 +226,24 @@ public class MainPageController implements Initializable {
         listUsersView.setItems(this.observableListUsernames);
     }
 
+    public void updateMessages(){
+        this.observableListMessages = FXCollections.observableArrayList(mainFXML.serv.getListMessage().convertToArrayList()) ;
+        if (!observableListMessages.isEmpty()){
+            int lastIndex = observableListMessages.size() ;
+            if (lastIndex > (indexPrint + sizeHistory)) {
+                displayConversationIn((ArrayList<MessageIn>) observableListMessages.subList(indexPrint+sizeHistory, lastIndex));
+            }
+        }
+    }
+
+
     class MyUpdate extends TimerTask {
 
         @Override
         public void run() {
             Platform.runLater(() -> {
                 updateListUsers() ;
+                updateMessages() ;
             });
         }
     }

@@ -1,6 +1,7 @@
 package bdd;
 
 import data.ListUser;
+import data.MessageOut;
 
 import java.sql.*;
 import java.util.ArrayList;

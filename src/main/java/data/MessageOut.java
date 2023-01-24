@@ -1,6 +1,4 @@
-package bdd;
-
-import data.Message;
+package data;
 
 import static java.lang.Integer.parseInt;
 

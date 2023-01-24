@@ -3,6 +3,7 @@ package service;
 import bdd.*;
 import data.ListUser;
 import data.Message;
+import data.MessageOut;
 
 import java.util.ArrayList;
 import java.util.Comparator;
