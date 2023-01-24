@@ -159,8 +159,8 @@ public class Select {
      */
     public static void main(String[] args) {
         Select app = new Select();
-        app.selectAll();
-        //app.selectAllListUsers();
+        //app.selectAll();
+        System.out.println(app.selectAllListUsers().listToString());
         //app.select_conversation("100","200");
         //System.out.println(restoreMyself()) ;
     }

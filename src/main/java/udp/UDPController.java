@@ -106,7 +106,6 @@ public class UDPController {
         if (!equals) {
             for (Notify sub : subscribers) {
                 sub.notifyNewUser(username, addressIP, Integer.parseInt(portTCP));
-                DatabaseController.addUser(username, addressIP);
             }
             DatabaseController.addUser(username, addressIP);
         }

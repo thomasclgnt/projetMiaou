@@ -15,22 +15,27 @@ public class DatabaseController {
 
     public static void createTableMsg() {
         CreateTable.createTableMessageDB();
+        System.out.println("[db controller] La table MessageDB a été créé dans la base de donnée") ;
     }
 
     public static void createTableMyself() {
         CreateTable.createTableMyself();
+        System.out.println("[db controller] La table Myself a été créé dans la base de donnée") ;
     }
 
     public static void dropTableMyself() {
         CreateTable.dropTableMyself();
+        System.out.println("[db controller] La table Myself a été supprimée de la base de donnée") ;
     }
 
     public static void dropTableListUsers() {
         CreateTable.dropTableListUsers();
+        System.out.println("[db controller] La table Users a été supprimée de la base de donnée") ;
     }
 
     public static void createTableUsers() {
         CreateTable.createTableListUsers();
+        System.out.println("[db controller] La table Users a été créé dans la base de donnée") ;
     }
 
 
@@ -64,6 +69,7 @@ public class DatabaseController {
 
     public static void addMessage(Message m) {
         Insert.add_data(m.source, m.IPsource, m.dest, m.IPdest, m.text, m.horodatage);
+        System.out.println("[db controller] Le message de " + m.dest + " a été ajouté à la base de donnée") ;
     }
 
 //TABLE LISTUSERS
@@ -84,14 +90,17 @@ public class DatabaseController {
 
     public static void addUser(String username, String addressIP) {
         Insert.add_user(username, addressIP);
+        System.out.println("[db controller] L'utilisateur " + username + " d'adresse IP : " + addressIP + " a été ajouté à la base de donnée") ;
     }
 
     public static void updateUser(String new_username, String ip) {
         Update.runUpdateListUsers(new_username, ip);
+        System.out.println("[db controller] L'utilisateur d'adresse IP : " + ip + " a changé de pseudo pour : " + new_username) ;
     }
 
     public static void deleteUser(String ip) {
         Delete.deleteUser(ip);
+        System.out.println("[db controller] L'utilisateur d'adresse IP : " + ip + " a été supprimé de la base de donnée") ;
     }
 
 //TABLE MYSELF
