@@ -222,18 +222,19 @@ public class MainPageController implements Initializable {
     }
 
     public void updateListUsers() {
-        System.out.println("j'update listuser");
         this.observableListUsernames = FXCollections.observableArrayList(mainFXML.serv.getUsers().toUsernameList());
         listUsersView.setItems(this.observableListUsernames);
     }
 
     public void updateMessages(){
-        System.out.println("j'update");
         this.observableListMessages = FXCollections.observableArrayList(mainFXML.serv.getListMessage().convertToArrayList()) ;
         if (!observableListMessages.isEmpty()){
             int lastIndex = observableListMessages.size() ;
-            if (lastIndex > (indexPrint + sizeHistory)) {
-                ArrayList<MessageIn> subList = (ArrayList<MessageIn>) observableListMessages.subList(indexPrint+sizeHistory, lastIndex);
+            System.out.println("ici : "+ lastIndex);
+            //System.out.println("ici : "+ sizeHistory);
+            System.out.println("ici : "+ indexPrint);
+            if (lastIndex > (indexPrint)) {
+                ArrayList<MessageIn> subList = (ArrayList<MessageIn>) observableListMessages.subList(indexPrint, lastIndex);
                 System.out.println(subList);
                 displayConversationIn(subList);
             }
