@@ -80,7 +80,10 @@
 }
 
 .horodatage{
-    -fx-text-fill: #9a9696;
     -fx-font-size: 10px;
+}
+
+.horodatage > Text{
+    -fx-fill: #9a9696;
 }
 
