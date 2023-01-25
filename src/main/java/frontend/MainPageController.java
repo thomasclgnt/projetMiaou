@@ -58,7 +58,7 @@ public class MainPageController implements Initializable {
     Socket currentSocket ;
     ListSessions openedSessions = new ListSessions();
 
-    int indexPrint ;
+    static int indexPrint ;
 
     @FXML
     void changeUsername(ActionEvent event) throws IOException {
@@ -186,7 +186,6 @@ public class MainPageController implements Initializable {
                 addMessageReceived(msg, horodatage, vboxMessages);
             }
         }
-        indexPrint = 0 ;
     }
 
     public void addMessageReceived(String message, String horodatage, VBox vBox){
@@ -208,6 +207,7 @@ public class MainPageController implements Initializable {
         hBox.getChildren().add(textFlowHorodatage);
         vBox.getChildren().add(hBox);
         indexPrint ++ ;
+        System.out.println("[addMessageReceived] on a augmenté le indexprint");
     }
 
     public void addMessageSent(String message, String horodatage, VBox vBox){
@@ -251,15 +251,8 @@ public class MainPageController implements Initializable {
                 subListObs.addAll(observableListMessages.subList(indexPrint, lastIndex));
                 ArrayList<MessageIn> subList = new ArrayList<MessageIn>();
                 subList.addAll(subListObs);
-                System.out.println("ici list : " + subList);
-                System.out.println("ici last index : " + lastIndex);
-                System.out.println("ici index print : " + indexPrint);
-                indexPrint = indexPrint + 1;
                 updateConversation(subList);
-                System.out.println("ici last index : " + lastIndex);
-                System.out.println("ici index print : " + indexPrint);
             }
-
         }
     }
 
