@@ -21,7 +21,7 @@
 }
 
 .list-view .list-cell:odd{
-   -fx-background-color: white;
+   -fx-background-color: #D5D6F2;
    -fx-text-fill: black;
 }
 
@@ -73,6 +73,9 @@
 
 .txt-fld{
     -fx-background-radius:20px;
-    -fx-background-color:blue;
-    -fx-text-fill:white;
+    -fx-background-color:#D5D6F2;
 }
+.txt-fld > Text{
+    -fx-fill:white;
+}
+

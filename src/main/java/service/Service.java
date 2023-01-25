@@ -2,9 +2,8 @@ package service;
 
 import data.*;
 import data.Notify;
+import frontend.MainPageController;
 import tcp.MessageReceivedCallback;
-import tcp.TCPController;
-import udp.UDPController;
 import udp.UDPReceiver;
 
 import java.io.IOException;
@@ -12,6 +11,8 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Service {
 
@@ -19,7 +20,7 @@ public class Service {
 
     public User userLocal = new User("", IPAddress.getLocalIP().getHostAddress(), 1234);
 
-    ListMessageIn receivedMessages = new ListMessageIn();
+    public ListMessageIn receivedMessages = new ListMessageIn();
 
     MessageReceivedCallback callback = new MessageReceivedCallback() {
         @Override
@@ -33,6 +34,7 @@ public class Service {
 
                System.out.println("Message received from " + msgData.source + " at address : " + msgData.IPsource + " : " + msgData.text);
                receivedMessages.addMessage(msgData.source, msgData.IPsource, msgData.dest, msgData.IPdest, msgData.text, msgData.horodatage);
+               //processUpdateFront(msgData.IPsource, msgData.text, msgData.horodatage);
 
             } catch (UserNotFound userNotFound) {
                 throw new AssertionError("[callback] no such user");
@@ -90,7 +92,6 @@ public class Service {
 
     }
 
-
     public ListUser getUsers() {
         return users;
     }
@@ -108,9 +109,7 @@ public class Service {
     }
 
     public void getListUsersFromDB() {
-
         users = DatabaseController.restoreListUsers();
-
     }
 
     public void processGetRemoteUsers() throws IOException, InterruptedException {
@@ -157,12 +156,25 @@ public class Service {
     }
 
     // envoyer un message + ajout bdd
-    public void processSendMessage(String message, User user_dest, Socket socket) throws IOException, InterruptedException {
+    public String processSendMessage(String message, User user_dest, Socket socket) throws IOException, InterruptedException {
         TCPController.sendMessage(message, socket);
-
-        Message msg = new Message(userLocal.username, userLocal.addressIP, user_dest.username, user_dest.addressIP, message, TCPController.horodatage());
+        String horodatage = horodatage();
+        Message msg = new Message(userLocal.username, userLocal.addressIP, user_dest.username, user_dest.addressIP, message, horodatage);
         DatabaseController.addMessage(msg);
 
+        return horodatage;
+
     }
+
+    public static String horodatage() {
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        String horodatage = formatter.format(date);
+        return horodatage ;
+    }
+
+    //public void processUpdateFront(String IPsource, String message, String horodatage){
+    //        MainPageController.updateMessage(message, horodatage, IPsource);
+    //    }
 
 }

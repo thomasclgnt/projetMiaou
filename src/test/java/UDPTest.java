@@ -1,6 +1,7 @@
 import data.*;
 import org.junit.*;
 import service.Service;
+import service.UDPController;
 import udp.*;
 import java.io.IOException;
 import static org.junit.Assert.*;
@@ -18,7 +19,7 @@ public class UDPTest {
         UDPController.sendConnexion(Thomas);
         UDPController.sendConnexion(Marie);
         //udp.UDPSender.broadcast("Miaou");
-        //on test s'il y a bien UN utilisateur dans la liste
+        //on teste s'il y a bien UN utilisateur dans la liste
 
         //assert 1 == users.nbUsers(); ==> À REVOIR CE QU'IL FAIT
         Thread.sleep(2000);

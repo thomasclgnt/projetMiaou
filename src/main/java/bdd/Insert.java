@@ -1,9 +1,6 @@
 package bdd;
 
-import data.User;
-
 import java.sql.*;
-import java.time.LocalDateTime ;
 
 public class Insert {
 
@@ -104,9 +101,10 @@ public class Insert {
         // insert three new rows
         //A TESTER
         //Date time1 =  new Date(System.currentTimeMillis());//TODO marche, reste à comprendre le format
-        //data.insert("Marie", "200", "Thomas", "100", "on est lundi", "10:00");
+        //data.insert("Marie", "10.0.0.22", "Thomas", "10.0.0.17", "Parfait", "10:00");
+
         //data.insertUsers("thomas","100");
-        data.insertMyself("thomas");
+        //data.insertMyself("thomas");
     }
 
 }

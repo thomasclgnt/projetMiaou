@@ -12,6 +12,8 @@ import java.time.LocalTime;
 import java.util.Date;
 import java.util.Scanner;
 
+import static service.Service.horodatage;
+
 public class ThreadTCP {
 
     public static void startThreadReceiver(Socket socket, MessageReceivedCallback callback) throws IOException {
@@ -26,9 +28,7 @@ public class ThreadTCP {
                 try {
                     message = in.readLine();
                     while (message != null) {
-                        //type Date
-                        //SimpleDateFormat
-                        String horodatage = TCPController.horodatage() ;
+                        String horodatage = horodatage() ;
                         callback.received(socket.getInetAddress(), message, horodatage) ;
                         message = in.readLine();
                     }

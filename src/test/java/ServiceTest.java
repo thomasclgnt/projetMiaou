@@ -1,12 +1,10 @@
 import data.*;
-import frontend.mainFXML;
 import org.junit.*;
+import service.DatabaseController;
 import service.Service;
-import tcp.TCPController;
+import service.UDPController;
 import udp.*;
 import java.io.IOException;
-import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -15,6 +13,7 @@ import static org.junit.Assert.*;
 // ET LANCER RAPIDEMENT À LA SUITE L'AUTRE VERSION
 
 public class ServiceTest {
+
 
 
     @Test
@@ -315,7 +314,6 @@ public class ServiceTest {
         serv.processGetRemoteUsers();
         Thread.sleep(2000);
         System.out.println("remote users récupérés");
-
 
         System.out.println("tcp connecté au port");
         Thread.sleep(3000);

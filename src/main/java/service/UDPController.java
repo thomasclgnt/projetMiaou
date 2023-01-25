@@ -1,7 +1,9 @@
-package udp;
+package service;
 
 import data.*;
 import data.Notify;
+import service.DatabaseController;
+import udp.UDPSender;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -106,7 +108,6 @@ public class UDPController {
         if (!equals) {
             for (Notify sub : subscribers) {
                 sub.notifyNewUser(username, addressIP, Integer.parseInt(portTCP));
-                DatabaseController.addUser(username, addressIP);
             }
             DatabaseController.addUser(username, addressIP);
         }

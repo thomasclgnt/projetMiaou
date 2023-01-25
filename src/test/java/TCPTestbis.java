@@ -8,7 +8,7 @@ import java.net.Socket;
 
 import static org.junit.Assert.assertEquals;
 
-public class TCPTest {
+public class TCPTestbis {
 
     @Test
     public void givenTCPClient_whenServerRespondsWhenStarted_thenCorrect() throws IOException, InterruptedException {
@@ -26,7 +26,7 @@ public class TCPTest {
 
                 try {
                     User distant = users.findUser(from) ;//vérifier que socket.getInetAddress prend l'adresse distante et pas la notre
-                    User us = users.findUser("127.0.0.1") ;
+                    User us = users.findUser(IPAddress.getLocalIP().getHostAddress()) ;
 
                     MessageIn msgData = new MessageIn(distant.username, distant.addressIP, us.username, us.addressIP, message, horodatage);
 
@@ -39,7 +39,7 @@ public class TCPTest {
 
             }
 
-            };
+        };
 
         TCPController.initListening(Thomas.portTCP, callback);
         Thread.sleep(200);

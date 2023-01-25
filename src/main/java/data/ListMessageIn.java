@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class ListMessageIn {
 
-    ArrayList<MessageIn> messagesSession = null;
+    public ArrayList<MessageIn> messagesSession ;
 
     public ListMessageIn(){
         this.messagesSession = new ArrayList<MessageIn>();
@@ -18,7 +18,6 @@ public class ListMessageIn {
         System.out.println("message ajouté liste");
         Insert.add_data(source, IPsource, dest, IPdest, text, horodatage);
         System.out.println("message ajouté bdd");
-
     }
 
     public String listToString(){
@@ -37,6 +36,20 @@ public class ListMessageIn {
 
     public MessageIn get(int i) {
         return this.messagesSession.get(i) ;
+    }
+
+    public ArrayList<MessageIn> convertToArrayList() {
+        ArrayList<MessageIn> list = new ArrayList<>();
+        list.addAll(this.messagesSession);
+        return list ;
+    }
+
+    public ArrayList<String> toTextMessageList(){
+        ArrayList<String> usernameList = new ArrayList<>();
+        for (MessageIn message : this.messagesSession){
+            usernameList.add(message.text);
+        }
+        return usernameList ;
     }
 
 }

@@ -1,7 +1,5 @@
 package data;
 
-import udp.UDPReceiver;
-
 import java.net.InetAddress;
 import java.util.ArrayList;
 
@@ -43,6 +41,7 @@ public class ListUser {
             }
         }
         return user ;
+
     }
 
     public void deleteUser(String addressIP) throws UserNotFound {

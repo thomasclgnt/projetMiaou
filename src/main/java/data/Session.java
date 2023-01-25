@@ -1,7 +1,7 @@
 package data;
 
 import tcp.MessageReceivedCallback;
-import tcp.TCPController;
+import service.TCPController;
 
 import java.io.IOException;
 import java.net.Socket;
