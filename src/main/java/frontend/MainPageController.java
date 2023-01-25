@@ -240,6 +240,11 @@ public class MainPageController implements Initializable {
                 openedSessions.addSession(username, false);
             }
         }
+        //for (Session session : openedSessions){
+        //            if (!observableListUsernames.contains(session.remoteUsername)){
+        //                openedSessions.deleteSession(session);
+        //            }
+        //        }
         //if session ouverte on clear vBox
     }
 
