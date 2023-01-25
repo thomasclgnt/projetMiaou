@@ -130,13 +130,16 @@ public class MainPageController implements Initializable {
 
     @FXML
     void closeSession(ActionEvent event) {
-        closeSessionManual();
+        if (currentRemoteUser != null) {
+            closeSessionManual();
+        }
     }
 
     void closeSessionManual() {
         openedSessions.getSession(currentRemoteUser.username).setLoad(false);
         currentRemoteUser=null;
         vboxMessages.getChildren().clear();
+        remoteUsernameLabel.setText("No One");
 
     }
 
@@ -267,9 +270,11 @@ public class MainPageController implements Initializable {
             }
         }
         for (Session session : openedSessions.convertToArrayList()){
-            if (!observableListUsernames.contains(session.remoteUsername)){
-                if (session.remoteUsername == currentRemoteUser.getUsername()) { // OU vérifier en faisant juste session.load == true
-                    closeSessionManual();
+            if (!observableListUsernames.contains(session.remoteUsername)) {
+                if (currentRemoteUser != null){
+                    if (session.remoteUsername == currentRemoteUser.getUsername()) { // OU vérifier en faisant juste session.load == true
+                        closeSessionManual();
+                    }
                 }
                 openedSessions.deleteSession(session);
             }
