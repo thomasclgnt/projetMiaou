@@ -233,8 +233,9 @@ public class MainPageController implements Initializable {
             System.out.println("ici : "+ lastIndex);
             //System.out.println("ici : "+ sizeHistory);
             System.out.println("ici : "+ indexPrint);
-            if (lastIndex > (indexPrint)) {
-                ArrayList<MessageIn> subList = (ArrayList<MessageIn>) observableListMessages.subList(indexPrint, lastIndex);
+            if (lastIndex > indexPrint) {
+                List<MessageIn> subListObs = observableListMessages.subList(indexPrint, lastIndex);
+                ArrayList<MessageIn> subList = (ArrayList<MessageIn>) subListObs ;
                 System.out.println(subList);
                 displayConversationIn(subList);
             }
