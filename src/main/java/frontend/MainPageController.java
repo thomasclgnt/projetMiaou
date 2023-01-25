@@ -259,6 +259,14 @@ public class MainPageController implements Initializable {
                 openedSessions.addSession(username, false);
             }
         }
+        for (Session session : openedSessions.convertToArrayList()){
+            if (!observableListUsernames.contains(session.remoteUsername)){
+                if (session.remoteUsername == currentRemoteUser.getUsername()) { // OU vérifier en faisant juste session.load == true
+                    closeSessionManual();
+                }
+                openedSessions.deleteSession(session);
+            }
+        }
     }
 
     public void updateMessages() {
