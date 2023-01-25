@@ -61,7 +61,6 @@ public class MainPageController implements Initializable {
     Socket currentSocket ;
 
     int indexPrint ;
-    int sizeHistory = 0 ;
 
     @FXML
     void changeUsername(ActionEvent event) throws IOException {
@@ -231,13 +230,14 @@ public class MainPageController implements Initializable {
         if (!observableListMessages.isEmpty()){
             int lastIndex = observableListMessages.size() ;
             System.out.println("ici : "+ lastIndex);
-            //System.out.println("ici : "+ sizeHistory);
-            System.out.println("ici : "+ indexPrint);
             if (lastIndex > indexPrint) {
-                List<MessageIn> subListObs = observableListMessages.subList(indexPrint, lastIndex);
-                ArrayList<MessageIn> subList = (ArrayList<MessageIn>) subListObs ;
+                List<MessageIn> subListObs = new ArrayList<MessageIn>();
+                subListObs.addAll(observableListMessages.subList(indexPrint, lastIndex)) ;
+                ArrayList<MessageIn> subList = new ArrayList<MessageIn>() ;
+                subList.addAll(subListObs) ;
                 System.out.println(subList);
                 displayConversationIn(subList);
+                indexPrint++ ;
             }
         }
     }
