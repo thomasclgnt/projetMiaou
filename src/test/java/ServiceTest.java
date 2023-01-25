@@ -309,7 +309,7 @@ public class ServiceTest {
         Service serv = new Service();
         serv.lancerService();
 
-        User dest = new User("pc_droite", "192.168.1.79", 1234) ;
+        User dest = new User("pc_droite", "10.1.5.234", 1234) ;
 
         serv.processConnection("ordi_gauche");
         serv.processGetRemoteUsers();
