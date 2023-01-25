@@ -42,13 +42,17 @@ public class MainPageController implements Initializable {
     private ListView<String> listUsersView;
     @FXML
     private Label remoteUsernameLabel;
-
     @FXML
     private VBox vboxMessages;
     @FXML
     private ScrollPane spConv;
     @FXML
     private TextField messageToSend;
+    @FXML
+    private Button sendButton;
+    @FXML
+    private Button closeSessionButton;
+
 
     private ObservableList<String> observableListUsernames ;
     private ObservableList<MessageIn> observableListMessages ;
@@ -112,6 +116,12 @@ public class MainPageController implements Initializable {
             addMessageSent(message, horodatage, vboxMessages);
         }
     }
+
+    @FXML
+    void closeSession(ActionEvent event) {
+
+    }
+
 
     public void displayUsername(String username) {
         usernameLabel.setText(username);

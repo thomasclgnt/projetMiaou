@@ -87,5 +87,12 @@
     -fx-fill: #9a9696;
 }
 
+.close-button{
+    -fx-background-radius: 100
+}
+
+.send-button{
+    -fx-background-radius: 100
+}
 
 
