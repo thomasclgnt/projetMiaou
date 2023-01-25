@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class ListSessions {
 
-    ArrayList<Session> activeSessions = null;
+    ArrayList<Session> activeSessions ;
 
     public ListSessions(){
         this.activeSessions = new ArrayList<Session>();

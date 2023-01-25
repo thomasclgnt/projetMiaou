@@ -56,7 +56,7 @@ public class MainPageController implements Initializable {
     Stage stage ;
     User currentRemoteUser ;
     Socket currentSocket ;
-    ListSessions openedSessions ;
+    ListSessions openedSessions = new ListSessions();
 
     int indexPrint ;
 
