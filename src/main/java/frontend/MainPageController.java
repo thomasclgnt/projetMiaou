@@ -240,12 +240,6 @@ public class MainPageController implements Initializable {
                 openedSessions.addSession(username, false);
             }
         }
-        //for (Session session : openedSessions){
-        //            if (!observableListUsernames.contains(session.remoteUsername)){
-        //                openedSessions.deleteSession(session);
-        //            }
-        //        }
-        //if session ouverte on clear vBox
     }
 
     public void updateMessages() {
@@ -257,9 +251,13 @@ public class MainPageController implements Initializable {
                 subListObs.addAll(observableListMessages.subList(indexPrint, lastIndex));
                 ArrayList<MessageIn> subList = new ArrayList<MessageIn>();
                 subList.addAll(subListObs);
-                System.out.println(subList);
+                System.out.println("ici list : " + subList);
+                System.out.println("ici last index : " + lastIndex);
+                System.out.println("ici index print : " + indexPrint);
+                indexPrint = indexPrint + 1;
                 updateConversation(subList);
-                indexPrint++;
+                System.out.println("ici last index : " + lastIndex);
+                System.out.println("ici index print : " + indexPrint);
             }
 
         }
@@ -272,7 +270,6 @@ public class MainPageController implements Initializable {
                 Platform.runLater(() -> {
                     updateListUsers();
                     updateMessages();
-                    //updateSessions();
                 });
             }
         }
