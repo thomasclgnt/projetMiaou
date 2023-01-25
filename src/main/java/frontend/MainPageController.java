@@ -228,7 +228,6 @@ public class MainPageController implements Initializable {
         this.observableListMessages = FXCollections.observableArrayList(mainFXML.serv.getListMessage().convertToArrayList()) ;
         if (!observableListMessages.isEmpty()){
             int lastIndex = observableListMessages.size() ;
-            System.out.println("ici : "+ lastIndex);
             if (lastIndex > indexPrint) {
                 List<MessageIn> subListObs = new ArrayList<MessageIn>();
                 subListObs.addAll(observableListMessages.subList(indexPrint, lastIndex)) ;
