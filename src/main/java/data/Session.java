@@ -8,20 +8,19 @@ import java.net.Socket;
 
 public class Session {
 
-    public ListMessageIn conversation ;
-    public User courant ;
-    public User distant ;
+    public String remoteUsername ;
+    public boolean load ;
 
-    public Session(ListMessageIn conversation, User courant, User distant) {
-        this.conversation = conversation;
-        this.courant = courant;
-        this.distant = distant;
+    public Session(String remoteUsername, boolean load) {
+        this.remoteUsername = remoteUsername;
+        this.load = load;
     }
 
-    public Socket startSession (String startWithIP, int portTCP, MessageReceivedCallback callback) throws IOException, InterruptedException {
-        TCPController.initListening(portTCP, callback);
-        Thread.sleep(200);
-        return TCPController.startConversation(startWithIP, portTCP, callback);
+    public void setLoad(boolean load) {
+        this.load = load;
+    }
+
+    public void startSession () {
     }
 
     public void endSession (){

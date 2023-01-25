@@ -1,10 +1,7 @@
 package frontend;
 
-import data.MessageOut;
-import data.MessageIn;
+import data.*;
 import service.DatabaseController;
-import data.IPAddress;
-import data.User;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -59,8 +56,7 @@ public class MainPageController implements Initializable {
     Stage stage ;
     User currentRemoteUser ;
     Socket currentSocket ;
-
-    private boolean load = false ;
+    ListSessions openedSessions ;
 
     int indexPrint ;
 
@@ -99,7 +95,6 @@ public class MainPageController implements Initializable {
         alert.setContentText("Are you sure you want to log out ?");
 
         if (alert.showAndWait().get() == ButtonType.OK) {
-            load = false ;
             stage = (Stage) scenePane.getScene().getWindow();
             mainFXML.serv.processDeconnection();
             System.out.println("You are logged out.");
@@ -155,26 +150,24 @@ public class MainPageController implements Initializable {
 
     //récupérer l'historique des messages
     public void openConversation(User remoteUser) throws IOException, InterruptedException {
-        if (!load) {
-            currentSocket = mainFXML.serv.processStartConversation(remoteUser);
-            ArrayList<MessageOut> conversation = DatabaseController.restoreConversation(IPAddress.getLocalIP().getHostAddress(), remoteUser.addressIP);
-            displayConversation(conversation);
+        if (!openedSessions.isLoaded(remoteUser.getUsername())) {
+                currentSocket = mainFXML.serv.processStartConversation(remoteUser);
+                ArrayList<MessageOut> conversation = DatabaseController.restoreConversation(IPAddress.getLocalIP().getHostAddress(), remoteUser.addressIP);
+                displayConversation(conversation);
+                openedSessions.getSession(remoteUser.getUsername()).setLoad(true);
         }
     }
 
     public void displayConversation (ArrayList<MessageOut> conversation) {
-        if (!load) {
-            for (MessageOut messageOut : conversation) {
-                String msg = messageOut.text;
-                String horodatage = messageOut.horodatage;
-                String IPsource = messageOut.IPsource;
-                String myLocalIP = IPAddress.getLocalIP().getHostAddress();
-                load = true ;
-                if (myLocalIP.equals(IPsource)) {
-                    addMessageSent(msg, horodatage, vboxMessages);
-                } else {
-                    addMessageReceived(msg, horodatage, vboxMessages);
-                }
+        for (MessageOut messageOut : conversation) {
+            String msg = messageOut.text;
+            String horodatage = messageOut.horodatage;
+            String IPsource = messageOut.IPsource;
+            String myLocalIP = IPAddress.getLocalIP().getHostAddress();
+            if (myLocalIP.equals(IPsource)) {
+                addMessageSent(msg, horodatage, vboxMessages);
+            } else {
+                addMessageReceived(msg, horodatage, vboxMessages);
             }
         }
         indexPrint = 0 ;
@@ -242,34 +235,41 @@ public class MainPageController implements Initializable {
     public void updateListUsers() {
         this.observableListUsernames = FXCollections.observableArrayList(mainFXML.serv.getUsers().toUsernameList());
         listUsersView.setItems(this.observableListUsernames);
-    }
-
-    public void updateMessages(){
-        this.observableListMessages = FXCollections.observableArrayList(mainFXML.serv.getListMessage().convertToArrayList()) ;
-        if (!observableListMessages.isEmpty()){
-            int lastIndex = observableListMessages.size() ;
-            if (lastIndex > indexPrint) {
-                List<MessageIn> subListObs = new ArrayList<MessageIn>();
-                subListObs.addAll(observableListMessages.subList(indexPrint, lastIndex)) ;
-                ArrayList<MessageIn> subList = new ArrayList<MessageIn>() ;
-                subList.addAll(subListObs) ;
-                System.out.println(subList);
-                updateConversation(subList);
-                indexPrint++ ;
+        for (String username : observableListUsernames){
+            if (!openedSessions.contains(username)){
+                openedSessions.addSession(username, false);
             }
         }
+        //if session ouverte on clear vBox
     }
 
+    public void updateMessages() {
+        this.observableListMessages = FXCollections.observableArrayList(mainFXML.serv.getListMessage().convertToArrayList());
+        if (!observableListMessages.isEmpty()) {
+            int lastIndex = observableListMessages.size();
+            if (lastIndex > indexPrint) {
+                List<MessageIn> subListObs = new ArrayList<MessageIn>();
+                subListObs.addAll(observableListMessages.subList(indexPrint, lastIndex));
+                ArrayList<MessageIn> subList = new ArrayList<MessageIn>();
+                subList.addAll(subListObs);
+                System.out.println(subList);
+                updateConversation(subList);
+                indexPrint++;
+            }
 
-    class MyUpdate extends TimerTask {
-
-        @Override
-        public void run() {
-            Platform.runLater(() -> {
-                updateListUsers() ;
-                updateMessages() ;
-            });
         }
     }
 
-}
+        class MyUpdate extends TimerTask {
+
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    updateListUsers();
+                    updateMessages();
+                    //updateSessions();
+                });
+            }
+        }
+
+    }

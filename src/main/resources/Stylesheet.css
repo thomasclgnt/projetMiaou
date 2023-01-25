@@ -25,9 +25,9 @@
    -fx-text-fill: black;
 }
 
-.list-cell:hover{
+.list-view:focused .list-cell:filled:focused:selected{
    -fx-background-color: #a7a9f0;
-   -fx-text-fill: black;
+   -fx-text-fill: white;
 }
 
 .sidebar-btn{
@@ -86,4 +86,6 @@
 .horodatage > Text{
     -fx-fill: #9a9696;
 }
+
+
 
