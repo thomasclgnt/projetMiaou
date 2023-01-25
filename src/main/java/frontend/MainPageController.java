@@ -87,7 +87,6 @@ public class MainPageController implements Initializable {
                 usernameLabel.setText(new_username);
             }
         }
-
         changeUsernameField.clear();
     }
 
@@ -261,14 +260,21 @@ public class MainPageController implements Initializable {
         messageToSend.clear();
     }
 
-    public void updateListUsers() {
-        this.observableListUsernames = FXCollections.observableArrayList(mainFXML.serv.getUsers().toUsernameList());
-        listUsersView.setItems(this.observableListUsernames);
+    public void updateCurrentUsername() {
+        if (!currentRemoteUser.username.equals(remoteUsernameLabel.getText())){
+            remoteUsernameLabel.setText(currentRemoteUser.username);
+        }
+    }
+
+    public void updateListSessions(){
+        //ajouter la session correspondant à l'utilisateur si un nouveau a été ajouté
         for (String username : observableListUsernames){
             if (!openedSessions.contains(username)){
                 openedSessions.addSession(username, false);
             }
         }
+
+        //si un utilisateur a été déconnecté, le retiré de la liste des sessions et vermer la conversation si c'était celle en cours
         for (Session session : openedSessions.convertToArrayList()){
             if (!observableListUsernames.contains(session.remoteUsername)) {
                 if (currentRemoteUser != null){
@@ -279,6 +285,14 @@ public class MainPageController implements Initializable {
                 openedSessions.deleteSession(session);
             }
         }
+
+    }
+
+    public void updateListUsers() {
+        this.observableListUsernames = FXCollections.observableArrayList(mainFXML.serv.getUsers().toUsernameList());
+        listUsersView.setItems(this.observableListUsernames);
+        updateListSessions();
+        updateCurrentUsername();
     }
 
     public void updateMessages() {
