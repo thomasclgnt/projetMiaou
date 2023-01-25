@@ -57,16 +57,11 @@ public class mainFXML extends Application {
 
     void logout(Stage stage) throws IOException {
 
-        System.out.println("I am trying to log out badly.");
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION) ;
+        System.out.println("red cross : log out init");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION) ;
         alert.setTitle("Log out");
         alert.setHeaderText("You're about to be disconnected from the MiaouMiaou Chat App.");
-        alert.setContentText("Are you sure you want to log out ?");
-        if (alert.showAndWait().get() == ButtonType.CANCEL) {
-            System.out.println("tu as appuyé sur le bouton annulé coquin");
-        }
         if (alert.showAndWait().get() == ButtonType.OK) {
-            System.out.println("tu as appuyé sur le bouton ok bye");
             mainFXML.serv.processDeconnection();
             System.out.println("You are logged out.");
             stage.close();
