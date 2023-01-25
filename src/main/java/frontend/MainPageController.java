@@ -37,6 +37,8 @@ public class MainPageController implements Initializable {
     @FXML
     private TextFlow selectUser;
     @FXML
+    private TextFlow noSession;
+    @FXML
     private HBox logoutButton;
     @FXML
     private AnchorPane scenePane;
@@ -131,6 +133,10 @@ public class MainPageController implements Initializable {
     void closeSession(ActionEvent event) {
         if (currentRemoteUser != null) {
             closeSessionManual();
+        } else {
+            Text text = new Text ("No session to close.");
+            noSession.getChildren().clear();
+            noSession.getChildren().add(text);
         }
     }
 
@@ -159,6 +165,7 @@ public class MainPageController implements Initializable {
 
         listUsersView.setOnMouseClicked(event -> {
             String currentConversationUsername = listUsersView.getSelectionModel().getSelectedItem() ;
+            noSession.getChildren().clear();
             if(currentConversationUsername != null) {
                 remoteUsernameLabel.setText(currentConversationUsername);
                 currentRemoteUser = mainFXML.serv.getUsers().findUserWithUsername(currentConversationUsername);

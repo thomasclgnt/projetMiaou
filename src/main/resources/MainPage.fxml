@@ -114,5 +114,6 @@
          </graphic>
       </Button>
       <TextFlow fx:id="selectUser" layoutX="453.0" layoutY="541.0" prefHeight="25.0" prefWidth="314.0" styleClass="text-select-user" />
+      <TextFlow fx:id="noSession" layoutX="641.0" layoutY="63.0" prefHeight="25.0" prefWidth="123.0" styleClass="text-select-user" textAlignment="RIGHT" />
     </children>
 </AnchorPane>
