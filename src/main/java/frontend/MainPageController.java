@@ -198,6 +198,8 @@ public class MainPageController implements Initializable {
 
     public void displayConversation (ArrayList<MessageOut> conversation) {
         System.out.println("[displayConversation]");
+        indexPrint = observableListMessages.size();
+        System.out.println("indexPrint = " + indexPrint);
         for (MessageOut messageOut : conversation) {
             String msg = messageOut.text;
             String horodatage = messageOut.horodatage;
@@ -209,7 +211,7 @@ public class MainPageController implements Initializable {
                 addMessageReceived(msg, horodatage, vboxMessages);
             }
         }
-        indexPrint = 0 ;
+        //indexPrint = 0 ;
     }
 
     public void updateConversation(ArrayList<MessageIn> conversation){
@@ -219,26 +221,14 @@ public class MainPageController implements Initializable {
             String IPsource = messageIn.IPsource ;
             String myLocalIP = IPAddress.getLocalIP().getHostAddress();
 
-            if (currentRemoteUser == null){ //aucune session n'est ouverte
-                System.out.println("t'es nul");
-            } else {
-                System.out.println(currentRemoteUser.username);
-            }
-
             if (myLocalIP.equals(IPsource)){ //user local envoie un message
                 addMessageSent(msg, horodatage, vboxMessages);
             } else if (currentRemoteUser != null){
                 if (IPsource.equals(currentRemoteUser.addressIP)) {
                     addMessageReceived(msg, horodatage, vboxMessages);
-                } else {
-                    System.out.println("indexPrint avant : " + indexPrint);
-                    indexPrint ++ ;
-                    System.out.println("indexPrint après : " + indexPrint);
+                    indexPrint++ ;
+                    System.out.println("incrementation du indexPrint, valeur actuelle = " + indexPrint);
                 }
-            } else {
-                System.out.println("indexPrint avant : " + indexPrint);
-                indexPrint ++ ;
-                System.out.println("indexPrint après : " + indexPrint);
             }
         }
     }
@@ -261,7 +251,8 @@ public class MainPageController implements Initializable {
         hBox.getChildren().add(textFlowMessage);
         hBox.getChildren().add(textFlowHorodatage);
         vBox.getChildren().add(hBox);
-        indexPrint ++ ;
+        //indexPrint ++ ;
+        //System.out.println("indexPrint [addReceived] : " + indexPrint);
     }
 
     public void addMessageSent(String message, String horodatage, VBox vBox){
@@ -326,24 +317,19 @@ public class MainPageController implements Initializable {
     public void updateMessages() {
         System.out.println("[updateMessages]");
         this.observableListMessages = FXCollections.observableArrayList(mainFXML.serv.getListMessage().convertToArrayList());
-        if (currentRemoteUser == null) {
-            System.out.println("--------------------------------------------------------------------------pas connecté à un user");
-            //indexPrint++ ; // pas là sinon à chaque itération sans recevoir de message on augmente le index
-        }
-        if (!observableListMessages.isEmpty()) {
-            int lastIndex = observableListMessages.size();
-            System.out.println("lastIndex avant if : " + lastIndex);
-            System.out.println("indexPrint avant if : " + indexPrint);
-            if (lastIndex > indexPrint) {
-                List<MessageIn> subListObs = new ArrayList<MessageIn>();
-                subListObs.addAll(observableListMessages.subList(indexPrint, lastIndex));
-                ArrayList<MessageIn> subList = new ArrayList<MessageIn>();
-                subList.addAll(subListObs);
-                updateConversation(subList);
-                System.out.println("lastIndex après update : " + lastIndex);
-                System.out.println("indexPrint après update : " + indexPrint);
+              if (!observableListMessages.isEmpty()) {
+                  System.out.println(observableListMessages.size());
+                  int lastIndex = observableListMessages.size();
+                  System.out.println("lastIndex : " + lastIndex);
+                  System.out.println("indexPrint : " + indexPrint);
+                  if (lastIndex > indexPrint) {
+                    List<MessageIn> subListObs = new ArrayList<MessageIn>();
+                    subListObs.addAll(observableListMessages.subList(indexPrint, lastIndex));
+                    ArrayList<MessageIn> subList = new ArrayList<MessageIn>();
+                    subList.addAll(subListObs);
+                    updateConversation(subList);
+                }
             }
-        }
     }
 
         class MyUpdate extends TimerTask {
