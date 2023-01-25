@@ -209,7 +209,7 @@ public class MainPageController implements Initializable {
         textFlowMessage.setPadding(new Insets(5,10,5,10));
         textFlowHorodatage.getStyleClass().clear();
         textFlowHorodatage.getStyleClass().add("horodatage");
-        textFlowHorodatage.setPadding(new Insets(5,10,5,10));
+        textFlowHorodatage.setPadding(new Insets(10,10,5,10));
 
         hBox.getChildren().add(textFlowMessage);
         hBox.getChildren().add(textFlowHorodatage);
@@ -231,10 +231,10 @@ public class MainPageController implements Initializable {
         textFlowMessage.setPadding(new Insets(5,10,5,10));
         textFlowHorodatage.getStyleClass().clear();
         textFlowHorodatage.getStyleClass().add("horodatage");
-        textFlowHorodatage.setPadding(new Insets(5,10,5,10));
+        textFlowHorodatage.setPadding(new Insets(10,10,5,10));
 
-        hBox.getChildren().add(textFlowMessage);
         hBox.getChildren().add(textFlowHorodatage);
+        hBox.getChildren().add(textFlowMessage);
         vBox.getChildren().add(hBox);
         messageToSend.clear();
     }
