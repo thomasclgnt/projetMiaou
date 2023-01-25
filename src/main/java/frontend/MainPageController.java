@@ -130,6 +130,13 @@ public class MainPageController implements Initializable {
 
     @FXML
     void closeSession(ActionEvent event) {
+        closeSessionManual();
+    }
+
+    void closeSessionManual() {
+        openedSessions.getSession(currentRemoteUser.username).setLoad(false);
+        currentRemoteUser=null;
+        vboxMessages.getChildren().clear();
 
     }
 
