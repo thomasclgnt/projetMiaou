@@ -155,7 +155,6 @@ public class MainPageController implements Initializable {
         currentSocket = mainFXML.serv.processStartConversation(remoteUser);
         ArrayList<MessageOut> conversation = DatabaseController.restoreConversation(IPAddress.getLocalIP().getHostAddress(), remoteUser.addressIP) ;
         displayConversation(conversation);
-        sizeHistory = conversation.size();
     }
 
     public void displayConversation (ArrayList<MessageOut> conversation){
