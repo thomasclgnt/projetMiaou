@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -56,12 +57,16 @@ public class mainFXML extends Application {
 
     void logout(Stage stage) throws IOException {
 
+        System.out.println("I am trying to log out badly.");
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION) ;
         alert.setTitle("Log out");
         alert.setHeaderText("You're about to be disconnected from the MiaouMiaou Chat App.");
         alert.setContentText("Are you sure you want to log out ?");
-
+        if (alert.showAndWait().get() == ButtonType.CANCEL) {
+            System.out.println("tu as appuyé sur le bouton annulé coquin");
+        }
         if (alert.showAndWait().get() == ButtonType.OK) {
+            System.out.println("tu as appuyé sur le bouton ok bye");
             mainFXML.serv.processDeconnection();
             System.out.println("You are logged out.");
             stage.close();
