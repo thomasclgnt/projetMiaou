@@ -261,8 +261,10 @@ public class MainPageController implements Initializable {
     }
 
     public void updateCurrentUsername() {
-        if (!currentRemoteUser.username.equals(remoteUsernameLabel.getText())){
-            remoteUsernameLabel.setText(currentRemoteUser.username);
+        if (currentRemoteUser != null) {
+            if (!currentRemoteUser.username.equals(remoteUsernameLabel.getText())) {
+                remoteUsernameLabel.setText(currentRemoteUser.username);
+            }
         }
     }
 
