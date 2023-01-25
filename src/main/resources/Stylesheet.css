@@ -11,6 +11,11 @@
     -fx-font-size: 10px;
 }
 
+.text-select-user > Text {
+    -fx-fill: #ff4949;
+    -fx-font-size: 10px;
+}
+
 .side-bar{
     -fx-background-color: #D5D6F2;
 }

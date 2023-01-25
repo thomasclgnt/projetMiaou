@@ -35,6 +35,8 @@ public class MainPageController implements Initializable {
     @FXML
     private TextFlow usernameInvalid;
     @FXML
+    private TextFlow selectUser;
+    @FXML
     private HBox logoutButton;
     @FXML
     private AnchorPane scenePane;
@@ -112,11 +114,17 @@ public class MainPageController implements Initializable {
     void sendMessage(ActionEvent event) throws IOException, InterruptedException {
         String message = messageToSend.getText();
         if (!message.isEmpty() && (currentRemoteUser != null)) {
+            selectUser.getChildren().clear();
             String horodatage = mainFXML.serv.processSendMessage(message, currentRemoteUser, currentSocket);
             addMessageSent(message, horodatage, vboxMessages);
         } else {
+            if (currentRemoteUser == null){
+                Text text = new Text ("Please select a user to chat with.");
+                selectUser.getChildren().clear();
+                selectUser.getChildren().add(text);
+            }
             messageToSend.clear();
-            //ajouter un text flow qui dit qu'il faut choisir un utilisateur pour envoyer un message
+
         }
     }
 
@@ -161,7 +169,6 @@ public class MainPageController implements Initializable {
         });
     }
 
-    //récupérer l'historique des messages
     public void openConversation(User remoteUser) throws IOException, InterruptedException {
         if (!openedSessions.isLoaded(remoteUser.getUsername())) {
                 currentSocket = mainFXML.serv.processStartConversation(remoteUser);
@@ -220,7 +227,6 @@ public class MainPageController implements Initializable {
         hBox.getChildren().add(textFlowHorodatage);
         vBox.getChildren().add(hBox);
         indexPrint ++ ;
-        System.out.println("[addMessageReceived] on a augmenté le indexprint");
     }
 
     public void addMessageSent(String message, String horodatage, VBox vBox){
