@@ -200,10 +200,17 @@ public class MainPageController implements Initializable {
         hBox.setPadding(new Insets(5,5,5,10));
         Text textMessage = new Text(message) ;
         TextFlow textFlowMessage = new TextFlow(textMessage);
+        Text textHorodatage = new Text(horodatage) ;
+        TextFlow textFlowHorodatage = new TextFlow(textHorodatage);
         textFlowMessage.getStyleClass().clear();
         textFlowMessage.getStyleClass().add("txtfld");
         textFlowMessage.setPadding(new Insets(5,10,5,10));
+        textFlowHorodatage.getStyleClass().clear();
+        textFlowHorodatage.getStyleClass().add("horodatage");
+        textFlowHorodatage.setPadding(new Insets(5,10,5,10));
+
         hBox.getChildren().add(textFlowMessage);
+        hBox.getChildren().add(textFlowHorodatage);
         vBox.getChildren().add(hBox);
         indexPrint ++ ;
     }
@@ -214,12 +221,18 @@ public class MainPageController implements Initializable {
         hBox.setPadding(new Insets(5,5,5,10));
 
         Text textMessage = new Text(message) ;
+        Text textHorodatage = new Text(horodatage) ;
         TextFlow textFlowMessage = new TextFlow(textMessage);
+        TextFlow textFlowHorodatage = new TextFlow(textHorodatage);
         textFlowMessage.getStyleClass().clear();
         textFlowMessage.getStyleClass().add("txt-fld");
         textFlowMessage.setPadding(new Insets(5,10,5,10));
+        textFlowHorodatage.getStyleClass().clear();
+        textFlowHorodatage.getStyleClass().add("horodatage");
+        textFlowHorodatage.setPadding(new Insets(5,10,5,10));
 
         hBox.getChildren().add(textFlowMessage);
+        hBox.getChildren().add(textFlowHorodatage);
         vBox.getChildren().add(hBox);
         messageToSend.clear();
     }

@@ -25,8 +25,8 @@
    -fx-text-fill: black;
 }
 
-.list-cell:filled:hover{
-   -fx-background-color: #D5D6F2;
+.list-cell:hover{
+   -fx-background-color: #a7a9f0;
    -fx-text-fill: black;
 }
 
@@ -73,9 +73,14 @@
 
 .txt-fld{
     -fx-background-radius:20px;
-    -fx-background-color:#D5D6F2;
+    -fx-background-color:#a7a9f0;
 }
 .txt-fld > Text{
     -fx-fill:white;
+}
+
+.horodatage{
+    -fx-text-fill: #9a9696;
+    -fx-font-size: 10px;
 }
 
