@@ -41,7 +41,7 @@ public class LoginController {
             Alert alert = new Alert(Alert.AlertType.ERROR) ;
             alert.setTitle("Username invalid");
             alert.setHeaderText("This username is invalid, please choose another one.");
-            alert.setContentText("Your username must be between 2 and 16 characters \nand not contain an unsupported character (, . ? ! : / % * )");
+            alert.setContentText("Your username must be between 3 and 16 characters \nand not contain an unsupported character (, . ? ! : / % * )");
             alert.showAndWait() ;
 
         } else {
