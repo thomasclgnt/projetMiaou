@@ -22,6 +22,8 @@ public class Service {
 
     public ListMessageIn receivedMessages = new ListMessageIn();
 
+    public ListSessions openedSessions = new ListSessions();
+
     MessageReceivedCallback callback = new MessageReceivedCallback() {
         @Override
         public void received(InetAddress from, String message, String horodatage) {
@@ -98,6 +100,10 @@ public class Service {
 
     public ListMessageIn getListMessage() {
         return receivedMessages;
+    }
+
+    public ListSessions getSessions() {
+        return openedSessions;
     }
 
     public String getMyUsername() {
