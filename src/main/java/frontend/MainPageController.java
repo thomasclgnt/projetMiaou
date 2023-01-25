@@ -60,6 +60,8 @@ public class MainPageController implements Initializable {
     User currentRemoteUser ;
     Socket currentSocket ;
 
+    private boolean load = false ;
+
     int indexPrint ;
 
     @FXML
@@ -97,6 +99,7 @@ public class MainPageController implements Initializable {
         alert.setContentText("Are you sure you want to log out ?");
 
         if (alert.showAndWait().get() == ButtonType.OK) {
+            load = false ;
             stage = (Stage) scenePane.getScene().getWindow();
             mainFXML.serv.processDeconnection();
             System.out.println("You are logged out.");
@@ -157,23 +160,25 @@ public class MainPageController implements Initializable {
         displayConversation(conversation);
     }
 
-    public void displayConversation (ArrayList<MessageOut> conversation){
-        for (MessageOut messageOut : conversation) {
-            String msg = messageOut.text;
-            String horodatage = messageOut.horodatage;
-            String IPsource = messageOut.IPsource ;
-            String myLocalIP = IPAddress.getLocalIP().getHostAddress();
-
-            if (myLocalIP.equals(IPsource)){
-                addMessageSent(msg, horodatage, vboxMessages);
-            } else {
-                addMessageReceived(msg, horodatage, vboxMessages);
+    public void displayConversation (ArrayList<MessageOut> conversation) {
+        if (!load) {
+            for (MessageOut messageOut : conversation) {
+                String msg = messageOut.text;
+                String horodatage = messageOut.horodatage;
+                String IPsource = messageOut.IPsource;
+                String myLocalIP = IPAddress.getLocalIP().getHostAddress();
+                load = true ;
+                if (myLocalIP.equals(IPsource)) {
+                    addMessageSent(msg, horodatage, vboxMessages);
+                } else {
+                    addMessageReceived(msg, horodatage, vboxMessages);
+                }
             }
         }
         indexPrint = 0 ;
     }
 
-    public void displayConversationIn(ArrayList<MessageIn> conversation){
+    public void updateConversation(ArrayList<MessageIn> conversation){
         for (MessageIn messageIn : conversation) {
             String msg = messageIn.text;
             String horodatage = messageIn.horodatage;
@@ -234,7 +239,7 @@ public class MainPageController implements Initializable {
                 ArrayList<MessageIn> subList = new ArrayList<MessageIn>() ;
                 subList.addAll(subListObs) ;
                 System.out.println(subList);
-                displayConversationIn(subList);
+                updateConversation(subList);
                 indexPrint++ ;
             }
         }
