@@ -67,6 +67,7 @@ public class MainPageController implements Initializable {
     ListSessions openedSessions = new ListSessions();
 
     static int indexPrint ;
+    static int indexOffset ;
 
     @FXML
     void changeUsername(ActionEvent event) throws IOException {
@@ -186,6 +187,7 @@ public class MainPageController implements Initializable {
     }
 
     public void openConversation(User remoteUser) throws IOException, InterruptedException {
+        System.out.println("[openConversation]");
         if (!openedSessions.isLoaded(remoteUser.getUsername())) {
                 currentSocket = mainFXML.serv.processStartConversation(remoteUser);
                 ArrayList<MessageOut> conversation = DatabaseController.restoreConversation(IPAddress.getLocalIP().getHostAddress(), remoteUser.addressIP);
@@ -195,6 +197,7 @@ public class MainPageController implements Initializable {
     }
 
     public void displayConversation (ArrayList<MessageOut> conversation) {
+        System.out.println("[displayConversation]");
         for (MessageOut messageOut : conversation) {
             String msg = messageOut.text;
             String horodatage = messageOut.horodatage;
@@ -216,10 +219,26 @@ public class MainPageController implements Initializable {
             String IPsource = messageIn.IPsource ;
             String myLocalIP = IPAddress.getLocalIP().getHostAddress();
 
-            if (myLocalIP.equals(IPsource)){
-                addMessageSent(msg, horodatage, vboxMessages);
+            if (currentRemoteUser == null){ //aucune session n'est ouverte
+                System.out.println("t'es nul");
             } else {
-                addMessageReceived(msg, horodatage, vboxMessages);
+                System.out.println(currentRemoteUser.username);
+            }
+
+            if (myLocalIP.equals(IPsource)){ //user local envoie un message
+                addMessageSent(msg, horodatage, vboxMessages);
+            } else if (currentRemoteUser != null){
+                if (IPsource.equals(currentRemoteUser.addressIP)) {
+                    addMessageReceived(msg, horodatage, vboxMessages);
+                } else {
+                    System.out.println("indexPrint avant : " + indexPrint);
+                    indexPrint ++ ;
+                    System.out.println("indexPrint après : " + indexPrint);
+                }
+            } else {
+                System.out.println("indexPrint avant : " + indexPrint);
+                indexPrint ++ ;
+                System.out.println("indexPrint après : " + indexPrint);
             }
         }
     }
@@ -305,15 +324,24 @@ public class MainPageController implements Initializable {
     }
 
     public void updateMessages() {
+        System.out.println("[updateMessages]");
         this.observableListMessages = FXCollections.observableArrayList(mainFXML.serv.getListMessage().convertToArrayList());
+        if (currentRemoteUser == null) {
+            System.out.println("--------------------------------------------------------------------------pas connecté à un user");
+            //indexPrint++ ; // pas là sinon à chaque itération sans recevoir de message on augmente le index
+        }
         if (!observableListMessages.isEmpty()) {
             int lastIndex = observableListMessages.size();
+            System.out.println("lastIndex avant if : " + lastIndex);
+            System.out.println("indexPrint avant if : " + indexPrint);
             if (lastIndex > indexPrint) {
                 List<MessageIn> subListObs = new ArrayList<MessageIn>();
                 subListObs.addAll(observableListMessages.subList(indexPrint, lastIndex));
                 ArrayList<MessageIn> subList = new ArrayList<MessageIn>();
                 subList.addAll(subListObs);
                 updateConversation(subList);
+                System.out.println("lastIndex après update : " + lastIndex);
+                System.out.println("indexPrint après update : " + indexPrint);
             }
         }
     }
@@ -325,6 +353,7 @@ public class MainPageController implements Initializable {
                 Platform.runLater(() -> {
                     updateListUsers();
                     updateMessages();
+                    System.out.println("j'ai appelé updateMessages");
                 });
             }
         }
