@@ -111,9 +111,12 @@ public class MainPageController implements Initializable {
     @FXML
     void sendMessage(ActionEvent event) throws IOException, InterruptedException {
         String message = messageToSend.getText();
-        if (!message.isEmpty()) {
+        if (!message.isEmpty() && (currentRemoteUser != null)) {
             String horodatage = mainFXML.serv.processSendMessage(message, currentRemoteUser, currentSocket);
             addMessageSent(message, horodatage, vboxMessages);
+        } else {
+            messageToSend.clear();
+            //ajouter un text flow qui dit qu'il faut choisir un utilisateur pour envoyer un message
         }
     }
 

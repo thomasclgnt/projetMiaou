@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -37,6 +38,12 @@ public class LoginController {
             usernameInvalid.getChildren().add(text);
             System.out.println("Username invalid");
 
+            Alert alert = new Alert(Alert.AlertType.ERROR) ;
+            alert.setTitle("Username invalid");
+            alert.setHeaderText("This username is invalid, please choose another one.");
+            alert.setContentText("Your username must be between 2 and 16 characters \nand not contain an unsupported character (, . ? ! : / % * )");
+            alert.showAndWait() ;
+
         } else {
 
             mainFXML.serv.processGetRemoteUsers();
@@ -46,10 +53,16 @@ public class LoginController {
 
             if (!available) {
 
-                Text text = new Text ("This username is already taken, please choose another one.");
-                usernameInvalid.getChildren().clear();
-                usernameInvalid.getChildren().add(text);
-                System.out.println("Username taken");
+                  Text text = new Text ("This username is already taken, please choose another one.");
+                  usernameInvalid.getChildren().clear();
+                  usernameInvalid.getChildren().add(text);
+                  System.out.println("Username taken");
+
+                Alert alertb = new Alert(Alert.AlertType.ERROR) ;
+                alertb.setTitle("Username taken");
+                alertb.setHeaderText("This username is already taken, please choose another one.");
+                alertb.showAndWait() ;
+
 
             } else {
 
