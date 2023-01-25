@@ -187,7 +187,6 @@ public class MainPageController implements Initializable {
     }
 
     public void openConversation(User remoteUser) throws IOException, InterruptedException {
-        System.out.println("[openConversation]");
         if (!openedSessions.isLoaded(remoteUser.getUsername())) {
                 currentSocket = mainFXML.serv.processStartConversation(remoteUser);
                 ArrayList<MessageOut> conversation = DatabaseController.restoreConversation(IPAddress.getLocalIP().getHostAddress(), remoteUser.addressIP);
@@ -197,9 +196,7 @@ public class MainPageController implements Initializable {
     }
 
     public void displayConversation (ArrayList<MessageOut> conversation) {
-        System.out.println("[displayConversation]");
         indexPrint = observableListMessages.size();
-        System.out.println("indexPrint = " + indexPrint);
         for (MessageOut messageOut : conversation) {
             String msg = messageOut.text;
             String horodatage = messageOut.horodatage;
@@ -227,7 +224,6 @@ public class MainPageController implements Initializable {
                 if (IPsource.equals(currentRemoteUser.addressIP)) {
                     addMessageReceived(msg, horodatage, vboxMessages);
                     indexPrint++ ;
-                    System.out.println("incrementation du indexPrint, valeur actuelle = " + indexPrint);
                 }
             }
         }
@@ -315,13 +311,10 @@ public class MainPageController implements Initializable {
     }
 
     public void updateMessages() {
-        System.out.println("[updateMessages]");
         this.observableListMessages = FXCollections.observableArrayList(mainFXML.serv.getListMessage().convertToArrayList());
               if (!observableListMessages.isEmpty()) {
                   System.out.println(observableListMessages.size());
                   int lastIndex = observableListMessages.size();
-                  System.out.println("lastIndex : " + lastIndex);
-                  System.out.println("indexPrint : " + indexPrint);
                   if (lastIndex > indexPrint) {
                     List<MessageIn> subListObs = new ArrayList<MessageIn>();
                     subListObs.addAll(observableListMessages.subList(indexPrint, lastIndex));
@@ -339,7 +332,6 @@ public class MainPageController implements Initializable {
                 Platform.runLater(() -> {
                     updateListUsers();
                     updateMessages();
-                    System.out.println("j'ai appelé updateMessages");
                 });
             }
         }
