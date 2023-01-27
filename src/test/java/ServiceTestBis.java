@@ -286,7 +286,7 @@ public class ServiceTestBis {
         Thread.sleep(2000);
         serv.processSendMessage("tu vas ?", Tester2, serv.processStartConversation(Tester2));
         Thread.sleep(2000);
-        serv.processSendMessage("ouuui cool :) ", Tester2, serv.processStartConversation(Tester2));
+        serv.processSendMessage("ouuui cool :)", Tester2, serv.processStartConversation(Tester2));
 
         assertEquals("oui et toi ?? ", serv.getListMessage().convertToArrayList().get(0).text);
     }
@@ -305,11 +305,11 @@ public class ServiceTestBis {
                 "]", serv.getUsers().listToString());
 
         Thread.sleep(1000);
-        serv.processSendMessage("oui et toi ?? ", serv.getUsers().convertToArrayList().get(0), serv.processStartConversation(serv.getUsers().convertToArrayList().get(0)));
+        serv.processSendMessage("oui et toi ??", serv.getUsers().convertToArrayList().get(0), serv.processStartConversation(serv.getUsers().convertToArrayList().get(0)));
         Thread.sleep(5000);
         System.out.println(serv.getListMessage().listToString());
 
-        assertEquals("bonjour " + "tu vas ?" + "ouuui cool :) ",
+        assertEquals("bonjour " + "tu vas ? " + "ouuui cool :) ",
                 serv.getListMessage().convertToArrayList().get(0).text +
                 serv.getListMessage().convertToArrayList().get(1).text +
                 serv.getListMessage().convertToArrayList().get(2).text);
