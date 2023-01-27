@@ -1,7 +1,5 @@
 package data;
 
-import javafx.application.Application;
-
 import java.net.*;
 import java.util.Enumeration;
 
