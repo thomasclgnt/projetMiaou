@@ -88,12 +88,6 @@ public class Update {
     }
 
     public static void main(String[] args) {
-        //TODO vider main
-
-        Update app = new Update();
-        //app.updateMessage("on est lundi soir", "Marie", "200","Thomas","100","on est lundi");
-        //app.updateMyself("thomas", "THOMAS");
-        app.updateListUsers("THOMAS", "100");
     }
 
 }

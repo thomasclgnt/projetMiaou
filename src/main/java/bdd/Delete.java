@@ -67,13 +67,6 @@ public class Delete {
     }
 
         public static void main(String[] args) {
-            //TODO vider main
-            Delete app = new Delete();
-            // delete the row with id 3
-            //app.deleteData("marie", "ipmarie", "thomas", "ipthomas", "ok");
-            //app.deleteData("Thomas", "ip10000", "Marie", "IP101", "on est vendredi");
-            //app.deleteUserLine("bucy","001");
-            app.deleteUser ("100") ;
         }
 
     }

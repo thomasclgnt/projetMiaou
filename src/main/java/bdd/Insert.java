@@ -78,15 +78,6 @@ public class Insert {
 
 
     public static void main(String[] args) {
-        //TODO vider main
-        Insert data = new Insert();
-        // insert three new rows
-        //A TESTER
-        //Date time1 =  new Date(System.currentTimeMillis());
-        //data.insert("Marie", "10.0.0.22", "Thomas", "10.0.0.17", "Parfait", "10:00");
-
-        //data.insertUsers("thomas","100");
-        //data.insertMyself("thomas");
     }
 
 }

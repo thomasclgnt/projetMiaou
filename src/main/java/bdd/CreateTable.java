@@ -108,10 +108,5 @@ public class CreateTable {
     }
 
     public static void main(String[] args) {
-        //TODO vider main
-        createTableMessageDB();
-        createTableListUsers();
-        createTableMyself();
-        //dropTableMyself();
     }
 }

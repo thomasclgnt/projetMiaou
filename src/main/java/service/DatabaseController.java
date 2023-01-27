@@ -120,10 +120,6 @@ public class DatabaseController {
 
 
     public static void main(String[] args) {
-        //TODO vider main
-        //restoreConversation("192.168.1.71","192.168.1.79");
-        //restoreListUsers();
-        //System.out.println(getMyName());
     }
 
 }

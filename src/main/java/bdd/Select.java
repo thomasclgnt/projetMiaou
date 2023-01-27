@@ -138,12 +138,6 @@ public class Select {
     }
 
     public static void main(String[] args) {
-        //TODO vider main
-        Select app = new Select();
-        app.selectAll();
-        //System.out.println(app.selectAllListUsers().listToString());
-        //app.select_conversation("100","200");
-        //System.out.println(restoreMyself()) ;
     }
 
 }
