@@ -117,8 +117,8 @@ public class ServiceTestBis {
         if (valid) {
             serv.processConnection(usernameChosen);
             Thread.sleep(1000) ;
-            assertEquals("[tester2, " + ipaddress1 + ", 1234 ; \n" + "]", serv.getUsers().listToString());
-            assertEquals("[tester2, " + ipaddress1 + ", 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
+            assertEquals("[tester2, " + ipaddress2 + ", 1234 ; \n" + "]", serv.getUsers().listToString());
+            assertEquals("[tester2, " + ipaddress2 + ", 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
         }
     }
 
@@ -187,7 +187,7 @@ public class ServiceTestBis {
         Thread.sleep(5000);
 
         assertEquals("[Ultimate Tester2, " + ipaddress2 + ", 1234 ; \n" + "]", serv.getUsers().listToString());
-        assertEquals("[Ultimate Tester2, " + ipaddress1 + ", 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
+        assertEquals("[Ultimate Tester2, " + ipaddress2 + ", 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
 
     }
 
