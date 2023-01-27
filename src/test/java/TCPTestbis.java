@@ -10,8 +10,8 @@ import static org.junit.Assert.assertEquals;
 
 public class TCPTestbis {
 
-    String ipaddress1 = "192.168.1.71" ; // à remplir selon les conditions de test
-    String ipaddress2 = "192.168.1.79" ; // à remplir selon les conditions de test
+    String ipaddress1 = "10.1.5.13" ; // à remplir selon les conditions de test
+    String ipaddress2 = "10.1.5.12" ; // à remplir selon les conditions de test
 
     User Tester1 = new User("tester1", ipaddress1, 1234) ;
     User Tester2 = new User("tester2", ipaddress2, 1234) ;
