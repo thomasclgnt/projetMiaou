@@ -16,8 +16,10 @@ public class ServiceTestBis {
 
 
     String ipaddress1 = "10.1.5.13" ; // à remplir selon les conditions de test, client
+    String ipaddress2 = "10.1.5.12" ; // à remplir selon les conditions de test, receiver
 
     User Tester1 = new User("tester1", ipaddress1, 1234) ;
+    User Tester2 = new User("tester2", ipaddress2, 1234) ;
 
     @Test
     public void connectionClient() throws InterruptedException, IOException {
@@ -88,7 +90,7 @@ public class ServiceTestBis {
         Service serv = new Service();
         serv.lancerService();
         Thread.sleep(1000);
-        serv.processConnection("marielabest");
+        serv.processConnection(Tester2.username);
         System.out.println("Remote User connected");
         Thread.sleep(5000) ;
         assertEquals("[tester1, " + ipaddress1 + ", 1234 ; \n" + "]", serv.getUsers().listToString());
@@ -107,7 +109,7 @@ public class ServiceTestBis {
         serv.processGetRemoteUsers();
         Thread.sleep(2000);
         serv.getListUsersFromDB();
-        String usernameChosen = "Ultimate Tester" ;
+        String usernameChosen = Tester1.username ;
         boolean valid = serv.processCheckUsername(usernameChosen) ;
 
         assertEquals(true, valid);
@@ -115,8 +117,8 @@ public class ServiceTestBis {
         if (valid) {
             serv.processConnection(usernameChosen);
             Thread.sleep(1000) ;
-            assertEquals("[tester1, " + ipaddress1 + ", 1234 ; \n" + "]", serv.getUsers().listToString());
-            assertEquals("[tester1, " + ipaddress1 + ", 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
+            assertEquals("[tester2, " + ipaddress1 + ", 1234 ; \n" + "]", serv.getUsers().listToString());
+            assertEquals("[tester2, " + ipaddress1 + ", 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
         }
     }
 
@@ -127,7 +129,7 @@ public class ServiceTestBis {
         Service serv = new Service();
         serv.lancerService();
         Thread.sleep(1000);
-        serv.processConnection(Tester1.username);
+        serv.processConnection(Tester2.username);
         System.out.println("Remote User connected");
         Thread.sleep(5000) ;
     }
@@ -144,7 +146,7 @@ public class ServiceTestBis {
         serv.processGetRemoteUsers();
         Thread.sleep(2000);
         serv.getListUsersFromDB();
-        String usernameChosen = Tester1.username ;
+        String usernameChosen = Tester2.username ;
         boolean valid = serv.processCheckUsername(usernameChosen) ;
 
         assertEquals(false, valid);
@@ -152,24 +154,24 @@ public class ServiceTestBis {
     }
 
     @Test
-    public void changeUsernameService_remoteUserAlreadyConnected() throws IOException, InterruptedException {
+    public void changeUsernameService_Server() throws IOException, InterruptedException {
         DatabaseController.dropTableListUsers();
         DatabaseController.dropTableMyself();
         Service serv = new Service();
         serv.lancerService();
         Thread.sleep(1000);
-        serv.processConnection(Tester1.username);
+        serv.processConnection(Tester2.username);
         System.out.println("Remote User connected");
         Thread.sleep(5000) ;
 
         System.out.println("changement username");
-        serv.processChangeUsername("Ultimate Tester");
+        serv.processChangeUsername("Ultimate Tester2");
 
         Thread.sleep(5000) ;
     }
 
     @Test
-    public void changeUsernameService_newUser() throws IOException, InterruptedException {
+    public void changeUsernameService_Client() throws IOException, InterruptedException {
         DatabaseController.dropTableListUsers();
         DatabaseController.dropTableMyself();
 
@@ -180,24 +182,24 @@ public class ServiceTestBis {
         serv.processGetRemoteUsers();
         Thread.sleep(2000);
         serv.getListUsersFromDB();
-        String usernameChosen = "TDMKM" ;
+        String usernameChosen = Tester1.username ;
         serv.processConnection(usernameChosen);
         Thread.sleep(5000);
 
-        assertEquals("[marie_d_ac, 10.1.5.13, 1234 ; \n" + "]", serv.getUsers().listToString());
-        assertEquals("[marie_d_ac, 10.1.5.13, 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
+        assertEquals("[Ultimate Tester2, " + ipaddress2 + ", 1234 ; \n" + "]", serv.getUsers().listToString());
+        assertEquals("[Ultimate Tester2, " + ipaddress1 + ", 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
 
     }
 
 
     @Test
-    public void deconnexionService_remoteUserAlreadyConnected() throws IOException, InterruptedException {
+    public void deconnexionService_Server() throws IOException, InterruptedException {
         DatabaseController.dropTableListUsers();
         DatabaseController.dropTableMyself();
         Service serv = new Service();
         serv.lancerService();
         Thread.sleep(1000);
-        serv.processConnection("marielabest");
+        serv.processConnection(Tester2.username);
         System.out.println("Remote User connected");
         Thread.sleep(5000) ;
 
@@ -206,7 +208,7 @@ public class ServiceTestBis {
     }
 
     @Test
-    public void deconnexionService_newUser() throws IOException, InterruptedException {
+    public void deconnexionService_Client() throws IOException, InterruptedException {
         DatabaseController.dropTableListUsers();
         DatabaseController.dropTableMyself();
 
@@ -217,7 +219,7 @@ public class ServiceTestBis {
         serv.processGetRemoteUsers();
         Thread.sleep(2000);
         serv.getListUsersFromDB();
-        String usernameChosen = "TDMKM" ;
+        String usernameChosen = Tester1.username ;
         serv.processConnection(usernameChosen);
         Thread.sleep(5000) ;
 
@@ -233,7 +235,7 @@ public class ServiceTestBis {
         Service serv = new Service();
         serv.lancerService();
         Thread.sleep(1000);
-        serv.processConnection("marielabest");
+        serv.processConnection(Tester2.username);
         System.out.println("Remote User connected");
         Thread.sleep(5000) ;
 
@@ -255,7 +257,7 @@ public class ServiceTestBis {
         serv.processGetRemoteUsers();
         Thread.sleep(2000);
         serv.getListUsersFromDB();
-        String usernameChosen = "TDMKM" ;
+        String usernameChosen = Tester1.username ;
         serv.processConnection(usernameChosen);
         Thread.sleep(5000);
 
@@ -270,8 +272,7 @@ public class ServiceTestBis {
         Service serv = new Service();
         serv.lancerService();
 
-        User dest = new User("pc_droite", "192.168.1.79", 1234) ;
-        serv.processConnection("ordi_gauche");
+        serv.processConnection(Tester1.username);
         Thread.sleep(2000);
         System.out.println("udp connecté");
 
@@ -279,7 +280,7 @@ public class ServiceTestBis {
         System.out.println("tcp connecté au port");
         Thread.sleep(3000);
 
-        serv.processSendMessage("bonjour droite", dest, serv.processStartConversation(dest));
+        serv.processSendMessage("bonjour", Tester2, serv.processStartConversation(dest));
         System.out.println("envoyé");
 
     }
@@ -290,12 +291,12 @@ public class ServiceTestBis {
         Service serv = new Service();
         serv.lancerService();
 
-        serv.processConnection("pc_droite");
+        serv.processConnection(Tester2.username);
         Thread.sleep(5000) ;
 
         System.out.println("users connectés : " + serv.getUsers().listToString());
 
-        assertEquals("[ordi_gauche, 192.168.1.71, 1234 ; \n" +
+        assertEquals("["+Tester1.username+", "+Tester1.addressIP+", "+Tester1.portTCP+" ; \n" +
                 "]", serv.getUsers().listToString());
 
         //serv.processStartListening();
@@ -310,9 +311,7 @@ public class ServiceTestBis {
         Service serv = new Service();
         serv.lancerService();
 
-        User dest = new User("pc_droite", "10.1.5.234", 1234) ;
-
-        serv.processConnection("ordi_gauche");
+        serv.processConnection(Tester1.username);
         serv.processGetRemoteUsers();
         Thread.sleep(2000);
         System.out.println("remote users récupérés");
@@ -320,11 +319,10 @@ public class ServiceTestBis {
         System.out.println("tcp connecté au port");
         Thread.sleep(3000);
 
-        serv.processSendMessage("bonjour droite", dest, serv.processStartConversation(dest));
-        serv.processSendMessage("tu vas ?", dest, serv.processStartConversation(dest));
-        System.out.println("envoyé 1 ");
+        serv.processSendMessage("bonjour", Tester2, serv.processStartConversation(Tester2));
+        serv.processSendMessage("tu vas ?", Tester2, serv.processStartConversation(Tester2));
         Thread.sleep(5000);
-        serv.processSendMessage("ouuui cool :) ", dest, serv.processStartConversation(dest));
+        serv.processSendMessage("ouuui cool :) ", Tester2, serv.processStartConversation(Tester2));
     }
 
     @Test
@@ -332,13 +330,13 @@ public class ServiceTestBis {
         Service serv = new Service();
         serv.lancerService();
 
-        serv.processConnection("pc_droite");
+        serv.processConnection(Tester2.username);
         Thread.sleep(9000) ;
 
         System.out.println("users connectés : " + serv.getUsers().listToString());
 
-        //assertEquals("[ordi_gauche, 192.168.1.71, 1234 ; \n" + "]", serv.getUsers().listToString());
-
+        assertEquals("["+Tester1.username+", "+Tester1.addressIP+", "+Tester1.portTCP+" ; \n" +
+                "]", serv.getUsers().listToString());
 
         Thread.sleep(3000);
         serv.processSendMessage("oui et toi ?? ", serv.getUsers().convertToArrayList().get(0), serv.processStartConversation(serv.getUsers().convertToArrayList().get(0)));
