@@ -14,12 +14,10 @@ import static org.junit.Assert.*;
 
 public class ServiceTestBis {
 
-    String ipaddress1 = "10.1.5.13" ; // à remplir selon les conditions de test
-    String ipaddress2 = "" ; // à remplir selon les conditions de test
+
+    String ipaddress1 = "10.1.5.13" ; // à remplir selon les conditions de test, client
 
     User Tester1 = new User("tester1", ipaddress1, 1234) ;
-    User Tester2 = new User("tester2", ipaddress2, 1234) ;
-
 
     @Test
     public void connectionClient() throws InterruptedException, IOException {
@@ -82,9 +80,9 @@ public class ServiceTestBis {
         Thread.sleep(5000);
         assertEquals("[]", serv.getUsers().listToString());
     }
-//TODO j'en suis là finir les tests !!!
+
     @Test
-    public void connexionService_usernameOk_remoteUserAlreadyConnected() throws IOException, InterruptedException {
+    public void connexionService_usernameOk_Server() throws IOException, InterruptedException {
         DatabaseController.dropTableListUsers();
         DatabaseController.dropTableMyself();
         Service serv = new Service();
@@ -93,13 +91,12 @@ public class ServiceTestBis {
         serv.processConnection("marielabest");
         System.out.println("Remote User connected");
         Thread.sleep(5000) ;
-        //adresseIP attendue à changer selon les machines utilisées pour les tests
-        assertEquals("[TDMKM, 10.1.5.12, 1234 ; \n" + "]", serv.getUsers().listToString());
-        assertEquals("[TDMKM, 10.1.5.12, 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
+        assertEquals("[tester1, " + ipaddress1 + ", 1234 ; \n" + "]", serv.getUsers().listToString());
+        assertEquals("[tester1, " + ipaddress1 + ", 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
     }
 
     @Test
-    public void connexionService_usernameOk_newUser() throws IOException, InterruptedException {
+    public void connexionService_usernameOk_Client() throws IOException, InterruptedException {
         DatabaseController.dropTableListUsers();
         DatabaseController.dropTableMyself();
 
@@ -110,7 +107,7 @@ public class ServiceTestBis {
         serv.processGetRemoteUsers();
         Thread.sleep(2000);
         serv.getListUsersFromDB();
-        String usernameChosen = "TDMKM" ;
+        String usernameChosen = "Ultimate Tester" ;
         boolean valid = serv.processCheckUsername(usernameChosen) ;
 
         assertEquals(true, valid);
@@ -118,25 +115,25 @@ public class ServiceTestBis {
         if (valid) {
             serv.processConnection(usernameChosen);
             Thread.sleep(1000) ;
-            assertEquals("[marielabest, 10.1.5.13, 1234 ; \n" + "]", serv.getUsers().listToString());
-            assertEquals("[marielabest, 10.1.5.13, 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
+            assertEquals("[tester1, " + ipaddress1 + ", 1234 ; \n" + "]", serv.getUsers().listToString());
+            assertEquals("[tester1, " + ipaddress1 + ", 1234 ; \n" + "]", DatabaseController.restoreListUsers().listToString());
         }
     }
 
     @Test
-    public void connexionService_usernameNotOk_remoteUserAlreadyConnected() throws IOException, InterruptedException {
+    public void connexionService_usernameNotOk_Server() throws IOException, InterruptedException {
         DatabaseController.dropTableListUsers();
         DatabaseController.dropTableMyself();
         Service serv = new Service();
         serv.lancerService();
         Thread.sleep(1000);
-        serv.processConnection("marielabest");
+        serv.processConnection(Tester1.username);
         System.out.println("Remote User connected");
         Thread.sleep(5000) ;
     }
 
     @Test
-    public void connexionService_usernameNotOk_newUser() throws IOException, InterruptedException {
+    public void connexionService_usernameNotOk_Client() throws IOException, InterruptedException {
         DatabaseController.dropTableListUsers();
         DatabaseController.dropTableMyself();
 
@@ -147,7 +144,7 @@ public class ServiceTestBis {
         serv.processGetRemoteUsers();
         Thread.sleep(2000);
         serv.getListUsersFromDB();
-        String usernameChosen = "marielabest" ;
+        String usernameChosen = Tester1.username ;
         boolean valid = serv.processCheckUsername(usernameChosen) ;
 
         assertEquals(false, valid);
@@ -161,12 +158,12 @@ public class ServiceTestBis {
         Service serv = new Service();
         serv.lancerService();
         Thread.sleep(1000);
-        serv.processConnection("marielabest");
+        serv.processConnection(Tester1.username);
         System.out.println("Remote User connected");
         Thread.sleep(5000) ;
 
         System.out.println("changement username");
-        serv.processChangeUsername("marie_d_ac");
+        serv.processChangeUsername("Ultimate Tester");
 
         Thread.sleep(5000) ;
     }
