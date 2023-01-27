@@ -17,3 +17,11 @@ L'objectif de ce projet était de développer une application de clavardage, dev
 * **observer design pattern** : ce design pattern a été implémenté notamment sur les serveurs TCP et UDP, à travers les interfaces Notify et MessageReceivedCallback
 * **intégration continue** : implémentée sur jenkins
 ## Utilisation
+Il est nécessaire que ??? soient installés sur votre machine pour utiliser l'application. Il faut alors cloner le projet sur la machine et se placer dans ./projetMiaou avant d'exécuter :
+```
+$ git clone https://example.com
+$ cd ../path/to/the/file
+$ npm install
+$ npm start BLABLA À COMPLÉTER AVEC NOTRE PROCÉDURE
+```
+Side information: To use the application in a special environment use ```lorem ipsum``` to start BLABLA
