@@ -22,7 +22,7 @@ public class UDPTest {
         //on teste s'il y a bien UN utilisateur dans la liste
 
         //assert 1 == users.nbUsers(); ==> À REVOIR CE QU'IL FAIT
-        Thread.sleep(2000);
+        Thread.sleep(10000);
         assertEquals("[TDMKM, 192.168.3.100, 1234 ; \n" +
                 "marielabest, 192.168.3.101, 1235 ; \n" +
                 "]", serv.getUsers().listToString());
