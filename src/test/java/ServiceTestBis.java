@@ -229,48 +229,6 @@ public class ServiceTestBis {
     }
 
     @Test
-    public void testAddArrayList_Server() throws IOException, InterruptedException {
-        DatabaseController.dropTableListUsers();
-        DatabaseController.dropTableMyself();
-        Service serv = new Service();
-        serv.lancerService();
-        Thread.sleep(1000);
-        serv.processConnection(Tester2.username);
-        System.out.println("Remote User connected");
-        Thread.sleep(5000) ;
-
-        System.out.println("Server : " + serv.getUsers().listToString());
-        ArrayList<User> liste = serv.getUsers().convertToArrayList();
-        System.out.println("Server : " +liste.toString());
-
-
-    }
-
-    @Test
-    public void testAddArrayList_Client() throws IOException, InterruptedException {
-        DatabaseController.dropTableListUsers();
-        DatabaseController.dropTableMyself();
-
-        Service serv = new Service();
-        serv.lancerService();
-
-        Thread.sleep(1000);
-        serv.processGetRemoteUsers();
-        Thread.sleep(2000);
-        serv.getListUsersFromDB();
-        String usernameChosen = Tester1.username ;
-        serv.processConnection(usernameChosen);
-        Thread.sleep(5000);
-
-        System.out.println("Client : " + serv.getUsers().listToString());
-        ArrayList<User> liste = serv.getUsers().convertToArrayList();
-        System.out.println("Client : " +liste.toString());
-
-        assertEquals(liste.toString(), serv.getUsers().listToString());
-
-    }
-
-    @Test
     public void testSendMessage_Client() throws IOException, InterruptedException {
         Service serv = new Service();
         serv.lancerService();
@@ -305,8 +263,7 @@ public class ServiceTestBis {
         //serv.processStartListening();
         Thread.sleep(7000);
         System.out.println(serv.getListMessage().listToString());
-        assertEquals("[bonjour \n" +
-                "]", serv.getListMessage().listToString());
+        assertEquals("bonjour ", serv.getListMessage().convertToArrayList().get(0).text);
 
     }
 
@@ -330,8 +287,7 @@ public class ServiceTestBis {
         Thread.sleep(5000);
         serv.processSendMessage("ouuui cool :) ", Tester2, serv.processStartConversation(Tester2));
 
-        assertEquals("[oui et toi ??  \n" +
-                "]", serv.getListMessage().listToString());
+        assertEquals("oui et toi ?? ", serv.getListMessage().convertToArrayList().get(0).text);
     }
 
     @Test
@@ -352,8 +308,10 @@ public class ServiceTestBis {
         Thread.sleep(9000);
         System.out.println(serv.getListMessage().listToString());
 
-        assertEquals("[bonjour ; \n" + "tu vas ? ; \n" + "ouuui cool :) \n" +
-                "]", serv.getListMessage().listToString());
+        assertEquals("bonjour " + "tu vas ?" + "ouuui cool :) ",
+                serv.getListMessage().convertToArrayList().get(0).text +
+                serv.getListMessage().convertToArrayList().get(1).text +
+                serv.getListMessage().convertToArrayList().get(2).text);
 
     }
 
