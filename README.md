@@ -19,14 +19,8 @@ L'objectif de ce projet était de développer une application de clavardage, dev
 ## Utilisation
 Il est nécessaire que ```git``` soit installés sur votre machine pour utiliser l'application depuis un clone de ce repository. Il faut alors suivre les étapes suivantes :
 ```
-# cloner le projet
-$ git clone https://github.com/thomasclgnt/projetMiaou.git
-# se déplacer dans le dossier contenant le -jar et le ./lib
-$ cd projetMiaou/exe
+# télécharger le dossier d'installation comportant un dossier lib et l'exécutable .jar de notre projet au lien suivant
+$ https://drive.google.com/drive/folders/16m_NDXzv3Jle0gjDyiYlzINH4TOQL3lS?usp=sharing
 # lancer l'application
 $ java --module-path ./lib --add-modules javafx.controls,javafx.fxml -jar projetMiaou.jar
-```
-Sur un environnement windows, les lignes de commande sont les suivantes :
-```
-# À COMPLÉTER
 ```
