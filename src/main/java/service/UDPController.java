@@ -113,6 +113,7 @@ public class UDPController {
         }
     }
 
+
     public static  void receiveDeconnexion(String addressIP, ArrayList<Notify> subscribers, InetAddress senderAddress){
 
         String myAddress = IPAddress.getLocalIP().getHostAddress() ;
