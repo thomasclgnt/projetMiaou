@@ -10,15 +10,19 @@ import static org.junit.Assert.assertEquals;
 
 public class TCPTestbis {
 
+    String ipaddress1 = "192.168.1.71" ; // à remplir selon les conditions de test
+    String ipaddress2 = "192.168.1.79" ; // à remplir selon les conditions de test
+
+
+    User Tester1 = new User("tester1", ipaddress1, 1234) ;
+    User Tester2 = new User("tester2", ipaddress2, 1234) ;
+
     @Test
     public void givenTCPClient_whenServerRespondsWhenStarted_thenCorrect() throws IOException, InterruptedException {
 
-        User Thomas = new User("thomas", "127.0.0.1", 1234);
-
         ListMessageIn receivedMessages = new ListMessageIn();
-        //créer une seule instance de listUser dans le main de l'application
         ListUser users = new ListUser();
-        users.addUser(Thomas.username, Thomas.addressIP, Thomas.portTCP);
+        users.addUser(Tester1.username, Tester1.addressIP, Tester1.portTCP);
 
         MessageReceivedCallback callback = new MessageReceivedCallback() {
             @Override
@@ -41,9 +45,9 @@ public class TCPTestbis {
 
         };
 
-        TCPController.initListening(Thomas.portTCP, callback);
+        TCPController.initListening(Tester1.portTCP, callback);
         Thread.sleep(200);
-        Socket socket = TCPController.startConversation(Thomas.addressIP, Thomas.portTCP, callback);
+        Socket socket = TCPController.startConversation(Tester1.addressIP, Tester1.portTCP, callback);
         TCPController.sendMessage("hello server", socket );
 
         Thread.sleep(1000); // il nous faut du temps sinon ça coupe les actions avant de mettre en bdd
@@ -57,12 +61,10 @@ public class TCPTestbis {
     @Test
     public void TCPSender() throws IOException, InterruptedException {
 
-        User Thomas2 = new User("thomas2 droite", "192.168.1.79", 1234);
-
         ListMessageIn receivedMessages = new ListMessageIn();
         //créer une seule instance de listUser dans le main de l'application
         ListUser users = new ListUser();
-        users.addUser(Thomas2.username, Thomas2.addressIP, Thomas2.portTCP);
+        users.addUser(Tester1.username, Tester1.addressIP, Tester1.portTCP);
 
         MessageReceivedCallback callback = new MessageReceivedCallback() {
             @Override
@@ -86,9 +88,9 @@ public class TCPTestbis {
 
         };
 
-        TCPController.initListening(Thomas2.portTCP, callback);
+        TCPController.initListening(Tester1.portTCP, callback);
         Thread.sleep(5000);
-        Socket socket = TCPController.startConversation(Thomas2.addressIP, Thomas2.portTCP, callback);
+        Socket socket = TCPController.startConversation(Tester1.addressIP, Tester1.portTCP, callback);
         TCPController.sendMessage("hello server comment tu vas ? ", socket );
 
         Thread.sleep(1000); // il nous faut du temps sinon ça coupe les actions avant de mettre en bdd
@@ -101,12 +103,11 @@ public class TCPTestbis {
 
     @Test
     public void receiveTCP() throws IOException, InterruptedException {
-        User distant = new User("ordi gauche", "192.168.1.71", 1234);
 
         ListMessageIn receivedMessages = new ListMessageIn();
         //créer une seule instance de listUser dans le main de l'application
         ListUser users = new ListUser();
-        users.addUser(distant.username, distant.addressIP, distant.portTCP);
+        users.addUser(Tester2.username, Tester2.addressIP, Tester2.portTCP);
 
         MessageReceivedCallback callback = new MessageReceivedCallback() {
             @Override
@@ -130,7 +131,7 @@ public class TCPTestbis {
 
         };
         System.out.println("debut");
-        TCPController.initListening(distant.portTCP, callback);
+        TCPController.initListening(Tester2.portTCP, callback);
         Thread.sleep(8000);
         Thread.sleep(4000);
         System.out.println(receivedMessages.listToString());

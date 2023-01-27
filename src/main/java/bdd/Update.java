@@ -87,10 +87,8 @@ public class Update {
         app.updateListUsers(new_username, ip);
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
+        //TODO vider main
 
         Update app = new Update();
         //app.updateMessage("on est lundi soir", "Marie", "200","Thomas","100","on est lundi");

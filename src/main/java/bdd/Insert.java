@@ -4,11 +4,6 @@ import java.sql.*;
 
 public class Insert {
 
-    /**
-     * Connect to the test.db database
-     *
-     * @return the Connection object
-     */
     private Connection connect() {
         // SQLite connection string
         /** Chemin relatif vers BDD" */
@@ -23,17 +18,6 @@ public class Insert {
         return conn;
     }
 
-    /**
-     * Insert a new row into the Messagedb table
-     *
-     * @param source
-     * @param destinataire
-     * @param message
-     * @param horodatage
-     */
-
-    /** Source et destinataire sont des string, on prend le pseudo du source de type User pour le mettre en argument
-     * A FAIRE PLUS TARD */
 
     public void insert(String source, String IPsource, String destinataire, String IPdest, String message, String horodatage) {
         String sql = "INSERT INTO Messagedb(source, IPsource, destinataire, IPdest, message, horodatage) VALUES(?,?,?,?,?,?)";
@@ -92,15 +76,13 @@ public class Insert {
         data.insertMyself(username); ;
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
+        //TODO vider main
         Insert data = new Insert();
         // insert three new rows
         //A TESTER
-        //Date time1 =  new Date(System.currentTimeMillis());//TODO marche, reste à comprendre le format
+        //Date time1 =  new Date(System.currentTimeMillis());
         //data.insert("Marie", "10.0.0.22", "Thomas", "10.0.0.17", "Parfait", "10:00");
 
         //data.insertUsers("thomas","100");

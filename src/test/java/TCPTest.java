@@ -15,6 +15,13 @@ public class TCPTest {
 
         User Thomas = new User("thomas", "127.0.0.1", 1234);
 
+        String ipaddress1 = "192.168.1.71" ; // à remplir selon les conditions de test
+        String ipaddress2 = "192.168.1.79" ; // à remplir selon les conditions de test
+
+
+        User Tester1 = new User("tester1", ipaddress1, 1234) ;
+        User Tester2 = new User("tester2", ipaddress2, 1234) ;
+
         ListMessageIn receivedMessages = new ListMessageIn();
         //créer une seule instance de listUser dans le main de l'application
         ListUser users = new ListUser();

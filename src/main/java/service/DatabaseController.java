@@ -43,7 +43,7 @@ public class DatabaseController {
     }
 
 
-    public static ArrayList<MessageOut> restoreConversation(String IPsource, String IPdest) { //TODO void ou ArrayList ?
+    public static ArrayList<MessageOut> restoreConversation(String IPsource, String IPdest) {
         ArrayList<MessageOut> listeRecu  ;
         ArrayList<MessageOut> listeEnvoi ;
         ArrayList<MessageOut> listeRes = new ArrayList<>() ;
@@ -53,8 +53,8 @@ public class DatabaseController {
         listeRes.addAll(listeRecu) ;
         listeRes.addAll(listeEnvoi) ;
 
-        listeRes.sort(Comparator.comparing((m) -> parseInt(m.rowid))); //TODO pour trier les messages dans la liste finale de l'objet message
-        System.out.println("[db_controller] L'historique de la conversation a été chargé"); //TODO voir si on garde le message ?
+        listeRes.sort(Comparator.comparing((m) -> parseInt(m.rowid)));
+        System.out.println("[db_controller] L'historique de la conversation a été chargé");
 
         //affichage et futurs tests :
         System.out.println("[db_controller] Taille historique : " + listeRes.size());
@@ -67,8 +67,6 @@ public class DatabaseController {
 
         return listeRes ;
 
-        //TODO ajouter ce qu'on récupère à listMessageOut
-
     }
 
     public static void addMessage(Message m) {
@@ -77,7 +75,7 @@ public class DatabaseController {
     }
 
 //TABLE LISTUSERS
-    public static ListUser restoreListUsers() { //TODO void ou ListUser ?
+    public static ListUser restoreListUsers() {
         ListUser listUsers  ;
         listUsers = Select.restoreUsers() ;
         System.out.println("[db_controller] La liste des utilisateurs a été chargée :");
@@ -86,9 +84,6 @@ public class DatabaseController {
 
         return listUsers ;
 
-       // if (aux.contains("thomas")) { // peut être pratique de tchecker si le pseudo est libre comme ça
-          //  System.out.println("c'est dedans");
-        //}
     }
 
 
@@ -125,6 +120,7 @@ public class DatabaseController {
 
 
     public static void main(String[] args) {
+        //TODO vider main
         //restoreConversation("192.168.1.71","192.168.1.79");
         //restoreListUsers();
         //System.out.println(getMyName());
