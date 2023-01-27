@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 Manifest-Version: 1.0
 Main-Class: frontend.mainFXML
 
+=======
+Manifest-Version: 1.0
+Main-Class: frontend.mainFXML
+
+>>>>>>> b70a78858b810361b0328e539ebe25fa81091116

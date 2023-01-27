@@ -8,10 +8,6 @@ import java.util.ArrayList;
 
 public class Select {
 
-    /**
-     * Connect to the miaoudb.db database
-     * @return the Connection object
-     */
     private Connection connect() {
         // SQLite connection string
         // Chemin relatif vers BDD" */
@@ -27,9 +23,6 @@ public class Select {
         return conn;
     }
 
-    /**
-     *
-     */
     public void selectAll(){
         String sql = "SELECT rowid, * FROM Messagedb ";
 
@@ -143,15 +136,8 @@ public class Select {
         res = app.selectAllMyself();
         return res;
     }
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String[] args) {
-        Select app = new Select();
-        app.selectAll();
-        //System.out.println(app.selectAllListUsers().listToString());
-        //app.select_conversation("100","200");
-        //System.out.println(restoreMyself()) ;
     }
 
 }

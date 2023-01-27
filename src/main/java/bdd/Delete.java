@@ -5,12 +5,7 @@ import data.User;
 import java.sql.*;
 
 public class Delete {
-        //TODO cette classe servirait si on implémente un truc pour que les utilisateurs puissent supprimer des messages, sinon ne sert à rien dans l'état
-        /**
-         * Connect to the test.db database
-         *
-         * @return the Connection object
-         */
+
         private Connection connect() {
             // SQLite connection string
             /** Chemin relatif vers BDD" */
@@ -25,9 +20,6 @@ public class Delete {
             return conn;
         }
 
-        /**
-         * Insert a new row into the Messagedb table
-         */
 
         public void deleteData(String source, String IPsource, String destinataire, String IPdest, String message) {
             String sql = "DELETE FROM Messagedb WHERE source = ? AND IPsource = ? AND destinataire = ? AND IPdest = ? AND message = ?";
@@ -48,7 +40,7 @@ public class Delete {
 
 
             } catch (SQLException e) {
-                System.out.println(e.getMessage()); //TODO l'entrée n'a pas pu être supprimée => pas dans la bdd
+                System.out.println(e.getMessage());
             }
         }
 
@@ -65,7 +57,7 @@ public class Delete {
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage()); //TODO l'entrée n'a pas pu être supprimée => pas dans la bdd
+            System.out.println(e.getMessage());
         }
     }
 
@@ -74,17 +66,7 @@ public class Delete {
             app.deleteUserLine(ip);
     }
 
-        /**
-         * @param args the command line arguments
-         */
         public static void main(String[] args) {
-
-            Delete app = new Delete();
-            // delete the row with id 3
-            //app.deleteData("marie", "ipmarie", "thomas", "ipthomas", "ok");
-            //app.deleteData("Thomas", "ip10000", "Marie", "IP101", "on est vendredi");
-            //app.deleteUserLine("bucy","001");
-            app.deleteUser ("100") ;
         }
 
     }
