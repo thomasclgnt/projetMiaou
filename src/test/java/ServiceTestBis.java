@@ -283,8 +283,9 @@ public class ServiceTestBis {
         Thread.sleep(3000);
 
         serv.processSendMessage("bonjour", Tester2, serv.processStartConversation(Tester2));
+        Thread.sleep(2000);
         serv.processSendMessage("tu vas ?", Tester2, serv.processStartConversation(Tester2));
-        Thread.sleep(5000);
+        Thread.sleep(2000);
         serv.processSendMessage("ouuui cool :) ", Tester2, serv.processStartConversation(Tester2));
 
         assertEquals("oui et toi ?? ", serv.getListMessage().convertToArrayList().get(0).text);
@@ -303,9 +304,9 @@ public class ServiceTestBis {
         assertEquals("["+Tester1.username+", "+Tester1.addressIP+", "+Tester1.portTCP+" ; \n" +
                 "]", serv.getUsers().listToString());
 
-        Thread.sleep(3000);
+        Thread.sleep(1000);
         serv.processSendMessage("oui et toi ?? ", serv.getUsers().convertToArrayList().get(0), serv.processStartConversation(serv.getUsers().convertToArrayList().get(0)));
-        Thread.sleep(9000);
+        Thread.sleep(5000);
         System.out.println(serv.getListMessage().listToString());
 
         assertEquals("bonjour " + "tu vas ?" + "ouuui cool :) ",
