@@ -280,7 +280,7 @@ public class ServiceTestBis {
         System.out.println("tcp connecté au port");
         Thread.sleep(3000);
 
-        serv.processSendMessage("bonjour", Tester2, serv.processStartConversation(dest));
+        serv.processSendMessage("bonjour", Tester2, serv.processStartConversation(Tester2));
         System.out.println("envoyé");
 
     }
