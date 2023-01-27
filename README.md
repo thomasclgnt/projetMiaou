@@ -1,7 +1,7 @@
 # ChatSystem Project
 Thomas Cayla-Ginestet et Marie Mecaliff, 4IR-SI B, 2022/2023
 ## Présentation
-L'objectif de ce projet était de développer une application de clavardage, devant permettre à plusieurs utilisateurs connectés sur un même réseau local de communiquer en s'envoyant des messages texte. Ainsi, les fonctionnalités suivantes sont inclues dans notre application
+L'objectif de ce projet était de développer une application de clavardage, devant permettre à plusieurs utilisateurs connectés sur un même réseau local de communiquer en s'envoyant des messages texte. Ainsi, les fonctionnalités suivantes sont inclues dans notre application :
 * une visibiltié constante sur la **liste des utilisateurs actuellement connectés** 
 * l'impossibilité de **choisir un pseudonyme** déjà pris par un utilisateur actuellement connecté, ou un pseudonyme comportant un espace ou des caractères spéciaux
 * la possibilité de **changer ce pseudonyme à n'importe quel moment**, tant qu'il respecte les conditions précédentes, en faisant en sorte que tous les autres utilisateurs constate immédiatement ce changement
