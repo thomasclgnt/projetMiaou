@@ -243,6 +243,7 @@ public class ServiceTestBis {
         ArrayList<User> liste = serv.getUsers().convertToArrayList();
         System.out.println("Server : " +liste.toString());
 
+
     }
 
     @Test
@@ -264,6 +265,8 @@ public class ServiceTestBis {
         System.out.println("Client : " + serv.getUsers().listToString());
         ArrayList<User> liste = serv.getUsers().convertToArrayList();
         System.out.println("Client : " +liste.toString());
+
+        assertEquals(liste.toString(), serv.getUsers().listToString());
 
     }
 
@@ -302,6 +305,9 @@ public class ServiceTestBis {
         //serv.processStartListening();
         Thread.sleep(7000);
         System.out.println(serv.getListMessage().listToString());
+        assertEquals("[bonjour \n" +
+                "]", serv.getListMessage().listToString());
+
     }
 
 
@@ -323,6 +329,9 @@ public class ServiceTestBis {
         serv.processSendMessage("tu vas ?", Tester2, serv.processStartConversation(Tester2));
         Thread.sleep(5000);
         serv.processSendMessage("ouuui cool :) ", Tester2, serv.processStartConversation(Tester2));
+
+        assertEquals("[oui et toi ??  \n" +
+                "]", serv.getListMessage().listToString());
     }
 
     @Test
@@ -342,6 +351,10 @@ public class ServiceTestBis {
         serv.processSendMessage("oui et toi ?? ", serv.getUsers().convertToArrayList().get(0), serv.processStartConversation(serv.getUsers().convertToArrayList().get(0)));
         Thread.sleep(9000);
         System.out.println(serv.getListMessage().listToString());
+
+        assertEquals("[bonjour ; \n" + "tu vas ? ; \n" + "ouuui cool :) \n" +
+                "]", serv.getListMessage().listToString());
+
     }
 
 
