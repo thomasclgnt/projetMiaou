@@ -10,18 +10,23 @@ L'objectif de ce projet était de développer une application de clavardage, dev
 * l'affichage de l'**horodatage** de chaque message échangé
 ## Aspect technique
 * **configuration** : ce projet est un projet maven qui peut être importé et exécuté en se basant uniquement sur le pom.xml
-* **organisation du code** : l'organisation de notre code se fait en différents packages, basés sur les différentes fonctionnalités principales, fin de limiter les dépendances entre les packages (un package data pour le modèle, un package udp et tcp pour les protocoles de communications respectifs, un package service pour les Controller, et enfin un package spécifique à la base de données)
+* **organisation du code** : l'organisation de notre code se fait en différents packages, basés sur les différentes fonctionnalités principales, fin de limiter les dépendances entre les packages (un [package data](/src/main/java/data/) pour le modèle, un [package udp](/src/main/java/udp/) et [tcp](/src/main/java/tcp/) pour les protocoles de communications respectifs, un package [service](/src/main/java/service/) pour les Controllers, et enfin un package spécifique à la [base de données](/src/main/java/bdd/) et un aux Controllers de l'[interface](/src/main/java/frontend/))
 * **interface graphique** : nous avons choisi d'utiliser JavaFX, pour ses nombreuses fonctionnalités d'affichage et ses visuels relativement plus modernes 
 * **thread safety** : aucun deadlock n'a été laissé sur les threads qui ne doivent pas être bloquants
 * **tests** : des tests unitaires Junit ont été implantés pour chaque fonctionnalité principale du système 
 * **observer design pattern** : ce design pattern a été implémenté notamment sur les serveurs TCP et UDP, à travers les interfaces Notify et MessageReceivedCallback
 * **intégration continue** : implémentée sur jenkins
 ## Utilisation
-Il est nécessaire que ??? soient installés sur votre machine pour utiliser l'application. Il faut alors cloner le projet sur la machine et se placer dans ./projetMiaou avant d'exécuter :
+Il est nécessaire que ```git``` soit installés sur votre machine pour utiliser l'application depuis un clone de ce repository. Il faut alors suivre les étapes suivantes :
 ```
-$ git clone https://example.com
-$ cd ../path/to/the/file
-$ npm install
-$ npm start BLABLA À COMPLÉTER AVEC NOTRE PROCÉDURE
+# cloner le projet
+$ git clone https://github.com/thomasclgnt/projetMiaou.git
+# se déplacer dans le dossier contenant le -jar et le ./lib
+$ cd projetMiaou/exe
+# lancer l'application
+$ java --module-path ./lib --add-modules javafx.controls,javafx.fxml -jar projetMiaou.jar
 ```
-Side information: To use the application in a special environment use ```lorem ipsum``` to start BLABLA
+Sur un environnement windows, les lignes de commande sont les suivantes :
+```
+# À COMPLÉTER
+```
