@@ -1,8 +1,7 @@
 package service;
 
 import data.*;
-import data.Notify;
-import service.DatabaseController;
+import udp.Notify;
 import udp.UDPSender;
 
 import java.io.*;

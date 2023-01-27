@@ -5,10 +5,6 @@ import java.sql.*;
 
 public class CreateTable {
 
-    /**
-     * Create a new table in the test database
-     * Deja fait, normalement pas d'autres tables à créer.
-     */
     public static void createTableMessageDB() {
         // SQLite connection string
         /** Chemin relatif vers BDD" */
@@ -112,9 +108,5 @@ public class CreateTable {
     }
 
     public static void main(String[] args) {
-        createTableMessageDB();
-        createTableListUsers();
-        createTableMyself();
-        //dropTableMyself();
     }
 }

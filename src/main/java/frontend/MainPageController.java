@@ -247,8 +247,6 @@ public class MainPageController implements Initializable {
         hBox.getChildren().add(textFlowMessage);
         hBox.getChildren().add(textFlowHorodatage);
         vBox.getChildren().add(hBox);
-        //indexPrint ++ ;
-        //System.out.println("indexPrint [addReceived] : " + indexPrint);
     }
 
     public void addMessageSent(String message, String horodatage, VBox vBox){
@@ -313,7 +311,6 @@ public class MainPageController implements Initializable {
     public void updateMessages() {
         this.observableListMessages = FXCollections.observableArrayList(mainFXML.serv.getListMessage().convertToArrayList());
               if (!observableListMessages.isEmpty()) {
-                  System.out.println(observableListMessages.size());
                   int lastIndex = observableListMessages.size();
                   if (lastIndex > indexPrint) {
                     List<MessageIn> subListObs = new ArrayList<MessageIn>();

@@ -1,8 +1,7 @@
 package service;
 
 import data.*;
-import data.Notify;
-import frontend.MainPageController;
+import udp.Notify;
 import tcp.MessageReceivedCallback;
 import udp.UDPReceiver;
 
@@ -144,7 +143,6 @@ public class Service {
 
         UDPController.sendNewUsername(userLocal, new_username);
         DatabaseController.updateMyself(new_username);
-        //TODO est ce qu'il faut pas relancer un process start listening ? pour que le callback ait le bon nom user_local ?
 
     }
 

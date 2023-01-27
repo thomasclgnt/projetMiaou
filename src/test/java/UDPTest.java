@@ -8,7 +8,6 @@ import static org.junit.Assert.*;
 
 public class UDPTest {
 
-
     // Ces tests ont étét conçus au début du développement de l'application pour tester nos méthodes du package UDP
     // et ne fonctionnent plus aujourd'hui suite à l'ajout d'une protection dans la méthode UDPController.receiveConnexion
     // pour ne pas s'ajouter soi même à la liste des utilisateurs connectés
@@ -40,7 +39,5 @@ public class UDPTest {
     //        UDPSender.broadcast("end");
     //
     //    }
-
-
 }
 
