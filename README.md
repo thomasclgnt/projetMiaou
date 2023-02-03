@@ -20,5 +20,5 @@ L'objectif de ce projet était de développer une application de clavardage, dev
 Pour utiliser l'application, il faut alors télécharger le dossier d'installation comportant un dossier lib et l'exécutable .jar de notre projet au lien suivant : (https://drive.google.com/drive/folders/16m_NDXzv3Jle0gjDyiYlzINH4TOQL3lS?usp=sharing), puis l'extraire et lancer un terminal dans le dossier extrait en y effectuant la ligne de commande suivante :
 ```
 # lancer l'application
-$ java --module-path ./lib --add-modules javafx.controls,javafx.fxml -jar projetMiaou.jar
+$ mvn compile && mvn exec:java -Dexec.mainClass="frontend.mainFXML"
 ```
